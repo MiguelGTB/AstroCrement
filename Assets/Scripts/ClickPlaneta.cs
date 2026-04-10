@@ -13,6 +13,7 @@ public class ClickPlaneta : MonoBehaviour
     public TextMeshProUGUI textoDineroUI;
 
     // Efecto click planeta
+    public ParticleSystem particulasClic;
     private Vector3 tamanoOriginal;
     private float velocidadRebote = 10f;
     private float cantidadEncogimiento = 0.9f;
@@ -37,6 +38,11 @@ public class ClickPlaneta : MonoBehaviour
         textoDineroUI.text = "Plasma Estelar: " + dineroActual;
 
         transform.localScale = tamanoOriginal * cantidadEncogimiento;
+
+        if(particulasClic != null)
+        {
+            particulasClic.Play();
+        }
 
     }
 
