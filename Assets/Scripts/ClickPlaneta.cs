@@ -9,8 +9,11 @@ public class ClickPlaneta : MonoBehaviour
     public int dineroActual = 0;
     public int dineroPorClic = 1;
 
+    public int costeMejora = 10;
+
     // Interfaz
     public TextMeshProUGUI textoDineroUI;
+    public TextMeshProUGUI textoBotonMejora;
 
     // Efecto click planeta
     public ParticleSystem particulasClic;
@@ -22,6 +25,7 @@ public class ClickPlaneta : MonoBehaviour
     private void Start()
     {
         tamanoOriginal = transform.localScale;
+        ActualizarInterfaz();
     }
 
     private void Update()
@@ -34,8 +38,7 @@ public class ClickPlaneta : MonoBehaviour
     private void OnMouseDown()
     {
         dineroActual += dineroPorClic;
-
-        textoDineroUI.text = "Plasma Estelar: " + dineroActual;
+        ActualizarInterfaz();
 
         transform.localScale = tamanoOriginal * cantidadEncogimiento;
 
@@ -45,5 +48,33 @@ public class ClickPlaneta : MonoBehaviour
         }
 
     }
+
+    // Función que se ejecuta cuando pulsas el botón de la tienda
+    public void ComprarMejora()
+    {
+        if (dineroActual >= costeMejora)
+        {
+            dineroActual -= costeMejora; // Restamos el dinero
+            dineroPorClic += 1;          // Mejoramos el poder del clic
+            costeMejora *= 2;            // Multiplicamos el coste para la próxima vez
+
+            ActualizarInterfaz();
+        }
+    }
+
+    // Función auxiliar para no repetir código al actualizar textos
+    void ActualizarInterfaz()
+    {
+        if (textoDineroUI != null)
+        {
+            textoDineroUI.text = "Polvo Estelar (PE): " + dineroActual;
+        }
+
+        if (textoBotonMejora != null)
+        {
+            textoBotonMejora.text = "Comprar Rover\n(" + costeMejora + " PE)";
+        }
+    }
+
 
 }
