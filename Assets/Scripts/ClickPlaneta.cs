@@ -8,19 +8,28 @@ public class ClickPlaneta : MonoBehaviour
 {
     public int dineroActual = 0;
     public int dineroPorClic = 1;
+    public int dineroPorSeg = 0;
+    public float tiempoEntrePagos = 2f;
 
-    public int costeMejora = 10;
-
-    // Interfaz
+    // Interfaz y Efectos
     public TextMeshProUGUI textoDineroUI;
-    public TextMeshProUGUI textoBotonMejora;
+    public TextMeshProUGUI textoPasivoUI;
+    public ParticleSystem particulasClic;
+
+    // Compra 1 (Rover)
+    int costeRover = 10;
+    public TextMeshProUGUI textoBotonRover;
+
+    // Mejora 1 (Minero)
+    int costeMinero = 10;
+    public TextMeshProUGUI textoBotonMinero;
+
 
     // Efecto click planeta
-    public ParticleSystem particulasClic;
     private Vector3 tamanoOriginal;
     private float velocidadRebote = 10f;
     private float cantidadEncogimiento = 0.9f;
-
+    private float temporizador = 0f;
 
     private void Start()
     {
@@ -31,6 +40,18 @@ public class ClickPlaneta : MonoBehaviour
     private void Update()
     {
         transform.localScale = Vector3.Lerp(transform.localScale, tamanoOriginal, Time.deltaTime * velocidadRebote);
+        
+        if(dineroPorSeg > 0)
+        {
+            temporizador += Time.deltaTime;
+            if(temporizador >= tiempoEntrePagos)
+            {
+                dineroActual += dineroPorSeg;
+                ActualizarInterfaz();
+                temporizador = 0f;
+            }
+        }
+
     }
 
 
@@ -50,14 +71,25 @@ public class ClickPlaneta : MonoBehaviour
     }
 
     // Función que se ejecuta cuando pulsas el botón de la tienda
-    public void ComprarMejora()
+    public void ComprarRover()
     {
-        if (dineroActual >= costeMejora)
+        if (dineroActual >= costeRover)
         {
-            dineroActual -= costeMejora; // Restamos el dinero
+            dineroActual -= costeRover; // Restamos el dinero
             dineroPorClic += 1;          // Mejoramos el poder del clic
-            costeMejora *= 2;            // Multiplicamos el coste para la próxima vez
+            costeRover *= 2;            // Multiplicamos el coste para la próxima vez
 
+            ActualizarInterfaz();
+        }
+    }
+
+    public void ComprarMinero()
+    {
+        if (dineroActual >= costeMinero)
+        {
+            dineroActual -= costeMinero;
+            dineroPorSeg += 2;      // Te da 2 de dinero cada segundo
+            costeMinero *= 2;           // Dobla su precio
             ActualizarInterfaz();
         }
     }
@@ -70,9 +102,14 @@ public class ClickPlaneta : MonoBehaviour
             textoDineroUI.text = "Polvo Estelar (PE): " + dineroActual;
         }
 
-        if (textoBotonMejora != null)
+        if( textoPasivoUI != null)
         {
-            textoBotonMejora.text = "Comprar Rover\n(" + costeMejora + " PE)";
+            textoPasivoUI.text = "Generando: " + dineroPorSeg + " PE/s";
+        }
+
+        if (textoBotonRover != null)
+        {
+            textoBotonRover.text = "Comprar Rover\n(" + costeRover + " PE)";
         }
     }
 
