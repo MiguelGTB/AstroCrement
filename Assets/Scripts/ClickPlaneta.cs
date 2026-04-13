@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClickPlaneta : MonoBehaviour
 {
@@ -16,13 +17,13 @@ public class ClickPlaneta : MonoBehaviour
     public TextMeshProUGUI textoPasivoUI;
     public ParticleSystem particulasClic;
 
-    // Compra 1 (Rover)
-    int costeRover = 10;
-    public TextMeshProUGUI textoBotonRover;
+    // Compra 1
+    int costeCompra1 = 10;
+    public TextMeshProUGUI textoBotonCompra1;
 
-    // Mejora 1 (Minero)
-    int costeMinero = 10;
-    public TextMeshProUGUI textoBotonMinero;
+    // Mejora 1
+    int costeMejora1 = 10;
+    public TextMeshProUGUI textoBotonMejora1;
 
 
     // Efecto click planeta
@@ -30,6 +31,17 @@ public class ClickPlaneta : MonoBehaviour
     private float velocidadRebote = 10f;
     private float cantidadEncogimiento = 0.9f;
     private float temporizador = 0f;
+
+    // Paneles Compras y Mejoras
+    public GameObject panelCompras;
+    public GameObject panelMejoras;
+    public Image imagenTabCompras;
+    public Image imagenTabMejoras;
+
+    // Colores Paneles
+    public Color colorActivo = new Color(1f, 1f, 1f, 1f);
+    public Color colorInactivo = new Color(0.5f, 0.5f, 0.5f, 0.8f);
+
 
     private void Start()
     {
@@ -71,25 +83,25 @@ public class ClickPlaneta : MonoBehaviour
     }
 
     // Función que se ejecuta cuando pulsas el botón de la tienda
-    public void ComprarRover()
+    public void ComprarCompra1()
     {
-        if (dineroActual >= costeRover)
+        if (dineroActual >= costeCompra1)
         {
-            dineroActual -= costeRover; // Restamos el dinero
+            dineroActual -= costeCompra1; // Restamos el dinero
             dineroPorClic += 1;          // Mejoramos el poder del clic
-            costeRover *= 2;            // Multiplicamos el coste para la próxima vez
+            costeCompra1 *= 2;            // Multiplicamos el coste para la próxima vez
 
             ActualizarInterfaz();
         }
     }
 
-    public void ComprarMinero()
+    public void ComprarMejora1()
     {
-        if (dineroActual >= costeMinero)
+        if (dineroActual >= costeMejora1)
         {
-            dineroActual -= costeMinero;
+            dineroActual -= costeMejora1;
             dineroPorSeg += 2;      // Te da 2 de dinero cada segundo
-            costeMinero *= 2;           // Dobla su precio
+            costeMejora1 *= 2;           // Dobla su precio
             ActualizarInterfaz();
         }
     }
@@ -107,16 +119,31 @@ public class ClickPlaneta : MonoBehaviour
             textoPasivoUI.text = "Generando: " + dineroPorSeg + " PE/s";
         }
 
-        if (textoBotonRover != null)
+        if (textoBotonCompra1 != null)
         {
-            textoBotonRover.text = "Comprar Rover\n(" + costeRover + " PE)";
+            textoBotonCompra1.text = "Puntero Láser\n(" + costeCompra1 + " PE)";
         }
 
-        if (textoBotonMinero != null)
+        if (textoBotonMejora1 != null)
         {
-            textoBotonMinero.text = "Comprar Minero\n(" + costeMinero + " PE)";
+            textoBotonMejora1.text = "Comprar Mejora 1\n(" + costeMejora1 + " PE)";
         }
     }
+    public void AbrirPestanaCompras()
+    {
+        panelCompras.SetActive(true);
+        panelMejoras.SetActive(false);
 
+        imagenTabCompras.color = colorActivo;
+        imagenTabMejoras.color = colorInactivo;
+    }
+    public void AbrirPestanaMejoras()
+    {
+        panelCompras.SetActive(false);
+        panelMejoras.SetActive(true);
+
+        imagenTabCompras.color = colorInactivo;
+        imagenTabMejoras.color = colorActivo;
+    }
 
 }
