@@ -111,6 +111,11 @@ public class ClickPlaneta : MonoBehaviour
         {
             textoBotonRover.text = "Comprar Rover\n(" + costeRover + " PE)";
         }
+
+        if (textoBotonMinero != null)
+        {
+            textoBotonMinero.text = "Comprar Minero\n(" + costeMinero + " PE)";
+        }
     }
 
 
