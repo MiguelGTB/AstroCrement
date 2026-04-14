@@ -13,19 +13,22 @@ public class TiendaManager : MonoBehaviour
     // Dinero que nos dá cada una
     public int[] beneficios = new int[15];
 
-    public void ComprarCompra1(int id)
+    public void ComprarInstalacion(int id)
     {
-        int precioActual = preciosBase[id] * (economy.nivelesCompras[id] + 1);
-        if (economy.GastarDinero(precioActual))
+        if (economy.nivelesCompras[id] < 100)
         {
-            economy.nivelesCompras[id]++;
-
-            if(id != 0)
+            int precioActual = preciosBase[id] * (economy.nivelesCompras[id] + 1);
+            if (economy.GastarDinero(precioActual))
             {
-                economy.dineroPorSeg += beneficios[id];
-            }
+                economy.nivelesCompras[id]++;
 
-            ui.ActualizarInterfaz();
+                if (id != 0)
+                {
+                    economy.dineroPorSeg += beneficios[id];
+                }
+
+                ui.ActualizarInterfaz();
+            }
         }
     }
 }
