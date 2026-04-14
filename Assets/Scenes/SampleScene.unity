@@ -263,10 +263,10 @@ RectTransform:
   - {fileID: 1545612288}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -50}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &20914225
 MonoBehaviour:
@@ -312,8 +312,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 174068285}
-        m_TargetAssemblyTypeName: ClickPlaneta, Assembly-CSharp
+      - m_Target: {fileID: 1926474141}
+        m_TargetAssemblyTypeName: TiendaManager, Assembly-CSharp
         m_MethodName: ComprarCompra1
         m_Mode: 1
         m_Arguments:
@@ -530,10 +530,10 @@ RectTransform:
   - {fileID: 1992057974}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -135}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &30302619
 MonoBehaviour:
@@ -663,10 +663,10 @@ RectTransform:
   - {fileID: 1219826075}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -900}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &77676375
 MonoBehaviour:
@@ -1044,6 +1044,7 @@ GameObject:
   - component: {fileID: 174068281}
   - component: {fileID: 174068280}
   - component: {fileID: 174068285}
+  - component: {fileID: 174068286}
   m_Layer: 0
   m_Name: Planeta_Luna
   m_TagString: Untagged
@@ -1163,21 +1164,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5292f0db43ba74744965422e980246c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dineroActual: 0
-  dineroPorClic: 1
-  dineroPorSeg: 0
-  tiempoEntrePagos: 2
-  textoDineroUI: {fileID: 2045661059}
-  textoPasivoUI: {fileID: 2061058081}
+  economy: {fileID: 1926474140}
+  rebote: {fileID: 174068286}
+  ui: {fileID: 1926474142}
+--- !u!114 &174068286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174068279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43425cb7e92cb6142abc42cc5ac90ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   particulasClic: {fileID: 1248928542}
-  textoBotonCompra1: {fileID: 1545612289}
-  textoBotonMejora1: {fileID: 763991943}
-  panelCompras: {fileID: 902313740}
-  panelMejoras: {fileID: 1578808779}
-  imagenTabCompras: {fileID: 2067133950}
-  imagenTabMejoras: {fileID: 196874423}
-  colorActivo: {r: 1, g: 1, b: 1, a: 1}
-  colorInactivo: {r: 0.5, g: 0.5, b: 0.5, a: 0.8}
 --- !u!1 &181414776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,10 +1214,10 @@ RectTransform:
   - {fileID: 1920806816}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -645}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &181414778
 MonoBehaviour:
@@ -1500,8 +1502,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 174068285}
-        m_TargetAssemblyTypeName: ClickPlaneta, Assembly-CSharp
+      - m_Target: {fileID: 1926474142}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: AbrirPestanaMejoras
         m_Mode: 1
         m_Arguments:
@@ -2482,10 +2484,10 @@ RectTransform:
   - {fileID: 713752358}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -475}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &562731753
 MonoBehaviour:
@@ -3283,10 +3285,10 @@ RectTransform:
   - {fileID: 1779160291}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -815}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &736786409
 MonoBehaviour:
@@ -3550,10 +3552,10 @@ RectTransform:
   - {fileID: 298809218}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -1155}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &775827954
 MonoBehaviour:
@@ -3683,10 +3685,10 @@ RectTransform:
   - {fileID: 1575148914}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -560}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &831532897
 MonoBehaviour:
@@ -3816,10 +3818,10 @@ RectTransform:
   - {fileID: 2127012292}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -220}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &856246228
 MonoBehaviour:
@@ -4451,10 +4453,10 @@ RectTransform:
   - {fileID: 1270061762}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -730}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1181044599
 MonoBehaviour:
@@ -9939,10 +9941,10 @@ RectTransform:
   - {fileID: 664558980}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -305}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1379182135
 MonoBehaviour:
@@ -10297,10 +10299,10 @@ RectTransform:
   - {fileID: 1879879279}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -1240}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1434555712
 MonoBehaviour:
@@ -10430,10 +10432,10 @@ RectTransform:
   - {fileID: 138207005}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -985}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1473433180
 MonoBehaviour:
@@ -10612,8 +10614,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 174068285}
-        m_TargetAssemblyTypeName: ClickPlaneta, Assembly-CSharp
+      - m_Target: {fileID: 1926474141}
+        m_TargetAssemblyTypeName: TiendaManager, Assembly-CSharp
         m_MethodName: ComprarMejora1
         m_Mode: 1
         m_Arguments:
@@ -10696,10 +10698,10 @@ RectTransform:
   - {fileID: 1791546099}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -390}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1519579685
 MonoBehaviour:
@@ -11574,10 +11576,10 @@ RectTransform:
   - {fileID: 995394952}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 143.2891, y: -1070}
-  m_SizeDelta: {x: 266.5782, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1655037880
 MonoBehaviour:
@@ -12475,6 +12477,110 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920806815}
   m_CullTransparentMesh: 1
+--- !u!1 &1926474137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1926474138}
+  - component: {fileID: 1926474140}
+  - component: {fileID: 1926474139}
+  - component: {fileID: 1926474142}
+  - component: {fileID: 1926474141}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1926474138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926474137}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -111.07888, y: 292.42517, z: -1.9999452}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1926474139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926474137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f59320df2d8cdf8418978ea7fa9312de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  economy: {fileID: 1926474140}
+  tiempoEntrePagos: 2
+--- !u!114 &1926474140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926474137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5f877b747ba2341918c03bf87e53fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dineroActual: 0
+  dineroPorClic: 1
+  dineroPorSeg: 0
+--- !u!114 &1926474141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926474137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb555c1405d64f04a8d1e3bba9cb8192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  economy: {fileID: 1926474140}
+  ui: {fileID: 1926474142}
+  costeCompra1: 10
+  costeMejora1: 100
+--- !u!114 &1926474142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926474137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40fecdc093fa8ad4b8c232e3fac33190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  economy: {fileID: 1926474140}
+  shop: {fileID: 1926474141}
+  textoDineroUI: {fileID: 2045661059}
+  textoPasivoUI: {fileID: 2061058081}
+  textoBotonCompra1: {fileID: 1545612289}
+  textoBotonMejora1: {fileID: 763991943}
+  panelCompras: {fileID: 902313740}
+  panelMejoras: {fileID: 1578808779}
+  imagenTabCompras: {fileID: 2067133950}
+  imagenTabMejoras: {fileID: 196874423}
+  colorActivo: {r: 1, g: 1, b: 1, a: 1}
+  colorInactivo: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
 --- !u!1 &1986683876
 GameObject:
   m_ObjectHideFlags: 0
@@ -13363,8 +13469,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 174068285}
-        m_TargetAssemblyTypeName: ClickPlaneta, Assembly-CSharp
+      - m_Target: {fileID: 1926474142}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: AbrirPestanaCompras
         m_Mode: 1
         m_Arguments:
@@ -13823,3 +13929,4 @@ SceneRoots:
   - {fileID: 174068284}
   - {fileID: 196215181}
   - {fileID: 877830818}
+  - {fileID: 1926474138}
