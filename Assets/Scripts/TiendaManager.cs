@@ -7,25 +7,24 @@ public class TiendaManager : MonoBehaviour
     public EconomyManager economy;
     public UIManager ui;
 
-    public int costeCompra1 = 10;
-    public int costeMejora1 = 10;
+    // Precio de cada una
+    public int[] preciosBase = new int[15];
 
-    public void ComprarCompra1()
-    {
-        if (economy.GastarDinero(costeCompra1))
-        {
-            economy.dineroPorClic += 1;
-            costeCompra1 *= 2;
-            ui.ActualizarInterfaz();
-        }
-    }
+    // Dinero que nos dá cada una
+    public int[] beneficios = new int[15];
 
-    public void ComprarMejora1()
+    public void ComprarCompra1(int id)
     {
-        if (economy.GastarDinero(costeMejora1))
+        int precioActual = preciosBase[id] * (economy.nivelesCompras[id] + 1);
+        if (economy.GastarDinero(precioActual))
         {
-            economy.dineroPorSeg += 2;
-            costeMejora1 *= 2;
+            economy.nivelesCompras[id]++;
+
+            if(id != 0)
+            {
+                economy.dineroPorSeg += beneficios[id];
+            }
+
             ui.ActualizarInterfaz();
         }
     }

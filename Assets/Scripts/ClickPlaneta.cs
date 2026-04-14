@@ -14,7 +14,7 @@ public class ClickPlaneta : MonoBehaviour
     private void OnMouseDown()
     {
         economy.SumarClick();
-        rebote.PlayClick();
+        if(rebote != null) rebote.PlayClick();
         ui.ActualizarInterfaz();
     }
 }

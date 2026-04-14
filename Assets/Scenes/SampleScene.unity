@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 20914226}
   - component: {fileID: 20914225}
   m_Layer: 5
-  m_Name: Boton_Compra_1
+  m_Name: Puntero_Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -315,7 +315,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1926474141}
         m_TargetAssemblyTypeName: TiendaManager, Assembly-CSharp
         m_MethodName: ComprarCompra1
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10943,7 +10943,7 @@ GameObject:
   - component: {fileID: 1545612290}
   - component: {fileID: 1545612289}
   m_Layer: 5
-  m_Name: Boton_Compra_1
+  m_Name: Puntero_Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12490,6 +12490,7 @@ GameObject:
   - component: {fileID: 1926474139}
   - component: {fileID: 1926474142}
   - component: {fileID: 1926474141}
+  - component: {fileID: 1926474143}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -12541,6 +12542,7 @@ MonoBehaviour:
   dineroActual: 0
   dineroPorClic: 1
   dineroPorSeg: 0
+  nivelesCompras: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &1926474141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12555,8 +12557,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   economy: {fileID: 1926474140}
   ui: {fileID: 1926474142}
-  costeCompra1: 10
-  costeMejora1: 100
+  preciosBase: 0a0000003200000064000000c8000000f4010000e803000010270000a861000050c30000f8240100a086010090d0030050c30000b0710b0040420f00
+  beneficios: 010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &1926474142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12573,7 +12575,7 @@ MonoBehaviour:
   shop: {fileID: 1926474141}
   textoDineroUI: {fileID: 2045661059}
   textoPasivoUI: {fileID: 2061058081}
-  textoBotonCompra1: {fileID: 1545612289}
+  textoBotonLaser: {fileID: 1545612289}
   textoBotonMejora1: {fileID: 763991943}
   panelCompras: {fileID: 902313740}
   panelMejoras: {fileID: 1578808779}
@@ -12581,6 +12583,20 @@ MonoBehaviour:
   imagenTabMejoras: {fileID: 196874423}
   colorActivo: {r: 1, g: 1, b: 1, a: 1}
   colorInactivo: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+--- !u!114 &1926474143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926474137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a9d35379d931a47a8587e5c19df05d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  economy: {fileID: 1926474140}
+  ui: {fileID: 1926474142}
 --- !u!1 &1986683876
 GameObject:
   m_ObjectHideFlags: 0

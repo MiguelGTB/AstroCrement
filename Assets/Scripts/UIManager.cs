@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI textoDineroUI;
     public TextMeshProUGUI textoPasivoUI;
-    public TextMeshProUGUI textoBotonCompra1;
+    public TextMeshProUGUI textoBotonLaser;
     public TextMeshProUGUI textoBotonMejora1;
 
     public GameObject panelCompras;
@@ -30,11 +30,11 @@ public class UIManager : MonoBehaviour
         if (textoPasivoUI != null)
             textoPasivoUI.text = "Generando: " + economy.dineroPorSeg + " PE/s";
 
-        if (textoBotonCompra1 != null)
-            textoBotonCompra1.text = "Puntero Láser\n(" + shop.costeCompra1 + " PE)";
-
-        if (textoBotonMejora1 != null)
-            textoBotonMejora1.text = "Comprar Mejora 1\n(" + shop.costeMejora1 + " PE)";
+        if (textoBotonLaser != null)
+        {
+            int precio = shop.preciosBase[0] * (economy.nivelesCompras[0] + 1);
+            textoBotonLaser.text = "Puntero Láser (" + economy.nivelesCompras[0] + ")\nCoste: " + precio;
+        }
     }
 
     public void AbrirPestanaCompras()
