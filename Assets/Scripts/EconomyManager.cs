@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
@@ -9,6 +7,37 @@ public class EconomyManager : MonoBehaviour
     public int dineroPorSeg = 0;
 
     public int[] nivelesCompras = new int[15];
+
+    public UIManager ui;
+    private float temporizador = 0f;
+
+    public void SumarClick()
+    {
+        dineroActual += dineroPorClic;
+        if (ui != null) ui.ActualizarInterfaz();
+    }
+
+    void Update()
+    {
+        if (dineroPorSeg > 0)
+        {
+            temporizador += Time.deltaTime;
+
+            if (temporizador >= 1f)
+            {
+                SumarPasivo();
+                temporizador = 0f;
+            }
+        }
+    }
+
+    public void SumarPasivo()
+    {
+        dineroActual += dineroPorSeg;
+        if (ui != null) ui.ActualizarInterfaz();
+    }
+
+    // 4. LA TIENDA
     public bool GastarDinero(int cantidad)
     {
         if (dineroActual >= cantidad)
@@ -17,15 +46,5 @@ public class EconomyManager : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    public void SumarClick()
-    {
-        dineroActual += dineroPorClic;
-    }
-
-    public void SumarPasivo()
-    {
-        dineroActual += dineroPorSeg;
     }
 }

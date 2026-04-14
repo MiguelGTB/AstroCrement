@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,47 +8,43 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI textoDineroUI;
     public TextMeshProUGUI textoPasivoUI;
-    public TextMeshProUGUI textoBotonLaser;
-    public TextMeshProUGUI textoBotonMejora1;
 
+    // Nombre de las Compras
+    public string[] nombresInstalaciones = new string[15];
+    // Aquí arrastrarás los 15 textos de tus botones
+    public TextMeshProUGUI[] textosBotones = new TextMeshProUGUI[15];
+
+    [Header("Paneles")]
     public GameObject panelCompras;
     public GameObject panelMejoras;
-    public Image imagenTabCompras;
-    public Image imagenTabMejoras;
-
-    public Color colorActivo;
-    public Color colorInactivo;
 
     public void ActualizarInterfaz()
     {
         if (textoDineroUI != null)
-            textoDineroUI.text = "Polvo Estelar (PE): " + economy.dineroActual;
+            textoDineroUI.text = "Polvo Estelar: " + economy.dineroActual;
 
         if (textoPasivoUI != null)
-            textoPasivoUI.text = "Generando: " + economy.dineroPorSeg + " PE/s";
+            textoPasivoUI.text = economy.dineroPorSeg + " PE/s";
 
-        if (textoBotonLaser != null)
+        // Actualizamos los 15 botones
+        for (int i = 0; i < 15; i++)
         {
-            int precio = shop.preciosBase[0] * (economy.nivelesCompras[0] + 1);
-            textoBotonLaser.text = "Puntero Láser (" + economy.nivelesCompras[0] + ")\nCoste: " + precio;
+            if (textosBotones[i] != null)
+            {
+                int precioActual = shop.preciosBase[i] * (economy.nivelesCompras[i] + 1);
+                textosBotones[i].text = nombresInstalaciones[i] + " (" + economy.nivelesCompras[i] + ")\nCoste: " + precioActual + " PE";
+            }
         }
     }
 
     public void AbrirPestanaCompras()
-    {
+    { 
         panelCompras.SetActive(true);
         panelMejoras.SetActive(false);
-
-        imagenTabCompras.color = colorActivo;
-        imagenTabMejoras.color = colorInactivo;
     }
-
     public void AbrirPestanaMejoras()
     {
         panelCompras.SetActive(false);
         panelMejoras.SetActive(true);
-
-        imagenTabCompras.color = colorInactivo;
-        imagenTabMejoras.color = colorActivo;
     }
 }

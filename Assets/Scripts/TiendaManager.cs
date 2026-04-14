@@ -13,7 +13,7 @@ public class TiendaManager : MonoBehaviour
     // Dinero que nos dá cada una
     public int[] beneficios = new int[15];
 
-    public void ComprarCompra1(int id)
+    public void ComprarInstalacion(int id)
     {
         int precioActual = preciosBase[id] * (economy.nivelesCompras[id] + 1);
         if (economy.GastarDinero(precioActual))
