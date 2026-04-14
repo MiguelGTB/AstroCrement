@@ -17423,6 +17423,22 @@ MonoBehaviour:
   - {fileID: 995394953}
   - {fileID: 298809219}
   - {fileID: 1879879280}
+  botones:
+  - {fileID: 20914225}
+  - {fileID: 30302619}
+  - {fileID: 856246228}
+  - {fileID: 1379182135}
+  - {fileID: 1519579685}
+  - {fileID: 562731753}
+  - {fileID: 831532897}
+  - {fileID: 181414778}
+  - {fileID: 1181044599}
+  - {fileID: 736786409}
+  - {fileID: 77676375}
+  - {fileID: 1473433180}
+  - {fileID: 1655037880}
+  - {fileID: 775827954}
+  - {fileID: 1434555712}
   panelCompras: {fileID: 902313740}
   panelMejoras: {fileID: 1578808779}
 --- !u!114 &1926474143

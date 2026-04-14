@@ -15,17 +15,20 @@ public class TiendaManager : MonoBehaviour
 
     public void ComprarInstalacion(int id)
     {
-        int precioActual = preciosBase[id] * (economy.nivelesCompras[id] + 1);
-        if (economy.GastarDinero(precioActual))
+        if (economy.nivelesCompras[id] < 100)
         {
-            economy.nivelesCompras[id]++;
-
-            if(id != 0)
+            int precioActual = preciosBase[id] * (economy.nivelesCompras[id] + 1);
+            if (economy.GastarDinero(precioActual))
             {
-                economy.dineroPorSeg += beneficios[id];
-            }
+                economy.nivelesCompras[id]++;
 
-            ui.ActualizarInterfaz();
+                if (id != 0)
+                {
+                    economy.dineroPorSeg += beneficios[id];
+                }
+
+                ui.ActualizarInterfaz();
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class UIManager : MonoBehaviour
     public string[] nombresInstalaciones = new string[15];
     // Aquí arrastrarás los 15 textos de tus botones
     public TextMeshProUGUI[] textosBotones = new TextMeshProUGUI[15];
+    public Button[] botones;
 
     [Header("Paneles")]
     public GameObject panelCompras;
@@ -31,8 +33,22 @@ public class UIManager : MonoBehaviour
         {
             if (textosBotones[i] != null)
             {
-                int precioActual = shop.preciosBase[i] * (economy.nivelesCompras[i] + 1);
-                textosBotones[i].text = nombresInstalaciones[i] + " (" + economy.nivelesCompras[i] + ")\nCoste: " + precioActual + " PE";
+                if (economy.nivelesCompras[i] < 100)
+                {
+                    int precioActual = shop.preciosBase[i] * (economy.nivelesCompras[i] + 1);
+                    textosBotones[i].text = nombresInstalaciones[i] + " (" + economy.nivelesCompras[i] + ")\nCoste: " + precioActual + " PE";
+
+                    botones[i].interactable = true;
+                    botones[i].image.color = Color.white;
+                }
+                else
+                {
+                    textosBotones[i].text = nombresInstalaciones[i] + " (100)\n<color=#7C7C7C>MAX</color>";
+
+                    botones[i].interactable = false;
+
+                    botones[i].image.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+                }
             }
         }
     }
