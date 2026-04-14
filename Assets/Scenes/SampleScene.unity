@@ -263,10 +263,10 @@ RectTransform:
   - {fileID: 1545612288}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -50}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &20914225
 MonoBehaviour:
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 30302620}
   - component: {fileID: 30302619}
   m_Layer: 5
-  m_Name: Boton_Compra_2
+  m_Name: Astronauta_Novato
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -530,10 +530,10 @@ RectTransform:
   - {fileID: 1992057974}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -135}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &30302619
 MonoBehaviour:
@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 77676376}
   - component: {fileID: 77676375}
   m_Layer: 5
-  m_Name: Boton_Compra_11
+  m_Name: Portal_De_Agujero_De_Gusano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -663,10 +663,10 @@ RectTransform:
   - {fileID: 1219826075}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -900}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &77676375
 MonoBehaviour:
@@ -908,7 +908,7 @@ GameObject:
   - component: {fileID: 138207007}
   - component: {fileID: 138207006}
   m_Layer: 5
-  m_Name: Boton_Compra_12
+  m_Name: "Leviat\xE1n_Espacial"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1193,7 +1193,7 @@ GameObject:
   - component: {fileID: 181414779}
   - component: {fileID: 181414778}
   m_Layer: 5
-  m_Name: Boton_Compra_8
+  m_Name: Acelerador_De_Particulas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1214,10 +1214,10 @@ RectTransform:
   - {fileID: 1920806816}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -645}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &181414778
 MonoBehaviour:
@@ -1748,7 +1748,7 @@ GameObject:
   - component: {fileID: 298809220}
   - component: {fileID: 298809219}
   m_Layer: 5
-  m_Name: Boton_Compra_14
+  m_Name: Motor_Cuantico
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2463,7 +2463,7 @@ GameObject:
   - component: {fileID: 562731754}
   - component: {fileID: 562731753}
   m_Layer: 5
-  m_Name: Boton_Compra_6
+  m_Name: Mina_De_Asteroides
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2484,10 +2484,10 @@ RectTransform:
   - {fileID: 713752358}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -475}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &562731753
 MonoBehaviour:
@@ -2862,7 +2862,7 @@ GameObject:
   - component: {fileID: 664558982}
   - component: {fileID: 664558981}
   m_Layer: 5
-  m_Name: Boton_Compra_4
+  m_Name: Nave_Exloradora
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3129,7 +3129,7 @@ GameObject:
   - component: {fileID: 713752360}
   - component: {fileID: 713752359}
   m_Layer: 5
-  m_Name: Boton_Compra_6
+  m_Name: Mina_De_Asteroides
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3264,7 +3264,7 @@ GameObject:
   - component: {fileID: 736786410}
   - component: {fileID: 736786409}
   m_Layer: 5
-  m_Name: Boton_Compra_10
+  m_Name: Esfera_De_Dyson
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3285,10 +3285,10 @@ RectTransform:
   - {fileID: 1779160291}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -815}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &736786409
 MonoBehaviour:
@@ -3531,7 +3531,7 @@ GameObject:
   - component: {fileID: 775827955}
   - component: {fileID: 775827954}
   m_Layer: 5
-  m_Name: Boton_Compra_14
+  m_Name: Motor_Cuantico
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3552,10 +3552,10 @@ RectTransform:
   - {fileID: 298809218}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -1155}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &775827954
 MonoBehaviour:
@@ -3664,7 +3664,7 @@ GameObject:
   - component: {fileID: 831532898}
   - component: {fileID: 831532897}
   m_Layer: 5
-  m_Name: Boton_Compra_7
+  m_Name: Crucero_De_Carga
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3685,10 +3685,10 @@ RectTransform:
   - {fileID: 1575148914}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -560}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &831532897
 MonoBehaviour:
@@ -3797,7 +3797,7 @@ GameObject:
   - component: {fileID: 856246229}
   - component: {fileID: 856246228}
   m_Layer: 5
-  m_Name: Boton_Compra_3
+  m_Name: Dron_Recolector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3818,10 +3818,10 @@ RectTransform:
   - {fileID: 2127012292}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -220}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &856246228
 MonoBehaviour:
@@ -4163,7 +4163,7 @@ GameObject:
   - component: {fileID: 995394954}
   - component: {fileID: 995394953}
   m_Layer: 5
-  m_Name: Boton_Compra_13
+  m_Name: Devorador_De_Estrellas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4432,7 +4432,7 @@ GameObject:
   - component: {fileID: 1181044600}
   - component: {fileID: 1181044599}
   m_Layer: 5
-  m_Name: Boton_Compra_9
+  m_Name: Terraformador
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4453,10 +4453,10 @@ RectTransform:
   - {fileID: 1270061762}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -730}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1181044599
 MonoBehaviour:
@@ -4671,7 +4671,7 @@ GameObject:
   - component: {fileID: 1219826077}
   - component: {fileID: 1219826076}
   m_Layer: 5
-  m_Name: Boton_Compra_11
+  m_Name: Portal_De_Agujero_De_Gusano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9785,7 +9785,7 @@ GameObject:
   - component: {fileID: 1270061764}
   - component: {fileID: 1270061763}
   m_Layer: 5
-  m_Name: Boton_Compra_9
+  m_Name: Terraformador
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9920,7 +9920,7 @@ GameObject:
   - component: {fileID: 1379182136}
   - component: {fileID: 1379182135}
   m_Layer: 5
-  m_Name: Boton_Compra_4
+  m_Name: Nave_Exploradora
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9941,10 +9941,10 @@ RectTransform:
   - {fileID: 664558980}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -305}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1379182135
 MonoBehaviour:
@@ -10278,7 +10278,7 @@ GameObject:
   - component: {fileID: 1434555713}
   - component: {fileID: 1434555712}
   m_Layer: 5
-  m_Name: Boton_Compra_15
+  m_Name: Simulador_De_Universos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10299,10 +10299,10 @@ RectTransform:
   - {fileID: 1879879279}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -1240}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1434555712
 MonoBehaviour:
@@ -10411,7 +10411,7 @@ GameObject:
   - component: {fileID: 1473433181}
   - component: {fileID: 1473433180}
   m_Layer: 5
-  m_Name: Boton_Compra_12
+  m_Name: "Leviat\xE1n_Espacial"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10432,10 +10432,10 @@ RectTransform:
   - {fileID: 138207005}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -985}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1473433180
 MonoBehaviour:
@@ -10677,7 +10677,7 @@ GameObject:
   - component: {fileID: 1519579686}
   - component: {fileID: 1519579685}
   m_Layer: 5
-  m_Name: Boton_Compra_5
+  m_Name: Estacion_Orbital
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10698,10 +10698,10 @@ RectTransform:
   - {fileID: 1791546099}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -390}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1519579685
 MonoBehaviour:
@@ -11210,7 +11210,7 @@ GameObject:
   - component: {fileID: 1575148916}
   - component: {fileID: 1575148915}
   m_Layer: 5
-  m_Name: Boton_Compra_7
+  m_Name: Crucero_De_Carga
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11555,7 +11555,7 @@ GameObject:
   - component: {fileID: 1655037881}
   - component: {fileID: 1655037880}
   m_Layer: 5
-  m_Name: Boton_Compra_13
+  m_Name: Devorador_De_Estrellas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11576,10 +11576,10 @@ RectTransform:
   - {fileID: 995394952}
   m_Father: {fileID: 1433919194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 80}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 143.2891, y: -1070}
+  m_SizeDelta: {x: 266.5782, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1655037880
 MonoBehaviour:
@@ -11820,7 +11820,7 @@ GameObject:
   - component: {fileID: 1779160293}
   - component: {fileID: 1779160292}
   m_Layer: 5
-  m_Name: Boton_Compra_10
+  m_Name: Esfera_De_Dyson
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11954,7 +11954,7 @@ GameObject:
   - component: {fileID: 1791546101}
   - component: {fileID: 1791546100}
   m_Layer: 5
-  m_Name: Boton_Compra_5
+  m_Name: Estacion_Orbital
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12355,7 +12355,7 @@ GameObject:
   - component: {fileID: 1920806818}
   - component: {fileID: 1920806817}
   m_Layer: 5
-  m_Name: Boton_Compra_8
+  m_Name: Acelerador_De_Particulas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12743,7 +12743,7 @@ GameObject:
   - component: {fileID: 1992057976}
   - component: {fileID: 1992057975}
   m_Layer: 5
-  m_Name: Boton_Compra_2
+  m_Name: Atronauta_Novato
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13681,7 +13681,7 @@ GameObject:
   - component: {fileID: 2127012294}
   - component: {fileID: 2127012293}
   m_Layer: 5
-  m_Name: Boton_Compra_3
+  m_Name: Dron_Recolector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
