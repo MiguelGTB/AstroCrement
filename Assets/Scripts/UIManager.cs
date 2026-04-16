@@ -14,7 +14,15 @@ public class UIManager : MonoBehaviour
     public string[] nombresInstalaciones = new string[15];
     // Aquí arrastrarás los 15 textos de tus botones
     public TextMeshProUGUI[] textosBotones = new TextMeshProUGUI[15];
+    public TextMeshProUGUI[] textosNiveles;
     public Button[] botones;
+
+    [Header("Pestañas")]
+    public Image pestanaCompras;
+    public Image pestanaMejoras;
+    public Color colorActivo;
+    public Color colorInactivo;
+
 
     [Header("Paneles")]
     public GameObject panelCompras;
@@ -49,6 +57,11 @@ public class UIManager : MonoBehaviour
 
                     botones[i].image.color = new Color(0.5f, 0.5f, 0.5f, 1f);
                 }
+
+                if(textosNiveles.Length > i && textosNiveles[i] != null)
+                {
+                    textosNiveles[i].text = economy.nivelesCompras[i].ToString();
+                }
             }
         }
     }
@@ -57,10 +70,16 @@ public class UIManager : MonoBehaviour
     { 
         panelCompras.SetActive(true);
         panelMejoras.SetActive(false);
+
+        pestanaCompras.color = colorActivo;
+        pestanaMejoras.color = colorInactivo;
     }
     public void AbrirPestanaMejoras()
     {
         panelCompras.SetActive(false);
         panelMejoras.SetActive(true);
+
+        pestanaCompras.color = colorInactivo;
+        pestanaMejoras.color = colorActivo;
     }
 }
