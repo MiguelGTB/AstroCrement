@@ -3,8 +3,10 @@ using UnityEngine.SceneManagement; // ¡Vital para cambiar de pantalla!
 
 public class MainMenuManager : MonoBehaviour
 {
-    [Header("Configuración de Escenas")]
+
     
+    [Header("Configuración de Escenas")]
+    public string nombreEscenaComic = "IntroJuego"; // Nueva variable para el cómic
     public string nombreEscenaJuego = "Nivel_Luna"; 
 
     public void NuevaPartida()
@@ -14,7 +16,7 @@ public class MainMenuManager : MonoBehaviour
         // PlayerPrefs.DeleteAll(); 
         
         Debug.Log("Iniciando nueva partida...");
-        SceneManager.LoadScene(nombreEscenaJuego);
+        SceneManager.LoadScene(nombreEscenaComic);
     }
 
     public void CargarPartida()
