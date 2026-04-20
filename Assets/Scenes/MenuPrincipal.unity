@@ -523,6 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 209bed41643a152418c8cb6949bf1a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nombreEscenaComic: IntroJuego
   nombreEscenaJuego: Nivel_Luna
 --- !u!4 &190317565
 Transform:
@@ -552,7 +553,7 @@ GameObject:
   - component: {fileID: 456150793}
   - component: {fileID: 456150792}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Imagen_fondo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
