@@ -589,7 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333b1fde0483d3743b811df4e245fdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombreEscenaJuego: Nivel_Luna
+  nombreEscenaJuego: Seleccion_Niveles
 --- !u!4 &1823222671
 Transform:
   m_ObjectHideFlags: 0
