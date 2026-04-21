@@ -17,12 +17,6 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI[] textosNiveles;
     public Button[] botones;
 
-    [Header("Pestañas")]
-    public Image pestanaCompras;
-    public Image pestanaMejoras;
-    public Color colorActivo;
-    public Color colorInactivo;
-
 
     [Header("Paneles")]
     public GameObject panelCompras;
@@ -43,7 +37,7 @@ public class UIManager : MonoBehaviour
             {
                 if (economy.nivelesCompras[i] < 100)
                 {
-                    int precioActual = shop.preciosBase[i] * (economy.nivelesCompras[i] + 1);
+                    int precioActual = Mathf.RoundToInt(shop.preciosBase[i] * Mathf.Pow(shop.multiplicadorPrecio, economy.nivelesCompras[i]));
                     textosBotones[i].text = nombresInstalaciones[i] + " (" + economy.nivelesCompras[i] + ")\nCoste: " + precioActual + " PE";
 
                     botones[i].interactable = true;
@@ -64,22 +58,5 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void AbrirPestanaCompras()
-    { 
-        panelCompras.SetActive(true);
-        panelMejoras.SetActive(false);
-
-        pestanaCompras.color = colorActivo;
-        pestanaMejoras.color = colorInactivo;
-    }
-    public void AbrirPestanaMejoras()
-    {
-        panelCompras.SetActive(false);
-        panelMejoras.SetActive(true);
-
-        pestanaCompras.color = colorInactivo;
-        pestanaMejoras.color = colorActivo;
     }
 }
