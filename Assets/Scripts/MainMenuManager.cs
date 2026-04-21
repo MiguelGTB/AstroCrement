@@ -34,6 +34,11 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("Abriendo Ranking Global...");
     }
 
+    public void Ajustes()
+    {
+        SceneManager.LoadScene("Ajustes");
+    }
+
     public void CerrarJuego()
     {
         Debug.Log("Cerrando los sistemas de la nave...");
