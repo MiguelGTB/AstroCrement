@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/IntroJuego.unity
     guid: 3bba6d755fed18b499085a57b7ef2b33
   - enabled: 1
+    path: Assets/Scenes/Seleccion_Niveles.unity
+    guid: 4aba521aa09f7c341b805caaa141572d
+  - enabled: 1
     path: Assets/Scenes/Nivel_Luna.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
