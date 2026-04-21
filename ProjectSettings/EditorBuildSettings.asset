@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Nivel_Luna.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Ajustes.unity
+    guid: 81af2b7ac9c9c884fbe21a4f8591df17
   m_configObjects: {}
