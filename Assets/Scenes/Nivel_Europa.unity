@@ -5935,10 +5935,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1959624444043668321, guid: 53843058f7e5e0147802111c340287e2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a0f4151f71d47b446b3b8492c075a0b7, type: 2}
     - target: {fileID: 2351698879947872052, guid: 53843058f7e5e0147802111c340287e2, type: 3}
       propertyPath: m_Name
-      value: Planeta_Luna
+      value: Planeta_Europa
       objectReference: {fileID: 0}
+    - target: {fileID: 4135052641319303087, guid: 53843058f7e5e0147802111c340287e2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a0f4151f71d47b446b3b8492c075a0b7, type: 2}
     - target: {fileID: 5344309366358587307, guid: 53843058f7e5e0147802111c340287e2, type: 3}
       propertyPath: ui
       value: 
