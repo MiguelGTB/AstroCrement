@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1407467024567836280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4702795413986594774}
+  - component: {fileID: 7477915882816840894}
+  - component: {fileID: 8353941443322587055}
+  - component: {fileID: 1988668946458002759}
+  - component: {fileID: 6617066459292719976}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4702795413986594774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407467024567836280}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -111.07888, y: 292.42517, z: -1.9999452}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7477915882816840894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407467024567836280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5f877b747ba2341918c03bf87e53fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dineroActual: 0
+  dineroPorClic: 1
+  dineroPorSeg: 0
+  nivelesCompras: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  ui: {fileID: 8353941443322587055}
+--- !u!114 &8353941443322587055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407467024567836280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40fecdc093fa8ad4b8c232e3fac33190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  economy: {fileID: 7477915882816840894}
+  shop: {fileID: 1988668946458002759}
+  textoDineroUI: {fileID: 0}
+  textoPasivoUI: {fileID: 0}
+  nombresInstalaciones:
+  - "Puntero L\xE1ser"
+  - Astronauta Novato
+  - Dron Recolector
+  - Nave Exploradora
+  - "Estaci\xF3n Orbital"
+  - Mina de Asteroides
+  - Crucero de Carga
+  - "Acelerador de Part\xEDculas"
+  - Terraformador
+  - Esfera de Dyson
+  - Portal de Agujero de Gusano
+  - "Leviat\xE1n Espacial"
+  - Devorador de Estrellas
+  - "Motor Cu\xE1ntico"
+  - Simulador de Universos
+  textosBotones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  textosNiveles:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  botones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  panelCompras: {fileID: 0}
+  panelMejoras: {fileID: 0}
+--- !u!114 &1988668946458002759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407467024567836280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb555c1405d64f04a8d1e3bba9cb8192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  economy: {fileID: 7477915882816840894}
+  ui: {fileID: 8353941443322587055}
+  preciosBase: 0f00000032000000fa000000e8030000a00f0000983a000060ea000090d0030040420f0000093d00c0e1e4000087930380b2e60e0008af2f00d2496b
+  beneficios: 0000000001000000040000000f00000032000000a000000026020000d00700004c1d0000a8610000084c0100e093040040420f00c0c62d00808d5b00
+  multiplicadorPrecio: 1.15
+--- !u!114 &6617066459292719976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407467024567836280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a9d35379d931a47a8587e5c19df05d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  economy: {fileID: 7477915882816840894}
+  ui: {fileID: 8353941443322587055}
