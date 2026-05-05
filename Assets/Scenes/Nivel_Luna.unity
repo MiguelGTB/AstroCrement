@@ -5747,11 +5747,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7294450416932342225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 52, y: 31}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &245940689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6318,7 +6318,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 289963769}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1926474145}
+        m_TargetAssemblyTypeName: MejorasManager, Assembly-CSharp
+        m_MethodName: ComprarMejora
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 9
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &289963769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8426,7 +8438,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 640425539}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1926474145}
+        m_TargetAssemblyTypeName: MejorasManager, Assembly-CSharp
+        m_MethodName: ComprarMejora
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &640425539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10553,7 +10577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 38, y: 116}
+  m_AnchoredPosition: {x: 28, y: 40}
   m_SizeDelta: {x: 290.9397, y: 500}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1079473321
@@ -12632,7 +12656,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1602152680}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1926474145}
+        m_TargetAssemblyTypeName: MejorasManager, Assembly-CSharp
+        m_MethodName: ComprarMejora
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 8
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1602152680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13853,40 +13889,40 @@ MonoBehaviour:
     botonAsociado: {fileID: 372577955}
   - nombre: Dron
     costePE: 500
-    idInstalacionRequisito: 1
+    idInstalacionRequisito: 2
     cantidadRequisito: 1
     comprada: 0
     botonAsociado: {fileID: 798317999}
   - nombre: Level 5 Dron
     costePE: 2000
-    idInstalacionRequisito: 1
+    idInstalacionRequisito: 2
     cantidadRequisito: 5
     comprada: 0
     botonAsociado: {fileID: 798361612}
-  - nombre: 
-    costePE: 0
-    idInstalacionRequisito: 0
-    cantidadRequisito: 0
+  - nombre: Nave
+    costePE: 2500
+    idInstalacionRequisito: 3
+    cantidadRequisito: 1
     comprada: 0
-    botonAsociado: {fileID: 0}
-  - nombre: 
-    costePE: 0
-    idInstalacionRequisito: 0
-    cantidadRequisito: 0
+    botonAsociado: {fileID: 1602152677}
+  - nombre: Level 5 Nave
+    costePE: 5000
+    idInstalacionRequisito: 3
+    cantidadRequisito: 5
     comprada: 0
-    botonAsociado: {fileID: 0}
-  - nombre: 
-    costePE: 0
-    idInstalacionRequisito: 0
-    cantidadRequisito: 0
+    botonAsociado: {fileID: 289963766}
+  - nombre: Estacion
+    costePE: 3000
+    idInstalacionRequisito: 4
+    cantidadRequisito: 1
     comprada: 0
-    botonAsociado: {fileID: 0}
-  - nombre: 
-    costePE: 0
-    idInstalacionRequisito: 0
-    cantidadRequisito: 0
+    botonAsociado: {fileID: 640425536}
+  - nombre: Level 5 Estacion
+    costePE: 6000
+    idInstalacionRequisito: 4
+    cantidadRequisito: 5
     comprada: 0
-    botonAsociado: {fileID: 0}
+    botonAsociado: {fileID: 1955485397}
 --- !u!1 &1955485397
 GameObject:
   m_ObjectHideFlags: 0
@@ -13969,7 +14005,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1955485400}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1926474145}
+        m_TargetAssemblyTypeName: MejorasManager, Assembly-CSharp
+        m_MethodName: ComprarMejora
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 11
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1955485400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17015,11 +17063,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6047421918550887306, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 83
+      value: 43.986023
       objectReference: {fileID: 0}
     - target: {fileID: 6047421918550887306, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -77
+      value: -166.00003
       objectReference: {fileID: 0}
     - target: {fileID: 6145372806199289658, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -17107,7 +17155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7069471136814618039, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000061035156
+      value: -0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 7069471136814618039, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchoredPosition.y
