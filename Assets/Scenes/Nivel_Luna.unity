@@ -13699,8 +13699,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   economy: {fileID: 1926474140}
   ui: {fileID: 1926474142}
-  preciosBase: 0f00000032000000fa000000e8030000a00f0000983a000060ea000090d0030040420f0000093d00c0e1e4000087930380b2e60e0008af2f00d2496b
-  beneficios: 0000000001000000040000000f00000032000000a000000026020000d00700004c1d0000a8610000084c0100e093040040420f00c0c62d00808d5b00
+  preciosBase:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  beneficios:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   multiplicadorPrecio: 1.5
 --- !u!114 &1926474142
 MonoBehaviour:
@@ -13852,73 +13882,73 @@ MonoBehaviour:
   ui: {fileID: 1926474142}
   listaMejoras:
   - nombre: Click
-    costePE: 30
+    costePE: 0
     idInstalacionRequisito: 0
     cantidadRequisito: 1
     comprada: 0
     botonAsociado: {fileID: 485754473}
   - nombre: Level 5 Click
-    costePE: 400
+    costePE: 0
     idInstalacionRequisito: 0
     cantidadRequisito: 5
     comprada: 0
     botonAsociado: {fileID: 1186639785}
   - nombre: Polvo Estelar
-    costePE: 120
+    costePE: 0
     idInstalacionRequisito: -1
     cantidadRequisito: 5
     comprada: 0
     botonAsociado: {fileID: 216456624}
   - nombre: Polvo Refinado
-    costePE: 1200
+    costePE: 0
     idInstalacionRequisito: -1
     cantidadRequisito: 20
     comprada: 0
     botonAsociado: {fileID: 1672238544}
   - nombre: Astronauta
-    costePE: 90
+    costePE: 0
     idInstalacionRequisito: 1
     cantidadRequisito: 1
     comprada: 0
     botonAsociado: {fileID: 827170039}
   - nombre: Level 5 Astronauta
-    costePE: 400
+    costePE: 0
     idInstalacionRequisito: 1
     cantidadRequisito: 5
     comprada: 0
     botonAsociado: {fileID: 372577955}
   - nombre: Dron
-    costePE: 500
+    costePE: 0
     idInstalacionRequisito: 2
     cantidadRequisito: 1
     comprada: 0
     botonAsociado: {fileID: 798317999}
   - nombre: Level 5 Dron
-    costePE: 2000
+    costePE: 0
     idInstalacionRequisito: 2
     cantidadRequisito: 5
     comprada: 0
     botonAsociado: {fileID: 798361612}
   - nombre: Nave
-    costePE: 2500
+    costePE: 0
     idInstalacionRequisito: 3
     cantidadRequisito: 1
     comprada: 0
     botonAsociado: {fileID: 1602152677}
   - nombre: Level 5 Nave
-    costePE: 5000
+    costePE: 0
     idInstalacionRequisito: 3
     cantidadRequisito: 5
     comprada: 0
     botonAsociado: {fileID: 289963766}
   - nombre: Estacion
-    costePE: 3000
+    costePE: 0
     idInstalacionRequisito: 4
     cantidadRequisito: 1
     comprada: 0
     botonAsociado: {fileID: 640425536}
   - nombre: Level 5 Estacion
-    costePE: 6000
+    costePE: 0
     idInstalacionRequisito: 4
     cantidadRequisito: 5
     comprada: 0
@@ -16571,7 +16601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1555595328716369582, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -68.129
+      value: -68.12891
       objectReference: {fileID: 0}
     - target: {fileID: 1555595328716369582, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -17063,11 +17093,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6047421918550887306, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 43.986023
+      value: 43.986084
       objectReference: {fileID: 0}
     - target: {fileID: 6047421918550887306, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -166.00003
+      value: -166
       objectReference: {fileID: 0}
     - target: {fileID: 6145372806199289658, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -17155,11 +17185,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7069471136814618039, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.00012207031
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 7069471136814618039, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -97.089
+      value: -67
       objectReference: {fileID: 0}
     - target: {fileID: 7288848345007694269, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
