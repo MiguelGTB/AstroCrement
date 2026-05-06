@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,10 +26,10 @@ public class UIManager : MonoBehaviour
     public void ActualizarInterfaz()
     {
         if (textoDineroUI != null)
-            textoDineroUI.text = "Polvo Estelar: " + economy.dineroActual;
+            textoDineroUI.text = "Polvo Estelar: " + FormatearNumero(economy.dineroActual);
 
         if (textoPasivoUI != null)
-            textoPasivoUI.text = economy.dineroPorSeg + " PE/s";
+            textoPasivoUI.text = FormatearNumero(economy.dineroPorSeg) + " PE/s";
 
         // Actualizamos los 15 botones
         for (int i = 0; i < 15; i++)
@@ -37,8 +38,8 @@ public class UIManager : MonoBehaviour
             {
                 if (economy.nivelesCompras[i] < 100)
                 {
-                    int precioActual = Mathf.RoundToInt(shop.preciosBase[i] * Mathf.Pow(shop.multiplicadorPrecio, economy.nivelesCompras[i]));
-                    textosBotones[i].text = nombresInstalaciones[i] + " (" + economy.nivelesCompras[i] + ")\nCoste: " + precioActual + " PE";
+                    double precioActual = shop.preciosBase[i] * Mathf.Pow(shop.multiplicadorPrecio, economy.nivelesCompras[i]);
+                    textosBotones[i].text = nombresInstalaciones[i] + " (" + economy.nivelesCompras[i] + ")\nCoste: " + FormatearNumero(precioActual) + " PE";
 
                     botones[i].interactable = true;
                     botones[i].image.color = Color.white;
@@ -58,5 +59,18 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+}
+    // Función para que no aparezcan los número gigantescos, y en vez de 1.000.000.000, aparezca 1MM
+    public string FormatearNumero(double numero)
+    {
+        if (numero < 1000000)
+        {
+            return numero.ToString("N0").Replace(',', '.');
+        }
+
+        if (numero >= 1000000000000) return (numero / 1000000000000).ToString("F2") + "T";
+        if (numero >= 1000000000) return (numero / 1000000000).ToString("F2") + "B";
+        if (numero >= 1000000) return (numero / 1000000).ToString("F2") + "M";
+        return numero.ToString("F0");
     }
 }

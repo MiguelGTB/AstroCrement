@@ -8,10 +8,10 @@ public class TiendaManager : MonoBehaviour
     public UIManager ui;
 
     // Precio de cada una
-    public int[] preciosBase = new int[15];
+    public double[] preciosBase = new double[15];
 
     // Dinero que nos dá cada una
-    public int[] beneficios = new int[15];
+    public double[] beneficios = new double[15];
 
     // Multiplicador de compras
     public float multiplicadorPrecio = 1.15f;
@@ -19,7 +19,7 @@ public class TiendaManager : MonoBehaviour
     {
         if (economy.nivelesCompras[id] < 100)
         {
-            int precioActual = Mathf.RoundToInt(preciosBase[id] * Mathf.Pow(multiplicadorPrecio, economy.nivelesCompras[id]));
+            double precioActual = preciosBase[id] * Mathf.Pow(multiplicadorPrecio, economy.nivelesCompras[id]);
             if (economy.GastarDinero(precioActual))
             {
                 economy.nivelesCompras[id]++;

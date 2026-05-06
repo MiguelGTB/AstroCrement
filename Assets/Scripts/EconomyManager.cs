@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
 {
-    public int dineroActual = 0;
-    public int dineroPorClic = 1;
-    public int dineroPorSeg = 0;
+    public double dineroActual = 0;
+    public double dineroPorClic = 1;
+    public double dineroPorSeg = 0;
 
     public int[] nivelesCompras = new int[15];
 
@@ -38,7 +38,7 @@ public class EconomyManager : MonoBehaviour
     }
 
     // 4. LA TIENDA
-    public bool GastarDinero(int cantidad)
+    public bool GastarDinero(double cantidad)
     {
         if (dineroActual >= cantidad)
         {

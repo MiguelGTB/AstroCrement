@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Mejora
 {
     public string nombre;
-    public int costePE;
+    public double costePE;
     
     [Header("Requisitos para aparecer")]
     [Tooltip("Pon -1 para requisitos de Producción de Polvo Estelar")]
@@ -87,7 +87,7 @@ public class MejorasManager : MonoBehaviour
             else if (id > 0)
             {
                 // Mejora de Instalaciones automáticas
-                int beneficioAntiguo = tienda.beneficios[id];
+                double beneficioAntiguo = tienda.beneficios[id];
                 int cantidadComprada = economy.nivelesCompras[id];
                 
                 tienda.beneficios[id] *= 2; 
