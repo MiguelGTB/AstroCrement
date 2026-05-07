@@ -17592,21 +17592,21 @@ MonoBehaviour:
   - 1000000
   beneficios:
   - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  multiplicadorPrecio: 1.5
+  - 1
+  - 2
+  - 6
+  - 12
+  - 25
+  - 60
+  - 110
+  - 250
+  - 450
+  - 850
+  - 2000
+  - 6500
+  - 20000
+  - 45000
+  multiplicadorPrecio: 1.25
 --- !u!114 &1926474142
 MonoBehaviour:
   m_ObjectHideFlags: 0
