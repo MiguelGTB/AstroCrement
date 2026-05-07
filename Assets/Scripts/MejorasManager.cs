@@ -76,6 +76,8 @@ public class MejorasManager : MonoBehaviour
             m.comprada = true;
             m.botonAsociado.SetActive(false); 
 
+            TooltipMejorasManager.Instance.Ocultar();
+
             // === APLICAR EL EFECTO DE LA MEJORA ===
             int id = m.idInstalacionRequisito;
 
