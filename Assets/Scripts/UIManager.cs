@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
 
     // Nombre de las Compras
     public string[] nombresInstalaciones = new string[15];
-    // Aquí arrastrarás los 15 textos de tus botones
+    // Aquï¿½ arrastrarï¿½s los 15 textos de tus botones
     public TextMeshProUGUI[] textosBotones = new TextMeshProUGUI[15];
     public TextMeshProUGUI[] textosNiveles;
     public Button[] botones;
@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
                 if (economy.nivelesCompras[i] < 100)
                 {
                     double precioActual = shop.preciosBase[i] * Mathf.Pow(shop.multiplicadorPrecio, economy.nivelesCompras[i]);
-                    textosBotones[i].text = nombresInstalaciones[i] + " (" + economy.nivelesCompras[i] + ")\nCoste: " + FormatearNumero(precioActual) + " PE";
+                    textosBotones[i].text = nombresInstalaciones[i] + "\nCoste: " + FormatearNumero(precioActual) + " PE";
 
                     botones[i].interactable = true;
                     botones[i].image.color = Color.white;
@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
             }
         }
 }
-    // Función para que no aparezcan los número gigantescos, y en vez de 1.000.000.000, aparezca 1MM
+    // Funciï¿½n para que no aparezcan los nï¿½mero gigantescos, y en vez de 1.000.000.000, aparezca 1MM
     public string FormatearNumero(double numero)
     {
         if (numero < 1000000)
