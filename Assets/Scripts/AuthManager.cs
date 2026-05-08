@@ -11,6 +11,7 @@ public class AuthManager : MonoBehaviour
 
     [Header("UI del Login")]
     public GameObject panelLogin;
+    public TMP_InputField inputUsername;
     public TMP_InputField inputEmail;
     public TMP_InputField inputPassword;
     public TextMeshProUGUI textoFeedback;
@@ -51,14 +52,30 @@ public class AuthManager : MonoBehaviour
             return;
         }
 
-        textoFeedback.text = "Registrando en la base de datos...";
+        textoFeedback.text = "Creando perfil de comandante...";
         try
         {
             // Esperamos a que Google cree la cuenta
             AuthResult resultado = await auth.CreateUserWithEmailAndPasswordAsync(inputEmail.text, inputPassword.text);
             UserActual = resultado.User;
-            textoFeedback.text = "¡Cuenta creada con éxito!";
-            EmpezarJuego();
+
+            PlayerData datosIniciales = new PlayerData();
+            datosIniciales.nombreUsuario = inputUsername.text;
+            datosIniciales.dineroActual = 0;
+            datosIniciales.dineroPorClic = 1;
+            datosIniciales.dineroPorSeg = 0;
+            datosIniciales.nivelesCompras = new int[15];
+
+            string json = JsonUtility.ToJson(datosIniciales);
+            await Firebase.Database.FirebaseDatabase.DefaultInstance.RootReference.
+                Child("usuarios").Child(UserActual.UserId).SetRawJsonValueAsync(json);
+
+            textoFeedback.text = "¡Bienvenido, Comandante " + inputUsername.text + "!";
+
+            Invoke("EmpezarJuego", 1.5f);
+
+            // EmpezarJuego();
+
         }
         catch (Exception e)
         {

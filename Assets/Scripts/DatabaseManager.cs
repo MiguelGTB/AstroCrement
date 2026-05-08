@@ -2,14 +2,19 @@ using UnityEngine;
 using Firebase.Database;
 using Firebase.Auth;
 using System.Threading.Tasks;
+using TMPro;
 
 public class DatabaseManager : MonoBehaviour
 {
     [Header("Conexión con el Juego")]
     public EconomyManager economy;
 
+    public TextMeshProUGUI textoNombreJugador;
+    private string nombreDelJugadorCargado;
+
     private string userId;
     private DatabaseReference dbReference;
+
 
     void Start()
     {
@@ -21,6 +26,8 @@ public class DatabaseManager : MonoBehaviour
             userId = user.UserId;
             dbReference = FirebaseDatabase.DefaultInstance.RootReference;
             Debug.Log("Jugador detectado: " + userId);
+
+            CargarPartidaDeNube();
         } 
         else 
         {
@@ -35,6 +42,7 @@ public class DatabaseManager : MonoBehaviour
 
         // 1. Metemos los datos en la "caja"
         PlayerData data = new PlayerData();
+        data.nombreUsuario = nombreDelJugadorCargado;
         data.dineroActual = economy.dineroActual;
         data.dineroPorClic = economy.dineroPorClic;
         data.dineroPorSeg = economy.dineroPorSeg;
@@ -62,6 +70,12 @@ public class DatabaseManager : MonoBehaviour
             // 2. Leemos el texto JSON y lo sacamos de la caja
             string json = snapshot.GetRawJsonValue();
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+            nombreDelJugadorCargado = data.nombreUsuario;
+
+            if (textoNombreJugador != null && !string.IsNullOrEmpty(data.nombreUsuario))
+            {
+                textoNombreJugador.text = data.nombreUsuario;
+            }
 
             // 3. Se lo aplicamos a tu economía actual
             economy.dineroActual = data.dineroActual;
@@ -72,7 +86,7 @@ public class DatabaseManager : MonoBehaviour
             // Actualizamos la pantalla para ver los números
             if (economy.ui != null) economy.ui.ActualizarInterfaz();
             
-            Debug.Log("¡Partida cargada perfectamente!");
+            Debug.Log("¡Partida cargada! Bienvenido/a " + data.nombreUsuario);
         }
         else
         {
