@@ -55,7 +55,13 @@ public class UIManager : MonoBehaviour
 
                 if(textosNiveles.Length > i && textosNiveles[i] != null)
                 {
-                    textosNiveles[i].text = economy.nivelesCompras[i].ToString();
+                    if(economy.nivelesCompras[i] >= 100)
+                    {
+                        textosNiveles[i].text = "<color=#FFD700>MÁX</color>";
+                    } else
+                    {
+                        textosNiveles[i].text = economy.nivelesCompras[i].ToString();
+                    }
                 }
             }
         }
