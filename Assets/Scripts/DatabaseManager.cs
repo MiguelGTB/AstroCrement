@@ -3,6 +3,7 @@ using Firebase.Database;
 using Firebase.Auth;
 using System.Threading.Tasks;
 using TMPro;
+using System;
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -28,12 +29,15 @@ public class DatabaseManager : MonoBehaviour
             Debug.Log("Jugador detectado: " + userId);
 
             CargarPartidaDeNube();
+
+            InvokeRepeating("GuardarPartidaEnNube", 10f, 60f);
         } 
         else 
         {
             Debug.LogError("Error: Nadie ha iniciado sesión.");
         }
     }
+
 
     // --- FUNCIÓN PARA GUARDAR ---
     public void GuardarPartidaEnNube()
@@ -44,6 +48,7 @@ public class DatabaseManager : MonoBehaviour
         PlayerData data = new PlayerData();
         data.nombreUsuario = nombreDelJugadorCargado;
         data.dineroActual = economy.dineroActual;
+        data.dineroTotal = economy.dineroTotal;
         data.dineroPorClic = economy.dineroPorClic;
         data.dineroPorSeg = economy.dineroPorSeg;
         data.nivelesCompras = economy.nivelesCompras;
@@ -56,6 +61,22 @@ public class DatabaseManager : MonoBehaviour
         
         Debug.Log("¡Partida guardada en la nube con éxito!");
     }
+
+    // Se ejecuta cuando el jugador cierra el juego
+    private void OnApplicationQuit()
+    {
+        GuardarPartidaEnNube();
+    }
+
+    // Se ejecuta cuando el jugador minimiza el juego (ej: le llaman al móvil)
+    private void OnApplicationPause(bool pausa)
+    {
+        if (pausa)
+        {
+            GuardarPartidaEnNube();
+        }
+    }
+    
 
     // --- FUNCIÓN PARA CARGAR ---
     public async void CargarPartidaDeNube()
@@ -79,6 +100,7 @@ public class DatabaseManager : MonoBehaviour
 
             // 3. Se lo aplicamos a tu economía actual
             economy.dineroActual = data.dineroActual;
+            economy.dineroTotal = data.dineroTotal;
             economy.dineroPorClic = data.dineroPorClic;
             economy.dineroPorSeg = data.dineroPorSeg;
             economy.nivelesCompras = data.nivelesCompras;

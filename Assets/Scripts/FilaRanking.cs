@@ -7,10 +7,10 @@ public class FilaRanking : MonoBehaviour
     public TextMeshProUGUI textoNombre;
     public TextMeshProUGUI textoPuntos;
 
-    // Esta función la llama el RankingManager
+    // Esta funciï¿½n la llama el RankingManager
     public void Configurar(int puesto, string nombre, string puntos)
     {
-        textoPuesto.text = puesto.ToString();
+        textoPuesto.text = puesto.ToString() + "Âº";
         textoNombre.text = nombre;
         textoPuntos.text = puntos;
     }

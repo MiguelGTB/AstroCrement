@@ -14,7 +14,7 @@ public class EconomyManager : MonoBehaviour
 
     public void SumarClick()
     {
-        dineroActual += dineroPorClic;
+        AnadirDinero(dineroPorClic);
         if (ui != null) ui.ActualizarInterfaz();
     }
 
@@ -34,7 +34,7 @@ public class EconomyManager : MonoBehaviour
 
     public void SumarPasivo()
     {
-        dineroActual += dineroPorSeg;
+        AnadirDinero(dineroPorSeg );
         if (ui != null) ui.ActualizarInterfaz();
     }
 
