@@ -5,6 +5,8 @@ public class PlayerData
     public double dineroActual;
     public double dineroPorClic;
     public double dineroPorSeg;
+
+    public double dineroTotal;
     public int[] nivelesCompras;
     public bool[] mejorasCompradas;
 

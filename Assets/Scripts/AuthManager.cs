@@ -64,6 +64,7 @@ public class AuthManager : MonoBehaviour
             datosIniciales.dineroActual = 0;
             datosIniciales.dineroPorClic = 1;
             datosIniciales.dineroPorSeg = 0;
+            datosIniciales.dineroTotal = 0;
             datosIniciales.nivelesCompras = new int[15];
 
             string json = JsonUtility.ToJson(datosIniciales);
