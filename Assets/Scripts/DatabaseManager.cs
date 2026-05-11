@@ -2,6 +2,8 @@ using UnityEngine;
 using Firebase.Database;
 using Firebase.Auth;
 using System.Threading.Tasks;
+using TMPro;
+using System;
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -20,6 +22,10 @@ public class DatabaseManager : MonoBehaviour
             userId = user.UserId;
             dbReference = FirebaseDatabase.DefaultInstance.RootReference;
             Debug.Log("Jugador detectado: " + userId);
+
+            CargarPartidaDeNube();
+
+            InvokeRepeating("GuardarPartidaEnNube", 10f, 60f);
         } 
         else 
         {
@@ -27,12 +33,15 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
+
+    // --- FUNCIÓN PARA GUARDAR ---
     public void GuardarPartidaEnNube()
     {
         if (userId == null) return;
 
         PlayerData data = new PlayerData();
         data.dineroActual = economy.dineroActual;
+        data.dineroTotal = economy.dineroTotal;
         data.dineroPorClic = economy.dineroPorClic;
         data.dineroPorSeg = economy.dineroPorSeg;
         data.nivelesCompras = economy.nivelesCompras;
@@ -54,6 +63,23 @@ public class DatabaseManager : MonoBehaviour
         Debug.Log("¡Partida y Mejoras guardadas en la nube!");
     }
 
+    // Se ejecuta cuando el jugador cierra el juego
+    private void OnApplicationQuit()
+    {
+        GuardarPartidaEnNube();
+    }
+
+    // Se ejecuta cuando el jugador minimiza el juego (ej: le llaman al móvil)
+    private void OnApplicationPause(bool pausa)
+    {
+        if (pausa)
+        {
+            GuardarPartidaEnNube();
+        }
+    }
+    
+
+    // --- FUNCIÓN PARA CARGAR ---
     public async void CargarPartidaDeNube()
     {
         if (userId == null) return;
@@ -67,6 +93,7 @@ public class DatabaseManager : MonoBehaviour
 
             // Cargar Economía
             economy.dineroActual = data.dineroActual;
+            economy.dineroTotal = data.dineroTotal;
             economy.dineroPorClic = data.dineroPorClic;
             economy.dineroPorSeg = data.dineroPorSeg;
             economy.nivelesCompras = data.nivelesCompras;

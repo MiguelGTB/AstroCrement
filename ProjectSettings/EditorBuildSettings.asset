@@ -17,10 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Nivel_Luna.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Nivel_Marte.unity
     guid: 10c388f2a95b9524f968016926bb5352
   - enabled: 1
     path: Assets/Scenes/Ajustes.unity
     guid: 81af2b7ac9c9c884fbe21a4f8591df17
+  - enabled: 1
+    path: Assets/Scenes/RankingGlobal.unity
+    guid: eac5788370203be4a80a08fad75f142f
   m_configObjects: {}

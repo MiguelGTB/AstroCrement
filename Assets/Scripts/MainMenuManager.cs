@@ -32,6 +32,7 @@ public class MainMenuManager : MonoBehaviour
         // Aquí activaremos un panel (GameObject.SetActive(true)) que tape 
         // el menú y muestre los datos traídos de una base de datos (Firebase/MySQL).
         Debug.Log("Abriendo Ranking Global...");
+        SceneManager.LoadScene("RankingGlobal");
     }
 
     public void Ajustes()

@@ -5,6 +5,7 @@ public class EconomyManager : MonoBehaviour
     public double dineroActual = 0;
     public double dineroPorClic = 1;
     public double dineroPorSeg = 0;
+    public double dineroTotal = 0;
 
     public int[] nivelesCompras = new int[15];
 
@@ -13,7 +14,7 @@ public class EconomyManager : MonoBehaviour
 
     public void SumarClick()
     {
-        dineroActual += dineroPorClic;
+        AnadirDinero(dineroPorClic);
         if (ui != null) ui.ActualizarInterfaz();
     }
 
@@ -33,7 +34,7 @@ public class EconomyManager : MonoBehaviour
 
     public void SumarPasivo()
     {
-        dineroActual += dineroPorSeg;
+        AnadirDinero(dineroPorSeg );
         if (ui != null) ui.ActualizarInterfaz();
     }
 
@@ -46,5 +47,11 @@ public class EconomyManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void AnadirDinero(double cantidad)
+    {
+        dineroActual += cantidad;
+        dineroTotal += cantidad;
     }
 }
