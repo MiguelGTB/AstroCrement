@@ -10,7 +10,7 @@ public class TiendaManager : MonoBehaviour
     // Precio de cada una
     public double[] preciosBase = new double[15];
 
-    // Dinero que nos dá cada una
+    // Dinero que nos dï¿½ cada una
     public double[] beneficios = new double[15];
 
     // Multiplicador de compras
