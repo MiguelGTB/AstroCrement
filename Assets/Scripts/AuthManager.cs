@@ -111,11 +111,9 @@ public class AuthManager : MonoBehaviour
 
     private void EmpezarJuego()
     {
-        // El jugador ha entrado con éxito, así que apagamos la pantalla de login
-        panelLogin.SetActive(false);
-        
-        Debug.Log("¡El jugador con ID: " + UserActual.UserId + " ha entrado al juego!");
-        
-        // ¡EN EL PRÓXIMO PASO PONDREMOS AQUÍ LA DESCARGA DE LA PARTIDA!
+        panelLogin.SetActive(false); // Apaga el login
+    
+    // Llama al gestor de slots para que aparezca
+    GetComponent<GestorSlots>().InicializarSelector();
     }
 }

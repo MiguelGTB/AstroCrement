@@ -2,23 +2,17 @@ using UnityEngine;
 using Firebase.Database;
 using Firebase.Auth;
 using System.Threading.Tasks;
-using TMPro;
 
 public class DatabaseManager : MonoBehaviour
 {
     [Header("Conexión con el Juego")]
     public EconomyManager economy;
-
-    public TextMeshProUGUI textoNombreJugador;
-    private string nombreDelJugadorCargado;
-
+    public MejorasManager mejoras; 
     private string userId;
     private DatabaseReference dbReference;
 
-
     void Start()
     {
-        // 1. Buscamos quién inició sesión en el Menú Principal
         FirebaseUser user = FirebaseAuth.DefaultInstance.CurrentUser;
         
         if (user != null) 
@@ -26,8 +20,6 @@ public class DatabaseManager : MonoBehaviour
             userId = user.UserId;
             dbReference = FirebaseDatabase.DefaultInstance.RootReference;
             Debug.Log("Jugador detectado: " + userId);
-
-            CargarPartidaDeNube();
         } 
         else 
         {
@@ -35,62 +27,75 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    // --- FUNCIÓN PARA GUARDAR ---
     public void GuardarPartidaEnNube()
     {
         if (userId == null) return;
 
-        // 1. Metemos los datos en la "caja"
         PlayerData data = new PlayerData();
-        data.nombreUsuario = nombreDelJugadorCargado;
         data.dineroActual = economy.dineroActual;
         data.dineroPorClic = economy.dineroPorClic;
         data.dineroPorSeg = economy.dineroPorSeg;
         data.nivelesCompras = economy.nivelesCompras;
 
-        // 2. Convertimos la caja a texto JSON
-        string json = JsonUtility.ToJson(data);
+        // --- NUEVO: GUARDAR MEJORAS ---
+        // Creamos una lista del mismo tamaño que tus mejoras
+        data.mejorasCompradas = new bool[mejoras.listaMejoras.Length];
+        
+        for (int i = 0; i < mejoras.listaMejoras.Length; i++)
+        {
+            // Apuntamos 'true' si la tienes comprada, o 'false' si no
+            data.mejorasCompradas[i] = mejoras.listaMejoras[i].comprada;
+        }
+        // ------------------------------
 
-        // 3. Lo subimos a Firebase bajo el ID del jugador
+        string json = JsonUtility.ToJson(data);
         dbReference.Child("usuarios").Child(userId).SetRawJsonValueAsync(json);
         
-        Debug.Log("¡Partida guardada en la nube con éxito!");
+        Debug.Log("¡Partida y Mejoras guardadas en la nube!");
     }
 
-    // --- FUNCIÓN PARA CARGAR ---
     public async void CargarPartidaDeNube()
     {
         if (userId == null) return;
 
-        // 1. Pedimos los datos a Firebase
         DataSnapshot snapshot = await dbReference.Child("usuarios").Child(userId).GetValueAsync();
 
         if (snapshot.Exists)
         {
-            // 2. Leemos el texto JSON y lo sacamos de la caja
             string json = snapshot.GetRawJsonValue();
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
-            nombreDelJugadorCargado = data.nombreUsuario;
 
-            if (textoNombreJugador != null && !string.IsNullOrEmpty(data.nombreUsuario))
-            {
-                textoNombreJugador.text = data.nombreUsuario;
-            }
-
-            // 3. Se lo aplicamos a tu economía actual
+            // Cargar Economía
             economy.dineroActual = data.dineroActual;
             economy.dineroPorClic = data.dineroPorClic;
             economy.dineroPorSeg = data.dineroPorSeg;
             economy.nivelesCompras = data.nivelesCompras;
 
-            // Actualizamos la pantalla para ver los números
+            // --- NUEVO: CARGAR MEJORAS ---
+            // Nos aseguramos de que el array guardado existe y no da error
+            if (data.mejorasCompradas != null && data.mejorasCompradas.Length == mejoras.listaMejoras.Length)
+            {
+                for (int i = 0; i < mejoras.listaMejoras.Length; i++)
+                {
+                    // Le decimos a tu script si esta mejora está comprada o no
+                    mejoras.listaMejoras[i].comprada = data.mejorasCompradas[i];
+
+                    // Si está comprada, apagamos el botón de inmediato para que no se vea
+                    if (data.mejorasCompradas[i] == true && mejoras.listaMejoras[i].botonAsociado != null)
+                    {
+                        mejoras.listaMejoras[i].botonAsociado.SetActive(false);
+                    }
+                }
+            }
+            // ------------------------------
+
             if (economy.ui != null) economy.ui.ActualizarInterfaz();
             
-            Debug.Log("¡Partida cargada! Bienvenido/a " + data.nombreUsuario);
+            Debug.Log("¡Partida cargada perfectamente!");
         }
         else
         {
-            Debug.Log("No hay partida guardada para este jugador. Es una partida nueva.");
+            Debug.Log("Nueva partida.");
         }
     }
 }
