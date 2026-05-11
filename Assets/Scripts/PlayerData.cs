@@ -8,7 +8,6 @@ public class PlayerData
 
     public double dineroTotal;
     public int[] nivelesCompras;
-    
-    // Si más adelante quieres guardar las mejoras, añadiríamos:
-    // public bool[] mejorasCompradas;
+    public bool[] mejorasCompradas;
+
 }
