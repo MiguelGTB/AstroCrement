@@ -20494,7 +20494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   economy: {fileID: 1926474140}
-  textoNombreJugador: {fileID: 2123965866}
+  mejoras: {fileID: 1926474145}
 --- !u!1 &1955485397
 GameObject:
   m_ObjectHideFlags: 0
