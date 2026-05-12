@@ -5127,6 +5127,7 @@ GameObject:
   - component: {fileID: 63843547}
   - component: {fileID: 63843549}
   - component: {fileID: 63843548}
+  - component: {fileID: 63843550}
   m_Layer: 5
   m_Name: TooltipLogro
   m_TagString: Untagged
@@ -5194,6 +5195,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63843546}
   m_CullTransparentMesh: 1
+--- !u!114 &63843550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63843546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13f64870a51e994c80c32c648a53258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelTooltip: {fileID: 63843546}
+  txtNombre: {fileID: 1971686210}
+  txtDescripcion: {fileID: 872689860}
+  txtProgreso: {fileID: 1306273538}
 --- !u!114 &77676375 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3867879368325874506, guid: 9940ceb98e04c04408108af901f916f9, type: 3}

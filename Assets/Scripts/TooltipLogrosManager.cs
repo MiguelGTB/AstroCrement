@@ -23,14 +23,14 @@ public class TooltipLogrosManager : MonoBehaviour
     {
         if (visible)
         {
-            // 1. Obtenemos la posición del mouse
+            // 1. Obtenemos la posiciï¿½n del mouse
             Vector3 mousePos = Input.mousePosition;
 
             // 2. Le damos un margen (Offset)
             // X: +20 (a la derecha) | Y: -20 (un poco abajo)
             Vector3 offset = new Vector3(20, -20, 0);
 
-            // 3. Aplicamos la posición
+            // 3. Aplicamos la posiciï¿½n
             panelTooltip.transform.position = mousePos + offset;
 
             // OPCIONAL: Si el panel se sale por la derecha de la pantalla, 
