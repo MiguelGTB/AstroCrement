@@ -94,11 +94,11 @@ public class RankingManager : MonoBehaviour
     }
 
     string FormatearNumero(double n)
-{
-    if (n >= 1000000000000) return (n / 1000000000000).ToString("F2") + "T"; // Trillones
-    if (n >= 1000000000) return (n / 1000000000).ToString("F2") + "B";    // Billones
-    if (n >= 1000000) return (n / 1000000).ToString("F2") + "M";       // Millones
-    if (n >= 1000) return (n / 1000).ToString("F1") + "K";          // Miles
-    return n.ToString("N0"); // Números normales
-}
+    {
+        if (n >= 1000000000000) return (n / 1000000000000).ToString("F2") + "T"; // Trillones
+        if (n >= 1000000000) return (n / 1000000000).ToString("F2") + "B";    // Billones
+        if (n >= 1000000) return (n / 1000000).ToString("F2") + "M";       // Millones
+        if (n >= 1000) return (n / 1000).ToString("F1") + "K";          // Miles
+        return n.ToString("N0"); // Números normales
+    }
 }

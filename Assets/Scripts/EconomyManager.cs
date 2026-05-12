@@ -34,7 +34,7 @@ public class EconomyManager : MonoBehaviour
 
     public void SumarPasivo()
     {
-        AnadirDinero(dineroPorSeg );
+        AnadirDinero(dineroPorSeg);
         if (ui != null) ui.ActualizarInterfaz();
     }
 
@@ -53,5 +53,12 @@ public class EconomyManager : MonoBehaviour
     {
         dineroActual += cantidad;
         dineroTotal += cantidad;
+
+        // Si el panel de logros existe y está abierto, refrescamos los colores
+        if (LogrosManager.instance != null && LogrosManager.instance.achievementsOpen)
+        {
+            LogrosManager.instance.RefrescarLogros();
+        }
+
     }
 }
