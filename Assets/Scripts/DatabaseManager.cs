@@ -48,6 +48,7 @@ public class DatabaseManager : MonoBehaviour
         if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
         PlayerData data = new PlayerData();
+        data.nombreUsuario = economy.nombreUsuario;
         data.dineroActual = economy.dineroActual;
         data.dineroTotal = economy.dineroTotal;
         data.dineroPorClic = economy.dineroPorClic;
@@ -100,6 +101,12 @@ public class DatabaseManager : MonoBehaviour
             string json = snapshot.GetRawJsonValue();
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
 
+            if (!string.IsNullOrEmpty(data.nombreUsuario))
+            {
+                economy.nombreUsuario = data.nombreUsuario;
+                Debug.Log("Nombre de usuario cargado: " + data.nombreUsuario);
+            }
+
             // Cargar Economía
             economy.dineroActual = data.dineroActual;
             economy.dineroTotal = data.dineroTotal;
@@ -122,6 +129,11 @@ public class DatabaseManager : MonoBehaviour
 
             if (economy.ui != null) economy.ui.ActualizarInterfaz();
             
+            if(LogrosManager.instance != null)
+            {
+                LogrosManager.instance.RefrescarLogros();
+            }
+
             Debug.Log("¡Partida cargada perfectamente desde " + slot + "!");
         }
         else
