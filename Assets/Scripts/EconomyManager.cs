@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
 {
-    public string nombreUsuario;
     public double dineroActual = 0;
     public double dineroPorClic = 1;
     public double dineroPorSeg = 0;

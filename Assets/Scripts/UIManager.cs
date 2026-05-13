@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour
     public EconomyManager economy;
     public TiendaManager shop;
 
-    public TextMeshProUGUI textoNombreUsuario;
     public TextMeshProUGUI textoDineroUI;
     public TextMeshProUGUI textoPasivoUI;
 
@@ -26,13 +25,6 @@ public class UIManager : MonoBehaviour
 
     public void ActualizarInterfaz()
     {
-        if (textoNombreUsuario != null && economy != null)
-        {
-            // Si el nombre está vacío, ponemos "Comandante" por defecto
-            string nombreMostrar = string.IsNullOrEmpty(economy.nombreUsuario) ? "Comandante" : economy.nombreUsuario;
-            textoNombreUsuario.text = nombreMostrar;
-        }
-
         if (textoDineroUI != null)
             textoDineroUI.text = "Polvo Estelar: " + FormatearNumero(economy.dineroActual);
 
@@ -71,11 +63,9 @@ public class UIManager : MonoBehaviour
                         textosNiveles[i].text = economy.nivelesCompras[i].ToString();
                     }
                 }
-
-
             }
         }
-    }
+}
     // Funci�n para que no aparezcan los n�mero gigantescos, y en vez de 1.000.000.000, aparezca 1MM
     public string FormatearNumero(double numero)
     {

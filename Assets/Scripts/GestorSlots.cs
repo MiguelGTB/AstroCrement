@@ -81,16 +81,13 @@ public class GestorSlots : MonoBehaviour
 
         if (string.IsNullOrEmpty(nombre)) nombre = "Comandante " + num;
 
-        // ESTA ES LA RUTA CORRECTA: Guardamos el nombre dentro del slot específico
-        // Lo guardamos en dos sitios para que sea fácil de leer:
-
-        // 1. Para que el selector de slots lo encuentre rápido:
+        // 1. Guardamos el nombre en Firebase
         dbReference.Child("usuarios").Child(userId).Child("slots").Child("slot" + num).Child("nombre").SetValueAsync(nombre);
-
-        // 2. IMPORTANTE: Para que el sistema de carga de PlayerData lo encuentre:
-        dbReference.Child("usuarios").Child(userId).Child("slots").Child("slot" + num).Child("datos").Child("nombreUsuario").SetValueAsync(nombre);
-
+        
+        // 2. Apuntamos en nuestro "Puente" en qué slot estamos jugando
         PartidaActual.SlotSeleccionado = "slot" + num;
+
+        // 3. ¡Nos vamos directos al Cómic!
         SceneManager.LoadScene(escenaNuevaPartida);
     }
 

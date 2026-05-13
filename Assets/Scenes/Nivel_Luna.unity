@@ -20818,7 +20818,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5f877b747ba2341918c03bf87e53fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombreUsuario: 
   dineroActual: 0
   dineroPorClic: 1
   dineroPorSeg: 0
@@ -20886,7 +20885,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   economy: {fileID: 1926474140}
   shop: {fileID: 1926474141}
-  textoNombreUsuario: {fileID: 2123965866}
   textoDineroUI: {fileID: 2045661059}
   textoPasivoUI: {fileID: 2061058081}
   nombresInstalaciones:
