@@ -68,8 +68,15 @@ public class AuthManager : MonoBehaviour
             datosIniciales.nivelesCompras = new int[15];
 
             string json = JsonUtility.ToJson(datosIniciales);
-            await Firebase.Database.FirebaseDatabase.DefaultInstance.RootReference.
-                Child("usuarios").Child(UserActual.UserId).SetRawJsonValueAsync(json);
+            //await Firebase.Database.FirebaseDatabase.DefaultInstance.RootReference.
+            //    Child("usuarios").Child(UserActual.UserId).SetRawJsonValueAsync(json);
+            await Firebase.Database.FirebaseDatabase.DefaultInstance.RootReference
+                .Child("usuarios")
+                .Child(UserActual.UserId)
+                .Child("slots")
+                .Child("slot1")
+                .Child("datos")
+                .SetRawJsonValueAsync(json);
 
             textoFeedback.text = "¡Bienvenido, Comandante " + inputUsername.text + "!";
 
