@@ -21,10 +21,16 @@ public class DatabaseManager : MonoBehaviour
         {
             userId = user.UserId;
             dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-            Debug.Log("Jugador detectado: " + userId);
+            
+            // Leemos el puente para saber qué botón pulsó en el menú
+            string slot = PartidaActual.SlotSeleccionado;
+            if (string.IsNullOrEmpty(slot)) slot = "slot1"; // Por si acaso hay un error, va al 1
+
+            Debug.Log("Jugador detectado: " + userId + " | Slot activo: " + slot);
 
             CargarPartidaDeNube();
 
+            // Tu autoguardado: empieza a los 10s y se repite cada 60s
             InvokeRepeating("GuardarPartidaEnNube", 10f, 60f);
         } 
         else 
@@ -33,11 +39,13 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-
     // --- FUNCIÓN PARA GUARDAR ---
     public void GuardarPartidaEnNube()
     {
         if (userId == null) return;
+
+        string slot = PartidaActual.SlotSeleccionado;
+        if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
         PlayerData data = new PlayerData();
         data.dineroActual = economy.dineroActual;
@@ -46,21 +54,19 @@ public class DatabaseManager : MonoBehaviour
         data.dineroPorSeg = economy.dineroPorSeg;
         data.nivelesCompras = economy.nivelesCompras;
 
-        // --- NUEVO: GUARDAR MEJORAS ---
-        // Creamos una lista del mismo tamaño que tus mejoras
+        // Guardar mejoras
         data.mejorasCompradas = new bool[mejoras.listaMejoras.Length];
-        
         for (int i = 0; i < mejoras.listaMejoras.Length; i++)
         {
-            // Apuntamos 'true' si la tienes comprada, o 'false' si no
             data.mejorasCompradas[i] = mejoras.listaMejoras[i].comprada;
         }
-        // ------------------------------
 
         string json = JsonUtility.ToJson(data);
-        dbReference.Child("usuarios").Child(userId).SetRawJsonValueAsync(json);
         
-        Debug.Log("¡Partida y Mejoras guardadas en la nube!");
+        // CAMBIO VITAL: Ahora la ruta incluye "slots" y la variable de tu slot actual, y lo mete en "datos"
+        dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").SetRawJsonValueAsync(json);
+        
+        Debug.Log("¡Partida y Mejoras guardadas automáticamente en " + slot + "!");
     }
 
     // Se ejecuta cuando el jugador cierra el juego
@@ -69,7 +75,7 @@ public class DatabaseManager : MonoBehaviour
         GuardarPartidaEnNube();
     }
 
-    // Se ejecuta cuando el jugador minimiza el juego (ej: le llaman al móvil)
+    // Se ejecuta cuando el jugador minimiza el juego
     private void OnApplicationPause(bool pausa)
     {
         if (pausa)
@@ -78,13 +84,16 @@ public class DatabaseManager : MonoBehaviour
         }
     }
     
-
     // --- FUNCIÓN PARA CARGAR ---
     public async void CargarPartidaDeNube()
     {
         if (userId == null) return;
 
-        DataSnapshot snapshot = await dbReference.Child("usuarios").Child(userId).GetValueAsync();
+        string slot = PartidaActual.SlotSeleccionado;
+        if (string.IsNullOrEmpty(slot)) slot = "slot1";
+
+        // CAMBIO VITAL: Va a buscar los datos a la carpeta específica de este slot
+        DataSnapshot snapshot = await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").GetValueAsync();
 
         if (snapshot.Exists)
         {
@@ -98,31 +107,26 @@ public class DatabaseManager : MonoBehaviour
             economy.dineroPorSeg = data.dineroPorSeg;
             economy.nivelesCompras = data.nivelesCompras;
 
-            // --- NUEVO: CARGAR MEJORAS ---
-            // Nos aseguramos de que el array guardado existe y no da error
+            // Cargar Mejoras
             if (data.mejorasCompradas != null && data.mejorasCompradas.Length == mejoras.listaMejoras.Length)
             {
                 for (int i = 0; i < mejoras.listaMejoras.Length; i++)
                 {
-                    // Le decimos a tu script si esta mejora está comprada o no
                     mejoras.listaMejoras[i].comprada = data.mejorasCompradas[i];
-
-                    // Si está comprada, apagamos el botón de inmediato para que no se vea
                     if (data.mejorasCompradas[i] == true && mejoras.listaMejoras[i].botonAsociado != null)
                     {
                         mejoras.listaMejoras[i].botonAsociado.SetActive(false);
                     }
                 }
             }
-            // ------------------------------
 
             if (economy.ui != null) economy.ui.ActualizarInterfaz();
             
-            Debug.Log("¡Partida cargada perfectamente!");
+            Debug.Log("¡Partida cargada perfectamente desde " + slot + "!");
         }
         else
         {
-            Debug.Log("Nueva partida.");
+            Debug.Log("Nueva partida en " + slot + ".");
         }
     }
 }
