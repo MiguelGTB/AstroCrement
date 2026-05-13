@@ -28,6 +28,8 @@ public class LevelSelectionManager : MonoBehaviour
 
         for (int i = 0; i < botonesPlanetas.Length; i++)
         {
+            if (iconosCandado[i] == null) continue;
+
             if (i <= nivelMaximoDesbloqueado)
             {
                 // -- PLANETA DESBLOQUEADO --
