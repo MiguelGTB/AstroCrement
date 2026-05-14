@@ -23,6 +23,11 @@ public class TooltipLogrosManager : MonoBehaviour
     {
         if (visible)
         {
+            if (LogrosManager.instance != null && !LogrosManager.instance.achievementsOpen)
+            {
+                Ocultar();
+                return;
+            }
             // 1. Obtenemos la posici�n del mouse
             Vector3 mousePos = Input.mousePosition;
 

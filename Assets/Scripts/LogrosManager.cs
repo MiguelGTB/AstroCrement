@@ -82,6 +82,11 @@ public class LogrosManager : MonoBehaviour
         panelLogros.SetActive(false);
         achievementsOpen = false;
 
+        if (TooltipLogrosManager.Instance != null)
+        {
+            TooltipLogrosManager.Instance.Ocultar();
+        }
+
         if (botonAbrirLogros != null) botonAbrirLogros.gameObject.SetActive(true);
     }
 }
