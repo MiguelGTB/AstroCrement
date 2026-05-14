@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 using Firebase;
 using Firebase.Auth;
@@ -30,18 +31,31 @@ public class AuthManager : MonoBehaviour
 
     async void Start()
     {
-        textoFeedback.text = "Conectando con el servidor...";
+        if (textoFeedback != null)
+        {
+            textoFeedback.text = "Conectando con el servidor...";
+        }
+        else
+        {
+            Debug.LogWarning("AuthManager: textoFeedback no está asignado en el inspector.");
+        }
         
         // 1. Comprobamos que el SDK de Firebase está listo para funcionar
         var dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync();
         if (dependencyStatus == DependencyStatus.Available)
         {
             auth = FirebaseAuth.DefaultInstance;
-            textoFeedback.text = "Servidor online. Inicia sesión o regístrate.";
+            if (textoFeedback != null)
+            {
+                textoFeedback.text = "Servidor online. Inicia sesión o regístrate.";
+            }
         }
         else
         {
-            textoFeedback.text = "Error crítico de conexión.";
+            if (textoFeedback != null)
+            {
+                textoFeedback.text = "Error crítico de conexión.";
+            }
             Debug.LogError("No se pudo resolver Firebase: " + dependencyStatus);
         }
     }
@@ -69,9 +83,7 @@ public class AuthManager : MonoBehaviour
 
             textoFeedback.text = "¡Bienvenido, Comandante " + inputUsername.text + "!";
 
-            Invoke("EmpezarJuego", 1.5f);
-
-            // EmpezarJuego();
+            Invoke("IrAlMenuPrincipal", 1.5f);
 
         }
         catch (Exception e)
@@ -103,7 +115,7 @@ public class AuthManager : MonoBehaviour
             NombreUsuario = snapshot.Exists ? snapshot.Value.ToString() : "Comandante Desconocido";
 
             textoFeedback.text = "¡Sesión iniciada correctamente!";
-            EmpezarJuego();
+            Invoke("IrAlMenuPrincipal", 1.5f);
         }
         catch (Exception e)
         {
@@ -112,11 +124,8 @@ public class AuthManager : MonoBehaviour
         }
     }
 
-    private void EmpezarJuego()
+    private void IrAlMenuPrincipal()
     {
-        panelLogin.SetActive(false); // Apaga el login
-    
-    // Llama al gestor de slots para que aparezca
-    GetComponent<GestorSlots>().InicializarSelector();
+        SceneManager.LoadScene("MenuPrincipal");
     }
 }
