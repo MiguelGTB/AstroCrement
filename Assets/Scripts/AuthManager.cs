@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 using Firebase;
 using Firebase.Auth;
@@ -20,6 +21,9 @@ public class AuthManager : MonoBehaviour
     private FirebaseAuth auth;
     public FirebaseUser UserActual; // Aquí guardaremos quién está jugando
 
+    // Nombre de usuario para referencia en el juego
+    public static string NombreUsuario;
+
     void Awake() 
     {
         Instance = this;
@@ -27,18 +31,31 @@ public class AuthManager : MonoBehaviour
 
     async void Start()
     {
-        textoFeedback.text = "Conectando con el servidor...";
+        if (textoFeedback != null)
+        {
+            textoFeedback.text = "Conectando con el servidor...";
+        }
+        else
+        {
+            Debug.LogWarning("AuthManager: textoFeedback no está asignado en el inspector.");
+        }
         
         // 1. Comprobamos que el SDK de Firebase está listo para funcionar
         var dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync();
         if (dependencyStatus == DependencyStatus.Available)
         {
             auth = FirebaseAuth.DefaultInstance;
-            textoFeedback.text = "Servidor online. Inicia sesión o regístrate.";
+            if (textoFeedback != null)
+            {
+                textoFeedback.text = "Servidor online. Inicia sesión o regístrate.";
+            }
         }
         else
         {
-            textoFeedback.text = "Error crítico de conexión.";
+            if (textoFeedback != null)
+            {
+                textoFeedback.text = "Error crítico de conexión.";
+            }
             Debug.LogError("No se pudo resolver Firebase: " + dependencyStatus);
         }
     }
@@ -59,23 +76,14 @@ public class AuthManager : MonoBehaviour
             AuthResult resultado = await auth.CreateUserWithEmailAndPasswordAsync(inputEmail.text, inputPassword.text);
             UserActual = resultado.User;
 
-            PlayerData datosIniciales = new PlayerData();
-            datosIniciales.nombreUsuario = inputUsername.text;
-            datosIniciales.dineroActual = 0;
-            datosIniciales.dineroPorClic = 1;
-            datosIniciales.dineroPorSeg = 0;
-            datosIniciales.dineroTotal = 0;
-            datosIniciales.nivelesCompras = new int[15];
-
-            string json = JsonUtility.ToJson(datosIniciales);
+            // Guardamos el nombre de usuario para referencia
+            NombreUsuario = inputUsername.text;
             await Firebase.Database.FirebaseDatabase.DefaultInstance.RootReference.
-                Child("usuarios").Child(UserActual.UserId).SetRawJsonValueAsync(json);
+                Child("usuarios").Child(UserActual.UserId).Child("nombreUsuario").SetValueAsync(NombreUsuario);
 
             textoFeedback.text = "¡Bienvenido, Comandante " + inputUsername.text + "!";
 
-            Invoke("EmpezarJuego", 1.5f);
-
-            // EmpezarJuego();
+            Invoke("IrAlMenuPrincipal", 1.5f);
 
         }
         catch (Exception e)
@@ -100,8 +108,14 @@ public class AuthManager : MonoBehaviour
             // Esperamos a que Google valide la cuenta
             AuthResult resultado = await auth.SignInWithEmailAndPasswordAsync(inputEmail.text, inputPassword.text);
             UserActual = resultado.User;
+
+            // Leemos el nombre de usuario desde Firebase
+            var snapshot = await Firebase.Database.FirebaseDatabase.DefaultInstance.RootReference.
+                Child("usuarios").Child(UserActual.UserId).Child("nombreUsuario").GetValueAsync();
+            NombreUsuario = snapshot.Exists ? snapshot.Value.ToString() : "Comandante Desconocido";
+
             textoFeedback.text = "¡Sesión iniciada correctamente!";
-            EmpezarJuego();
+            Invoke("IrAlMenuPrincipal", 1.5f);
         }
         catch (Exception e)
         {
@@ -110,11 +124,8 @@ public class AuthManager : MonoBehaviour
         }
     }
 
-    private void EmpezarJuego()
+    private void IrAlMenuPrincipal()
     {
-        panelLogin.SetActive(false); // Apaga el login
-    
-    // Llama al gestor de slots para que aparezca
-    GetComponent<GestorSlots>().InicializarSelector();
+        SceneManager.LoadScene("MenuPrincipal");
     }
 }

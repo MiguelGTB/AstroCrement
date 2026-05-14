@@ -6,8 +6,8 @@ public class LogrosManager : MonoBehaviour
     public static LogrosManager instance;
 
     [Header("Configuración de UI")]
-    public GameObject panelLogros; 
-    public Button botonCerrar; 
+    public GameObject panelLogros;
+    public Button botonCerrar;
     public Button botonAbrirLogros;
 
     [Header("Iconos de Logros (Arrastra en orden)")]
@@ -29,13 +29,12 @@ public class LogrosManager : MonoBehaviour
     {
         panelLogros.SetActive(false);
         achievementsOpen = false;
-        botonCerrar.onClick.AddListener(CerrarLogros);
 
-        // Al empezar, ponemos todos en gris por defecto
-        foreach (Image img in iconosLogros)
-        {
-            if (img != null) img.color = new Color(0.2f, 0.2f, 0.2f, 1f);
-        }
+        if (botonCerrar != null)
+            botonCerrar.onClick.AddListener(CerrarLogros);
+
+        // Al empezar, refrescamos por si ya venimos con datos cargados de la nube
+        RefrescarLogros();
     }
 
     void Update()
@@ -44,6 +43,10 @@ public class LogrosManager : MonoBehaviour
         {
             ToggleLogros();
         }
+
+        // OPCIONAL: Si quieres que se iluminen MIENTRAS el panel está abierto 
+        // sin tener que cerrarlo y abrirlo, descomenta la siguiente línea:
+        // if (achievementsOpen) RefrescarLogros();
     }
 
     public void ToggleLogros()
@@ -59,20 +62,18 @@ public class LogrosManager : MonoBehaviour
 
         if (botonAbrirLogros != null) botonAbrirLogros.gameObject.SetActive(false);
 
-        // --- ESTO ES LO NUEVO ---
-        // Cada vez que abrimos el panel, refrescamos el color de todos los iconos
+        // Refrescamos al abrir
         RefrescarLogros();
     }
 
-    // Nueva función que busca los scripts de los iconos y les pide que se actualicen
     public void RefrescarLogros()
     {
-        // Buscamos todos los scripts "TooltipLogroTrigger" que hay dentro del panel
-        TooltipLogroTrigger[] triggers = GetComponentsInChildren<TooltipLogroTrigger>(true);
-        
+        // IMPORTANTE: Buscamos en panelLogros específicamente para ir a lo seguro
+        TooltipLogroTrigger[] triggers = panelLogros.GetComponentsInChildren<TooltipLogroTrigger>(true);
+
         foreach (TooltipLogroTrigger t in triggers)
         {
-            t.ComprobarEstadoVisual(); // Llamamos a la función que crearemos en el otro script
+            t.ComprobarEstadoVisual();
         }
     }
 
@@ -81,14 +82,11 @@ public class LogrosManager : MonoBehaviour
         panelLogros.SetActive(false);
         achievementsOpen = false;
 
-        if (botonAbrirLogros != null) botonAbrirLogros.gameObject.SetActive(true);
-    }
-
-    public void DesbloquearLogroVisual(int indice)
-    {
-        if (indice >= 0 && indice < iconosLogros.Length)
+        if (TooltipLogrosManager.Instance != null)
         {
-            iconosLogros[indice].color = Color.white;
+            TooltipLogrosManager.Instance.Ocultar();
         }
+
+        if (botonAbrirLogros != null) botonAbrirLogros.gameObject.SetActive(true);
     }
 }

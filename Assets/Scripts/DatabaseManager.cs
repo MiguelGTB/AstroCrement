@@ -40,14 +40,35 @@ public class DatabaseManager : MonoBehaviour
     }
 
     // --- FUNCIÓN PARA GUARDAR ---
-    public void GuardarPartidaEnNube()
+    public async void GuardarPartidaEnNube()
     {
-        if (userId == null) return;
+        if (userId == null)
+        {
+            Debug.LogWarning("DatabaseManager: no hay usuario activo para guardar la partida.");
+            return;
+        }
+
+        if (dbReference == null)
+        {
+            dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+            if (dbReference == null)
+            {
+                Debug.LogError("DatabaseManager: dbReference no se pudo inicializar.");
+                return;
+            }
+        }
+
+        if (economy == null || mejoras == null)
+        {
+            Debug.LogError("DatabaseManager: economy o mejoras no están asignados.");
+            return;
+        }
 
         string slot = PartidaActual.SlotSeleccionado;
         if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
         PlayerData data = new PlayerData();
+        data.nombreUsuario = AuthManager.NombreUsuario; // Usamos el nombre de usuario de AuthManager
         data.dineroActual = economy.dineroActual;
         data.dineroTotal = economy.dineroTotal;
         data.dineroPorClic = economy.dineroPorClic;
@@ -64,7 +85,7 @@ public class DatabaseManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
         
         // CAMBIO VITAL: Ahora la ruta incluye "slots" y la variable de tu slot actual, y lo mete en "datos"
-        dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").SetRawJsonValueAsync(json);
+        await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").SetRawJsonValueAsync(json);
         
         Debug.Log("¡Partida y Mejoras guardadas automáticamente en " + slot + "!");
     }

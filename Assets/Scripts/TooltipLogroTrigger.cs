@@ -13,7 +13,7 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData)
 {
-    if (economy == null) economy = FindObjectOfType<EconomyManager>();
+        if (economy == null) economy = FindObjectOfType<EconomyManager>();
 
     if (economy != null)
     {
@@ -51,24 +51,24 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
     }
 
     public void ComprobarEstadoVisual()
-{
-    if (economy == null) economy = FindObjectOfType<EconomyManager>();
-    Image img = GetComponent<Image>();
-
-    if (economy != null && img != null)
     {
-        // Si el dinero actual es mayor que la meta, se pone en color normal
-        if (economy.dineroTotal >= metaRequerida && metaRequerida > 0)
+        if (economy == null) economy = FindObjectOfType<EconomyManager>();
+        Image img = GetComponent<Image>();
+
+        if (economy != null && img != null)
         {
-            img.color = Color.white;
-        }
-        else
-        {
-            // Si no, se queda en gris
-            img.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+            // Añadimos "metaRequerida > 0" para que si se te olvida poner la meta, 
+            // el logro no se regale solo.
+            if (metaRequerida > 0 && economy.dineroTotal >= metaRequerida)
+            {
+                img.color = Color.white;
+            }
+            else
+            {
+                img.color = new Color(0.2f, 0.2f, 0.2f, 1f); // Gris
+            }
         }
     }
-}
 
     string Formatear(double n)
     {
