@@ -7,11 +7,28 @@ using System;
 
 public class DatabaseManager : MonoBehaviour
 {
+    // --- NUEVA PUERTA DE ACCESO DIRECTO ---
+    public static DatabaseManager Instance;
+    public PlayerData datosCargados = new PlayerData(); // Mantiene los datos vivos en todo momento
+
     [Header("Conexión con el Juego")]
     public EconomyManager economy;
     public MejorasManager mejoras; 
     private string userId;
     private DatabaseReference dbReference;
+
+    void Awake()
+    {
+        // Configuramos la puerta de acceso (Singleton)
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -22,15 +39,13 @@ public class DatabaseManager : MonoBehaviour
             userId = user.UserId;
             dbReference = FirebaseDatabase.DefaultInstance.RootReference;
             
-            // Leemos el puente para saber qué botón pulsó en el menú
             string slot = PartidaActual.SlotSeleccionado;
-            if (string.IsNullOrEmpty(slot)) slot = "slot1"; // Por si acaso hay un error, va al 1
+            if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
             Debug.Log("Jugador detectado: " + userId + " | Slot activo: " + slot);
 
             CargarPartidaDeNube();
 
-            // Tu autoguardado: empieza a los 10s y se repite cada 60s
             InvokeRepeating("GuardarPartidaEnNube", 10f, 60f);
         } 
         else 
@@ -42,68 +57,39 @@ public class DatabaseManager : MonoBehaviour
     // --- FUNCIÓN PARA GUARDAR ---
     public async void GuardarPartidaEnNube()
     {
-        if (userId == null)
-        {
-            Debug.LogWarning("DatabaseManager: no hay usuario activo para guardar la partida.");
-            return;
-        }
-
-        if (dbReference == null)
-        {
-            dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-            if (dbReference == null)
-            {
-                Debug.LogError("DatabaseManager: dbReference no se pudo inicializar.");
-                return;
-            }
-        }
-
-        if (economy == null || mejoras == null)
-        {
-            Debug.LogError("DatabaseManager: economy o mejoras no están asignados.");
-            return;
-        }
+        if (userId == null || dbReference == null) return;
 
         string slot = PartidaActual.SlotSeleccionado;
         if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
-        PlayerData data = new PlayerData();
-        data.nombreUsuario = AuthManager.NombreUsuario; // Usamos el nombre de usuario de AuthManager
-        data.dineroActual = economy.dineroActual;
-        data.dineroTotal = economy.dineroTotal;
-        data.dineroPorClic = economy.dineroPorClic;
-        data.dineroPorSeg = economy.dineroPorSeg;
-        data.nivelesCompras = economy.nivelesCompras;
-
-        // Guardar mejoras
-        data.mejorasCompradas = new bool[mejoras.listaMejoras.Length];
-        for (int i = 0; i < mejoras.listaMejoras.Length; i++)
+        // Si hay economía en esta escena (ej: estamos en el juego), actualizamos los datos normales.
+        // Si no la hay (ej: estamos en el árbol de prestigio), nos saltamos este paso y solo guardamos el prestigio.
+        if (economy != null && mejoras != null)
         {
-            data.mejorasCompradas[i] = mejoras.listaMejoras[i].comprada;
+            datosCargados.nombreUsuario = AuthManager.NombreUsuario;
+            datosCargados.dineroActual = economy.dineroActual;
+            datosCargados.dineroTotal = economy.dineroTotal;
+            datosCargados.dineroPorClic = economy.dineroPorClic;
+            datosCargados.dineroPorSeg = economy.dineroPorSeg;
+            datosCargados.nivelesCompras = economy.nivelesCompras;
+
+            // Guardar mejoras normales
+            datosCargados.mejorasCompradas = new bool[mejoras.listaMejoras.Length];
+            for (int i = 0; i < mejoras.listaMejoras.Length; i++)
+            {
+                datosCargados.mejorasCompradas[i] = mejoras.listaMejoras[i].comprada;
+            }
         }
 
-        string json = JsonUtility.ToJson(data);
+        string json = JsonUtility.ToJson(datosCargados); // Guardamos la variable global
         
-        // CAMBIO VITAL: Ahora la ruta incluye "slots" y la variable de tu slot actual, y lo mete en "datos"
         await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").SetRawJsonValueAsync(json);
         
         Debug.Log("¡Partida y Mejoras guardadas automáticamente en " + slot + "!");
     }
 
-    // Se ejecuta cuando el jugador cierra el juego
-    private void OnApplicationQuit()
-    {
-        GuardarPartidaEnNube();
-    }
-
-    // Se ejecuta cuando el jugador minimiza el juego
-    private void OnApplicationPause(bool pausa)
-    {
-        if (pausa)
-        {
-            GuardarPartidaEnNube();
-        }
-    }
+    private void OnApplicationQuit() { GuardarPartidaEnNube(); }
+    private void OnApplicationPause(bool pausa) { if (pausa) GuardarPartidaEnNube(); }
     
     // --- FUNCIÓN PARA CARGAR ---
     public async void CargarPartidaDeNube()
@@ -113,37 +99,42 @@ public class DatabaseManager : MonoBehaviour
         string slot = PartidaActual.SlotSeleccionado;
         if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
-        // CAMBIO VITAL: Va a buscar los datos a la carpeta específica de este slot
         DataSnapshot snapshot = await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").GetValueAsync();
 
         if (snapshot.Exists)
         {
             string json = snapshot.GetRawJsonValue();
-            PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+            // Cargamos TODOS los datos de internet (incluido el prestigio)
+            datosCargados = JsonUtility.FromJson<PlayerData>(json);
 
-            // Cargar Economía
-            economy.dineroActual = data.dineroActual;
-            economy.dineroTotal = data.dineroTotal;
-            economy.dineroPorClic = data.dineroPorClic;
-            economy.dineroPorSeg = data.dineroPorSeg;
-            economy.nivelesCompras = data.nivelesCompras;
-
-            // Cargar Mejoras
-            if (data.mejorasCompradas != null && data.mejorasCompradas.Length == mejoras.listaMejoras.Length)
+            // Cargar Economía (Solo si estamos en la escena del juego)
+            if (economy != null && mejoras != null)
             {
-                for (int i = 0; i < mejoras.listaMejoras.Length; i++)
+                economy.dineroActual = datosCargados.dineroActual;
+                economy.dineroTotal = datosCargados.dineroTotal;
+                economy.dineroPorClic = datosCargados.dineroPorClic;
+                economy.dineroPorSeg = datosCargados.dineroPorSeg;
+                economy.nivelesCompras = datosCargados.nivelesCompras;
+
+                if (datosCargados.mejorasCompradas != null && datosCargados.mejorasCompradas.Length == mejoras.listaMejoras.Length)
                 {
-                    mejoras.listaMejoras[i].comprada = data.mejorasCompradas[i];
-                    if (data.mejorasCompradas[i] == true && mejoras.listaMejoras[i].botonAsociado != null)
+                    for (int i = 0; i < mejoras.listaMejoras.Length; i++)
                     {
-                        mejoras.listaMejoras[i].botonAsociado.SetActive(false);
+                        mejoras.listaMejoras[i].comprada = datosCargados.mejorasCompradas[i];
+                        if (datosCargados.mejorasCompradas[i] == true && mejoras.listaMejoras[i].botonAsociado != null)
+                        {
+                            mejoras.listaMejoras[i].botonAsociado.SetActive(false);
+                        }
                     }
                 }
+                if (economy.ui != null) economy.ui.ActualizarInterfaz();
             }
-
-            if (economy.ui != null) economy.ui.ActualizarInterfaz();
             
             Debug.Log("¡Partida cargada perfectamente desde " + slot + "!");
+            
+            // Si hay un gestor del árbol en la escena, le decimos que se actualice
+            ArbolManager arbol = FindObjectOfType<ArbolManager>();
+            if (arbol != null) arbol.ActualizarTodoElArbol();
         }
         else
         {
