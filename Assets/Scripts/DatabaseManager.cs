@@ -42,7 +42,27 @@ public class DatabaseManager : MonoBehaviour
     // --- FUNCIÓN PARA GUARDAR ---
     public async void GuardarPartidaEnNube()
     {
-        if (userId == null) return;
+        if (userId == null)
+        {
+            Debug.LogWarning("DatabaseManager: no hay usuario activo para guardar la partida.");
+            return;
+        }
+
+        if (dbReference == null)
+        {
+            dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+            if (dbReference == null)
+            {
+                Debug.LogError("DatabaseManager: dbReference no se pudo inicializar.");
+                return;
+            }
+        }
+
+        if (economy == null || mejoras == null)
+        {
+            Debug.LogError("DatabaseManager: economy o mejoras no están asignados.");
+            return;
+        }
 
         string slot = PartidaActual.SlotSeleccionado;
         if (string.IsNullOrEmpty(slot)) slot = "slot1";

@@ -21,8 +21,16 @@ public class MainMenuManager : MonoBehaviour
 
     public void CargarPartida()
     {
-        // Por ahora solo carga la escena. Más adelante, el GameManager 
-        // leerá los datos guardados al entrar a la escena.
+        // Mostrar el selector de slots en el menú principal si existe.
+        GestorSlots gestor = FindObjectOfType<GestorSlots>();
+        if (gestor != null)
+        {
+            Debug.Log("Mostrando selector de slots...");
+            gestor.InicializarSelector();
+            return;
+        }
+
+        // Si no existe selector, mantenemos el comportamiento antiguo.
         Debug.Log("Cargando partida guardada...");
         SceneManager.LoadScene(nombreEscenaJuego);
     }
