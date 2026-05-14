@@ -349,7 +349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &219125507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1517b5f401736f245a678990295daedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: sk_14ea14b96c7de6204fbddaa28719ac73c0cd7eaf2c26ec18
+  apiKey: sk_3458b0be2294cb8c2102e07f5868c3e8b90b4ad2c5613706
   voiceId: pFZP5JQG7iQjIQuC4Bku
   altavozIA: {fileID: 219125508}
   panelSubtitulos: {fileID: 1579157208}
