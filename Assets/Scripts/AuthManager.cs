@@ -20,6 +20,9 @@ public class AuthManager : MonoBehaviour
     private FirebaseAuth auth;
     public FirebaseUser UserActual; // Aquí guardaremos quién está jugando
 
+    // Nombre de usuario para referencia en el juego
+    public static string NombreUsuario;
+
     void Awake() 
     {
         Instance = this;
@@ -59,17 +62,10 @@ public class AuthManager : MonoBehaviour
             AuthResult resultado = await auth.CreateUserWithEmailAndPasswordAsync(inputEmail.text, inputPassword.text);
             UserActual = resultado.User;
 
-            PlayerData datosIniciales = new PlayerData();
-            datosIniciales.nombreUsuario = inputUsername.text;
-            datosIniciales.dineroActual = 0;
-            datosIniciales.dineroPorClic = 1;
-            datosIniciales.dineroPorSeg = 0;
-            datosIniciales.dineroTotal = 0;
-            datosIniciales.nivelesCompras = new int[15];
-
-            string json = JsonUtility.ToJson(datosIniciales);
+            // Guardamos el nombre de usuario para referencia
+            NombreUsuario = inputUsername.text;
             await Firebase.Database.FirebaseDatabase.DefaultInstance.RootReference.
-                Child("usuarios").Child(UserActual.UserId).SetRawJsonValueAsync(json);
+                Child("usuarios").Child(UserActual.UserId).Child("nombreUsuario").SetValueAsync(NombreUsuario);
 
             textoFeedback.text = "¡Bienvenido, Comandante " + inputUsername.text + "!";
 
@@ -100,6 +96,12 @@ public class AuthManager : MonoBehaviour
             // Esperamos a que Google valide la cuenta
             AuthResult resultado = await auth.SignInWithEmailAndPasswordAsync(inputEmail.text, inputPassword.text);
             UserActual = resultado.User;
+
+            // Leemos el nombre de usuario desde Firebase
+            var snapshot = await Firebase.Database.FirebaseDatabase.DefaultInstance.RootReference.
+                Child("usuarios").Child(UserActual.UserId).Child("nombreUsuario").GetValueAsync();
+            NombreUsuario = snapshot.Exists ? snapshot.Value.ToString() : "Comandante Desconocido";
+
             textoFeedback.text = "¡Sesión iniciada correctamente!";
             EmpezarJuego();
         }

@@ -34,26 +34,10 @@ public class RankingManager : MonoBehaviour
 
             foreach (var usuario in snapshot.Children)
             {
-                string userId = usuario.Key;
-
-                // Usamos slot1 (puedo adaptarlo si usas otro)
-                var slot = usuario.Child("slots").Child("slot1");
-
-                if (!slot.Exists) continue;
-
-                var datos = slot.Child("datos");
-                if (!datos.Exists) continue;
-
-                double total = 0;
-                if (datos.HasChild("dineroTotal"))
-                    total = double.Parse(datos.Child("dineroTotal").Value.ToString());
-
-                string nombre = "Sin Nombre";
-                if (datos.HasChild("nombreUsuario"))
-                    nombre = datos.Child("nombreUsuario").Value.ToString();
-
-
-                lista.Add(new UsuarioRanking(nombre, total));
+                if (SlotRankingHelper.TryGetMejorSlotRanking(usuario, out UsuarioRanking ranking))
+                {
+                    lista.Add(ranking);
+                }
             }
 
             // Ordenar por dineroTotal descendente

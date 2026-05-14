@@ -40,7 +40,7 @@ public class DatabaseManager : MonoBehaviour
     }
 
     // --- FUNCIÓN PARA GUARDAR ---
-    public void GuardarPartidaEnNube()
+    public async void GuardarPartidaEnNube()
     {
         if (userId == null) return;
 
@@ -48,6 +48,7 @@ public class DatabaseManager : MonoBehaviour
         if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
         PlayerData data = new PlayerData();
+        data.nombreUsuario = AuthManager.NombreUsuario; // Usamos el nombre de usuario de AuthManager
         data.dineroActual = economy.dineroActual;
         data.dineroTotal = economy.dineroTotal;
         data.dineroPorClic = economy.dineroPorClic;
@@ -64,7 +65,7 @@ public class DatabaseManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
         
         // CAMBIO VITAL: Ahora la ruta incluye "slots" y la variable de tu slot actual, y lo mete en "datos"
-        dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").SetRawJsonValueAsync(json);
+        await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").SetRawJsonValueAsync(json);
         
         Debug.Log("¡Partida y Mejoras guardadas automáticamente en " + slot + "!");
     }
