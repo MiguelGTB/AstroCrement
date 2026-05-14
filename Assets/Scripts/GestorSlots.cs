@@ -72,22 +72,35 @@ public class GestorSlots : MonoBehaviour
 
     // --- FUNCIONES PARA LOS BOTONES ---
 
-    public void CrearPartida(int num)
+    public async void CrearPartida(int num)
     {
-        string nombre = "";
-        if (num == 1) nombre = inputS1.text;
-        if (num == 2) nombre = inputS2.text;
-        if (num == 3) nombre = inputS3.text;
+        // Leemos el nombre de usuario registrado desde Firebase
+        DataSnapshot snapshot = await dbReference.Child("usuarios").Child(userId).Child("nombreUsuario").GetValueAsync();
+        string nombreUsuario = snapshot.Exists ? snapshot.Value.ToString() : "Comandante";
 
-        if (string.IsNullOrEmpty(nombre)) nombre = "Comandante " + num;
+        // Determinamos el nombre del slot: usamos el input si tiene texto, sino generamos uno único
+        string nombreSlot = "";
+        TMP_InputField input = null;
+        if (num == 1) input = inputS1;
+        else if (num == 2) input = inputS2;
+        else if (num == 3) input = inputS3;
 
-        // 1. Guardamos el nombre en Firebase
-        dbReference.Child("usuarios").Child(userId).Child("slots").Child("slot" + num).Child("nombre").SetValueAsync(nombre);
+        if (input != null && !string.IsNullOrEmpty(input.text))
+        {
+            nombreSlot = input.text;
+        }
+        else
+        {
+            nombreSlot = nombreUsuario + " - Slot " + num;
+        }
+
+        // Guardamos el nombre del slot y el nombre de usuario en Firebase
+        await dbReference.Child("usuarios").Child(userId).Child("slots").Child("slot" + num).Child("nombre").SetValueAsync(nombreSlot);
         
-        // 2. Apuntamos en nuestro "Puente" en qué slot estamos jugando
+        // Apuntamos en nuestro "Puente" en qué slot estamos jugando
         PartidaActual.SlotSeleccionado = "slot" + num;
 
-        // 3. ¡Nos vamos directos al Cómic!
+        // ¡Nos vamos directos al Cómic!
         SceneManager.LoadScene(escenaNuevaPartida);
     }
 
