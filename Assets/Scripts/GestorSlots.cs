@@ -33,13 +33,25 @@ public class GestorSlots : MonoBehaviour
     public void InicializarSelector()
     {
         FirebaseUser user = FirebaseAuth.DefaultInstance.CurrentUser;
+        userId = user != null ? user.UserId : null;
+        dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+
+        if (panelSelectorPartidas != null)
+        {
+            panelSelectorPartidas.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Panel_SelectorPartidas no está asignado en GestorSlots.");
+        }
+
         if (user != null)
         {
-            userId = user.UserId;
-            dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-            panelSelectorPartidas.SetActive(true);
             ActualizarTodosLosSlots();
+            return;
         }
+
+        Debug.LogWarning("No hay usuario Firebase activo. Se muestra el panel de selección sin cargar slots.");
     }
 
     public void ActualizarTodosLosSlots()
@@ -111,6 +123,19 @@ public class GestorSlots : MonoBehaviour
         
         // ¡Nos vamos directos al selector de niveles (o al nivel que quieras)!
         SceneManager.LoadScene(escenaCargarPartida);
+    }
+
+    public void VolverAlMenuPrincipal()
+    {
+        if (panelSelectorPartidas != null)
+        {
+            Debug.Log("Cerrando Panel_SelectorPartidas y regresando al menú principal.");
+            panelSelectorPartidas.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("GestorSlots: panelSelectorPartidas no está asignado.");
+        }
     }
 
     public void Borrar(int num)
