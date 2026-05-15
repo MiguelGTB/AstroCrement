@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; // ¡Vital para cambiar de pantalla!
+using Firebase.Auth;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -22,17 +23,37 @@ public class MainMenuManager : MonoBehaviour
     public void CargarPartida()
     {
         // Mostrar el selector de slots en el menú principal si existe.
-        GestorSlots gestor = FindObjectOfType<GestorSlots>();
+        GestorSlots gestor = null;
+        GestorSlots[] gestores = Resources.FindObjectsOfTypeAll<GestorSlots>();
+        if (gestores.Length > 0)
+        {
+            gestor = gestores[0];
+        }
+
         if (gestor != null)
         {
-            Debug.Log("Mostrando selector de slots...");
+            Debug.Log("Abriendo Panel_SelectorPartidas...");
             gestor.InicializarSelector();
             return;
         }
 
         // Si no existe selector, mantenemos el comportamiento antiguo.
-        Debug.Log("Cargando partida guardada...");
+        Debug.LogWarning("No se encontró GestorSlots en la escena. Cargando juego directo...");
         SceneManager.LoadScene(nombreEscenaJuego);
+    }
+
+    public void CerrarSesion()
+    {
+        if (FirebaseAuth.DefaultInstance != null)
+        {
+            FirebaseAuth.DefaultInstance.SignOut();
+            Debug.Log("Sesión cerrada correctamente.");
+        }
+        else
+        {
+            Debug.LogWarning("FirebaseAuth no está inicializado al cerrar sesión.");
+        }
+        SceneManager.LoadScene("MenuLogin");
     }
 
     public void RankingGlobal()
