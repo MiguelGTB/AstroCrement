@@ -23,12 +23,9 @@ public class MainMenuManager : MonoBehaviour
     public void CargarPartida()
     {
         // Mostrar el selector de slots en el menú principal si existe.
-        GestorSlots gestor = null;
-        GestorSlots[] gestores = Resources.FindObjectsOfTypeAll<GestorSlots>();
-        if (gestores.Length > 0)
-        {
-            gestor = gestores[0];
-        }
+        GestorSlots gestor = Resources.FindObjectsOfTypeAll<GestorSlots>().Length > 0 
+            ? Resources.FindObjectsOfTypeAll<GestorSlots>()[0] 
+            : null;
 
         if (gestor != null)
         {
