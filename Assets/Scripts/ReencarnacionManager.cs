@@ -19,11 +19,23 @@ public class ReencarnacionManager : MonoBehaviour
     void Update()
     {
         double dineroQueTienesAhora = 0;
-        if (DatabaseManager.Instance != null && DatabaseManager.Instance.economy != null)
+
+        // --- EL ARREGLO ESTÁ AQUÍ ---
+        if (DatabaseManager.Instance != null)
         {
-            dineroQueTienesAhora = DatabaseManager.Instance.economy.dineroActual;
+            // 1. Si estamos en la Luna, leemos el dinero de la pantalla en vivo
+            if (DatabaseManager.Instance.economy != null)
+            {
+                dineroQueTienesAhora = DatabaseManager.Instance.economy.dineroActual;
+            }
+            // 2. Si estamos en una escena separada (como esta), leemos de la memoria inmortal
+            else if (DatabaseManager.Instance.datosCargados != null)
+            {
+                dineroQueTienesAhora = DatabaseManager.Instance.datosCargados.dineroActual;
+            }
         }
 
+        // Comprobamos si superas la barrera
         if (dineroQueTienesAhora >= requisitoMinimoPeSeg)
         {
             monedasDePrestigioGanadas = Mathf.FloorToInt((float)dineroQueTienesAhora * 0.10f);
@@ -57,12 +69,16 @@ public class ReencarnacionManager : MonoBehaviour
             Debug.Log("-----> 3. DATOS CARGADOS. Empezando a resetear niveles...");
             PlayerData datosActuales = DatabaseManager.Instance.datosCargados;
 
+            // Damos el premio
             datosActuales.monedasPrestigio += monedasDePrestigioGanadas;
+            
+            // Reseteamos el dinero
             datosActuales.dineroActual = 0;
             datosActuales.dineroTotal = 0; 
             datosActuales.dineroPorClic = 1; 
             datosActuales.dineroPorSeg = 0;
 
+            // Reseteamos los niveles
             if (datosActuales.nivelesCompras != null) 
             {
                 for (int i = 0; i < datosActuales.nivelesCompras.Length; i++) 
@@ -71,6 +87,7 @@ public class ReencarnacionManager : MonoBehaviour
                 }
             }
 
+            // Reseteamos las mejoras
             if (datosActuales.mejorasCompradas != null) 
             {
                 for (int i = 0; i < datosActuales.mejorasCompradas.Length; i++) 
@@ -81,7 +98,7 @@ public class ReencarnacionManager : MonoBehaviour
 
             Debug.Log("-----> 4. RESETEO TERMINADO. Guardando en nube y viajando...");
             
-            // ---> ORDENAMOS A LA BASE DE DATOS QUE ACTIVE EL MODO PRESTIGIO <---
+            // Activamos el escudo para no perder el reseteo
             DatabaseManager.Instance.enModoPrestigio = true; 
             DatabaseManager.Instance.GuardarPartidaEnNube();
             
@@ -90,7 +107,7 @@ public class ReencarnacionManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("-----> X. EL CÓDIGO SE PARA AQUÍ PORQUE TUS MONEDAS GANADAS SON 0.");
+            Debug.LogWarning("-----> X. EL CÓDIGO SE PARA. ¡El juego detecta 0 monedas ganadas!");
         }
     }
 }

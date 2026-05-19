@@ -14018,6 +14018,7 @@ MonoBehaviour:
     mejorasPrestigioCompradas: []
   economy: {fileID: 1926474140}
   mejoras: {fileID: 1926474145}
+  enModoPrestigio: 0
 --- !u!4 &1048310284
 Transform:
   m_ObjectHideFlags: 0
