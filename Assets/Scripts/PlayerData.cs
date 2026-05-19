@@ -6,7 +6,7 @@ public class PlayerData
     // --- DATOS NORMALES (Los que se pondrán a CERO al reencarnar) ---
     public string nombreUsuario;
     public double dineroActual;
-    public double dineroPorClic;
+    public double dineroPorClic = 1;
     public double dineroPorSeg;
     public double dineroTotal;
     public int[] nivelesCompras;

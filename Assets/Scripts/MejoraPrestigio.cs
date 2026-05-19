@@ -34,17 +34,21 @@ public class MejoraPrestigio : MonoBehaviour, IPointerEnterHandler, IPointerExit
     // Este método se llama cuando pulsas el botón en el juego
     public void IntentarComprar()
     {
-        // AHORA SÍ usa tu DatabaseManager
         PlayerData datos = DatabaseManager.Instance.datosCargados;
+
+        // --- CERROJO EXTRA: Si el script o la lista dicen que ya está comprada, abortamos inmediatamente ---
+        if (comprada || datos.mejorasPrestigioCompradas.Contains(idMejora))
+        {
+            comprada = true; // Forzamos por seguridad
+            return;
+        }
+        // -------------------------------------------------------------------------------------------------
 
         if (!comprada && desbloqueada && datos.monedasPrestigio >= precio)
         {
             datos.monedasPrestigio -= precio;
             datos.mejorasPrestigioCompradas.Add(idMejora);
             comprada = true;
-
-            
-            // Refrescamos todo el árbol visualmente
             GameObject.FindObjectOfType<ArbolManager>().ActualizarTodoElArbol();
         }
     }

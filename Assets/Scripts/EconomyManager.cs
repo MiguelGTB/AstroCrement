@@ -12,6 +12,16 @@ public class EconomyManager : MonoBehaviour
     public UIManager ui;
     private float temporizador = 0f;
 
+    void Start()
+    {
+        // --- NUEVO: RECONECTAMOS LA BASE DE DATOS INMORTAL A ESTA NUEVA LUNA ---
+        if (DatabaseManager.Instance != null)
+        {
+            MejorasManager mm = FindObjectOfType<MejorasManager>(); 
+            DatabaseManager.Instance.ReconectarEscenaActual(this, mm);
+        }
+    }
+
     public void SumarClick()
     {
         AnadirDinero(dineroPorClic);
@@ -59,6 +69,5 @@ public class EconomyManager : MonoBehaviour
         {
             LogrosManager.instance.RefrescarLogros();
         }
-
     }
 }
