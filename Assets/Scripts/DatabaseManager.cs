@@ -19,11 +19,10 @@ public class DatabaseManager : MonoBehaviour
 
     void Awake()
     {
-        // Configuramos la puerta de acceso y lo hacemos INMORTAL
+        // Configuramos la puerta de acceso (Singleton)
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // <--- ESTA ES LA LÍNEA MÁGICA
         }
         else
         {

@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 
-public class MejoraPrestigio : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MejoraPrestigio : MonoBehaviour
 {
     [Header("Configuración de la Mejora")]
     public string idMejora;      // ID único (ej: "mas_click_1")
@@ -20,10 +19,6 @@ public class MejoraPrestigio : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     private Button boton;
     private Image imagenFondo;
-
-    [Header("Datos para el Tooltip")]
-    public string nombreDeLaMejora;
-    [TextArea] public string descripcionDeLaMejora;
 
     void Awake()
     {
@@ -43,6 +38,8 @@ public class MejoraPrestigio : MonoBehaviour, IPointerEnterHandler, IPointerExit
             datos.mejorasPrestigioCompradas.Add(idMejora);
             comprada = true;
 
+            // Guardamos en tu Firebase inmediatamente usando tu función
+            DatabaseManager.Instance.GuardarPartidaEnNube();
             
             // Refrescamos todo el árbol visualmente
             GameObject.FindObjectOfType<ArbolManager>().ActualizarTodoElArbol();
@@ -73,24 +70,5 @@ public class MejoraPrestigio : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
 
         if(boton != null) boton.interactable = desbloqueada && !comprada;
-    }
-
-    // Cuando el ratón ENTRA al botón
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (TooltipManager.Instance != null)
-        {
-            // Le pasamos (int)precio para convertir el double en un número entero sin decimales
-            TooltipManager.Instance.Mostrar(nombreDeLaMejora, descripcionDeLaMejora, (int)precio);        
-        }
-    }
-
-    // Cuando el ratón SALE del botón
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (TooltipManager.Instance != null)
-        {
-            TooltipManager.Instance.Ocultar();
-        }
     }
 }
