@@ -20,22 +20,14 @@ public class ReencarnacionManager : MonoBehaviour
     {
         double dineroQueTienesAhora = 0;
 
-        // --- EL ARREGLO ESTÁ AQUÍ ---
         if (DatabaseManager.Instance != null)
         {
-            // 1. Si estamos en la Luna, leemos el dinero de la pantalla en vivo
             if (DatabaseManager.Instance.economy != null)
-            {
                 dineroQueTienesAhora = DatabaseManager.Instance.economy.dineroActual;
-            }
-            // 2. Si estamos en una escena separada (como esta), leemos de la memoria inmortal
             else if (DatabaseManager.Instance.datosCargados != null)
-            {
-                dineroQueTienesAhora = DatabaseManager.Instance.datosCargados.dineroActual;
-            }
+                dineroQueTienesAhora = DatabaseManager.Instance.ObtenerDatosPlanetaActual().dineroActual;
         }
 
-        // Comprobamos si superas la barrera
         if (dineroQueTienesAhora >= requisitoMinimoPeSeg)
         {
             monedasDePrestigioGanadas = Mathf.FloorToInt((float)dineroQueTienesAhora * 0.10f);
@@ -46,7 +38,6 @@ public class ReencarnacionManager : MonoBehaviour
         else
         {
             monedasDePrestigioGanadas = 0;
-            
             if (botonReencarnacion != null) botonReencarnacion.interactable = false;
             if (iconoCandado != null) iconoCandado.SetActive(true); 
         }
@@ -54,60 +45,54 @@ public class ReencarnacionManager : MonoBehaviour
 
     public void EjecutarReencarnacion()
     {
-        Debug.Log("-----> 1. EL BOTÓN FUNCIONA Y HA ENTRADO AL CÓDIGO");
-
         if (monedasDePrestigioGanadas > 0)
         {
-            Debug.Log("-----> 2. TIENES SUFICIENTES MONEDAS: " + monedasDePrestigioGanadas);
+            if (DatabaseManager.Instance == null || DatabaseManager.Instance.datosCargados == null) return; 
 
-            if (DatabaseManager.Instance == null || DatabaseManager.Instance.datosCargados == null)
-            {
-                Debug.LogError("-----> ERROR CRÍTICO: La base de datos no está cargada.");
-                return; 
-            }
+            PlayerData datosGlobales = DatabaseManager.Instance.datosCargados;
+            DatosPlaneta planetaActual = DatabaseManager.Instance.ObtenerDatosPlanetaActual(); // Solo reiniciamos este
 
-            Debug.Log("-----> 3. DATOS CARGADOS. Empezando a resetear niveles...");
-            PlayerData datosActuales = DatabaseManager.Instance.datosCargados;
-
-            // Damos el premio
-            datosActuales.monedasPrestigio += monedasDePrestigioGanadas;
+            // 1. Damos la recompensa global a la cuenta
+            datosGlobales.monedasPrestigio += monedasDePrestigioGanadas;
             
-            // Reseteamos el dinero
-            datosActuales.dineroActual = 0;
-            datosActuales.dineroTotal = 0; 
-            datosActuales.dineroPorClic = 1; 
-            datosActuales.dineroPorSeg = 0;
+            // 2. Reseteamos SOLO la economía del planeta actual
+            planetaActual.dineroActual = 0;
+            planetaActual.dineroTotal = 0; 
+            planetaActual.dineroPorClic = 1; 
+            planetaActual.dineroPorSeg = 0;
 
-            // Reseteamos los niveles
-            if (datosActuales.nivelesCompras != null) 
+            if (planetaActual.nivelesCompras != null) 
             {
-                for (int i = 0; i < datosActuales.nivelesCompras.Length; i++) 
-                {
-                    datosActuales.nivelesCompras[i] = 0;
-                }
+                for (int i = 0; i < planetaActual.nivelesCompras.Length; i++) 
+                    planetaActual.nivelesCompras[i] = 0;
             }
 
-            // Reseteamos las mejoras
-            if (datosActuales.mejorasCompradas != null) 
+            if (planetaActual.mejorasCompradas != null) 
             {
-                for (int i = 0; i < datosActuales.mejorasCompradas.Length; i++) 
-                {
-                    datosActuales.mejorasCompradas[i] = false;
-                }
+                for (int i = 0; i < planetaActual.mejorasCompradas.Length; i++) 
+                    planetaActual.mejorasCompradas[i] = false;
             }
 
-            Debug.Log("-----> 4. RESETEO TERMINADO. Guardando en nube y viajando...");
-            
-            // Activamos el escudo para no perder el reseteo
+            // 3. Logica de Desbloqueo del siguiente planeta
+            int indicePlanetaActual = 0;
+            if (PartidaActual.MundoActual == "Luna") indicePlanetaActual = 0;
+            else if (PartidaActual.MundoActual == "Marte") indicePlanetaActual = 1;
+            else if (PartidaActual.MundoActual == "Europa") indicePlanetaActual = 2;
+            else if (PartidaActual.MundoActual == "Titan") indicePlanetaActual = 3;
+            else if (PartidaActual.MundoActual == "Kepler") indicePlanetaActual = 4;
+            else if (PartidaActual.MundoActual == "Dyson") indicePlanetaActual = 5;
+            else if (PartidaActual.MundoActual == "Colapso") indicePlanetaActual = 6;
+
+            if (datosGlobales.planetasDesbloqueados == indicePlanetaActual)
+            {
+                datosGlobales.planetasDesbloqueados++;
+                Debug.Log("¡Planeta " + datosGlobales.planetasDesbloqueados + " Desbloqueado!");
+            }
+
+            // 4. Guardamos y viajamos
             DatabaseManager.Instance.enModoPrestigio = true; 
             DatabaseManager.Instance.GuardarPartidaEnNube();
-            
-            Debug.Log("-----> 5. VIAJANDO A LA ESCENA:");
             SceneManager.LoadScene("ArbolPrestigio"); 
-        }
-        else
-        {
-            Debug.LogWarning("-----> X. EL CÓDIGO SE PARA. ¡El juego detecta 0 monedas ganadas!");
         }
     }
 }

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4135052641319303087}
   - component: {fileID: 5532026052575839327}
   - component: {fileID: 3166063182664768174}
-  - component: {fileID: 5344309366358587307}
   - component: {fileID: 913706761156141092}
   m_Layer: 0
   m_Name: Planeta_Luna
@@ -122,21 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidadRotacion: 15
---- !u!114 &5344309366358587307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2351698879947872052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5292f0db43ba74744965422e980246c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  economy: {fileID: 0}
-  rebote: {fileID: 913706761156141092}
-  ui: {fileID: 0}
 --- !u!114 &913706761156141092
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TMPro;
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -20,8 +21,24 @@ public class DatabaseManager : MonoBehaviour
     private float tiempoParaGuardar = 60f;
     private float cronometro = 0f;
 
-    // ---> ESTA ES LA VARIABLE QUE FALTABA <---
     [HideInInspector] public bool enModoPrestigio = false;
+
+    // --- EL CEREBRO DE ENRUTAMIENTO ---
+    public DatosPlaneta ObtenerDatosPlanetaActual()
+    {
+        if (datosCargados == null) return null;
+
+        if (PartidaActual.MundoActual == "Luna") return datosCargados.progresoLuna;
+        if (PartidaActual.MundoActual == "Marte") return datosCargados.progresoMarte;
+        if (PartidaActual.MundoActual == "Europa") return datosCargados.progresoEuropa;
+        if (PartidaActual.MundoActual == "Titan") return datosCargados.progresoTitan;
+        if (PartidaActual.MundoActual == "Kepler") return datosCargados.progresoKepler;
+        if (PartidaActual.MundoActual == "Dyson") return datosCargados.progresoDyson;
+        if (PartidaActual.MundoActual == "Colapso") return datosCargados.progresoColapso;
+
+        return datosCargados.progresoLuna; 
+    }
+    // ----------------------------------
 
     void Awake()
     {
@@ -40,7 +57,6 @@ public class DatabaseManager : MonoBehaviour
     void Start()
     {
         FirebaseUser user = FirebaseAuth.DefaultInstance.CurrentUser;
-        
         if (user != null) 
         {
             userId = user.UserId;
@@ -49,20 +65,48 @@ public class DatabaseManager : MonoBehaviour
             string slot = PartidaActual.SlotSeleccionado;
             if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
-            Debug.Log("Jugador detectado: " + userId + " | Slot activo: " + slot);
-
             CargarPartidaDeNube();
         } 
-        else 
-        {
-            Debug.LogError("Error: Nadie ha iniciado sesión.");
-        }
     }
 
     void Update()
     {
-        if (economy != null && mejoras != null)
+        if (SceneManager.GetActiveScene().name == "MenuPrincipal")
         {
+            Destroy(gameObject);
+            return;
+        }
+
+        DatosPlaneta planeta = ObtenerDatosPlanetaActual(); // Averiguamos de qué planeta sacar los datos
+
+        if (economy != null && mejoras != null && planeta != null)
+        {
+            if (!enModoPrestigio)
+            {
+                planeta.dineroActual = economy.dineroActual;
+                planeta.dineroTotal = economy.dineroTotal;
+                planeta.dineroPorClic = economy.dineroPorClic;
+                planeta.dineroPorSeg = economy.dineroPorSeg;
+
+                if (economy.nivelesCompras != null)
+                {
+                    if (planeta.nivelesCompras == null || planeta.nivelesCompras.Length != economy.nivelesCompras.Length)
+                        planeta.nivelesCompras = new int[economy.nivelesCompras.Length];
+                        
+                    for (int i = 0; i < economy.nivelesCompras.Length; i++)
+                        planeta.nivelesCompras[i] = economy.nivelesCompras[i];
+                }
+
+                if (mejoras.listaMejoras != null)
+                {
+                    if (planeta.mejorasCompradas == null || planeta.mejorasCompradas.Length != mejoras.listaMejoras.Length)
+                        planeta.mejorasCompradas = new bool[mejoras.listaMejoras.Length];
+
+                    for (int i = 0; i < mejoras.listaMejoras.Length; i++)
+                        planeta.mejorasCompradas[i] = mejoras.listaMejoras[i].comprada;
+                }
+            }
+
             cronometro += Time.deltaTime;
             if (cronometro >= tiempoParaGuardar)
             {
@@ -74,45 +118,41 @@ public class DatabaseManager : MonoBehaviour
 
     public void ReconectarEscenaActual(EconomyManager nuevaEconomia, MejorasManager nuevasMejoras)
     {
-        // ---> APAGAMOS EL MODO PRESTIGIO AL VOLVER AL JUEGO <---
         enModoPrestigio = false; 
 
         economy = nuevaEconomia;
         mejoras = nuevasMejoras;
-        Debug.Log("DatabaseManager: Cables reconectados con éxito a la nueva escena.");
         
-        if (economy != null && datosCargados != null)
-        {
-            if (datosCargados.dineroPorClic <= 0) datosCargados.dineroPorClic = 1;
+        DatosPlaneta planeta = ObtenerDatosPlanetaActual();
 
-            economy.dineroActual = datosCargados.dineroActual;
-            economy.dineroTotal = datosCargados.dineroTotal;
-            economy.dineroPorClic = datosCargados.dineroPorClic;
-            economy.dineroPorSeg = datosCargados.dineroPorSeg;
+        if (economy != null && planeta != null)
+        {
+            if (planeta.dineroPorClic <= 0) planeta.dineroPorClic = 1;
+
+            economy.dineroActual = planeta.dineroActual;
+            economy.dineroTotal = planeta.dineroTotal;
+            economy.dineroPorClic = planeta.dineroPorClic;
+            economy.dineroPorSeg = planeta.dineroPorSeg;
             
-            if (datosCargados.nivelesCompras != null && economy.nivelesCompras != null)
+            if (planeta.nivelesCompras != null && economy.nivelesCompras != null)
             {
-                int limite = Mathf.Min(datosCargados.nivelesCompras.Length, economy.nivelesCompras.Length);
+                int limite = Mathf.Min(planeta.nivelesCompras.Length, economy.nivelesCompras.Length);
                 for (int i = 0; i < limite; i++)
-                {
-                    economy.nivelesCompras[i] = datosCargados.nivelesCompras[i];
-                }
+                    economy.nivelesCompras[i] = planeta.nivelesCompras[i];
             }
 
-            if (mejoras != null && datosCargados.mejorasCompradas != null && mejoras.listaMejoras != null)
+            if (mejoras != null && planeta.mejorasCompradas != null && mejoras.listaMejoras != null)
             {
-                int limiteMej = Mathf.Min(datosCargados.mejorasCompradas.Length, mejoras.listaMejoras.Length);
+                int limiteMej = Mathf.Min(planeta.mejorasCompradas.Length, mejoras.listaMejoras.Length);
                 for (int i = 0; i < limiteMej; i++)
                 {
-                    mejoras.listaMejoras[i].comprada = datosCargados.mejorasCompradas[i];
-                    
-                    if (datosCargados.mejorasCompradas[i] == true && mejoras.listaMejoras[i].botonAsociado != null)
+                    mejoras.listaMejoras[i].comprada = planeta.mejorasCompradas[i];
+                    if (planeta.mejorasCompradas[i] == true && mejoras.listaMejoras[i].botonAsociado != null)
                     {
                         mejoras.listaMejoras[i].botonAsociado.SetActive(false);
                     }
                 }
             }
-            
             if (economy.ui != null) economy.ui.ActualizarInterfaz();
         }
     }
@@ -120,46 +160,30 @@ public class DatabaseManager : MonoBehaviour
     public async void GuardarPartidaEnNube()
     {
         if (userId == null || dbReference == null) return;
-
         string slot = PartidaActual.SlotSeleccionado;
         if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
-        // ---> BLOQUEAMOS EL GUARDADO SI ESTAMOS REENCARNANDO <---
-        if (!enModoPrestigio && economy != null && mejoras != null && economy.gameObject != null)
-        {
-            datosCargados.nombreUsuario = AuthManager.NombreUsuario;
-            datosCargados.dineroActual = economy.dineroActual;
-            datosCargados.dineroTotal = economy.dineroTotal;
-            datosCargados.dineroPorClic = economy.dineroPorClic;
-            datosCargados.dineroPorSeg = economy.dineroPorSeg;
-            
-            if (economy.nivelesCompras != null)
-            {
-                datosCargados.nivelesCompras = new int[economy.nivelesCompras.Length];
-                for (int i = 0; i < economy.nivelesCompras.Length; i++)
-                    datosCargados.nivelesCompras[i] = economy.nivelesCompras[i];
-            }
-
-            if (mejoras.listaMejoras != null)
-            {
-                datosCargados.mejorasCompradas = new bool[mejoras.listaMejoras.Length];
-                for (int i = 0; i < mejoras.listaMejoras.Length; i++)
-                {
-                    datosCargados.mejorasCompradas[i] = mejoras.listaMejoras[i].comprada;
-                }
-            }
-        }
+        datosCargados.nombreUsuario = AuthManager.NombreUsuario;
 
         try
         {
             string json = JsonUtility.ToJson(datosCargados); 
             await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").SetRawJsonValueAsync(json);
-            Debug.Log("¡Partida guardada de forma segura en " + slot + "!");
+            
+            if (datosCargados.mejorasPrestigioCompradas != null && datosCargados.mejorasPrestigioCompradas.Count > 0)
+            {
+                Dictionary<string, object> dictPrestigio = new Dictionary<string, object>();
+                for(int i = 0; i < datosCargados.mejorasPrestigioCompradas.Count; i++)
+                    dictPrestigio[i.ToString()] = datosCargados.mejorasPrestigioCompradas[i];
+                
+                await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").Child("mejorasPrestigioCompradas").SetValueAsync(dictPrestigio);
+            }
+            else
+            {
+                await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").Child("mejorasPrestigioCompradas").RemoveValueAsync();
+            }
         }
-        catch (Exception e)
-        {
-            Debug.LogWarning("Guardado en la nube omitido o fallido: " + e.Message);
-        }
+        catch (Exception e) {}
     }
 
     private void OnApplicationQuit() { GuardarPartidaEnNube(); }
@@ -168,7 +192,6 @@ public class DatabaseManager : MonoBehaviour
     public async void CargarPartidaDeNube()
     {
         if (userId == null) return;
-
         string slot = PartidaActual.SlotSeleccionado;
         if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
@@ -179,60 +202,53 @@ public class DatabaseManager : MonoBehaviour
             string json = snapshot.GetRawJsonValue();
             datosCargados = JsonUtility.FromJson<PlayerData>(json);
 
-            if (datosCargados.dineroPorClic <= 0)
-            {
-                datosCargados.dineroPorClic = 1;
-            }
+            // Seguros por si la partida viene nula de internet
+            if (datosCargados.progresoLuna == null) datosCargados.progresoLuna = new DatosPlaneta();
+            if (datosCargados.progresoMarte == null) datosCargados.progresoMarte = new DatosPlaneta();
+            if (datosCargados.progresoEuropa == null) datosCargados.progresoEuropa = new DatosPlaneta();
+
+            if (datosCargados.progresoLuna.dineroPorClic <= 0) datosCargados.progresoLuna.dineroPorClic = 1;
+            if (datosCargados.progresoMarte.dineroPorClic <= 0) datosCargados.progresoMarte.dineroPorClic = 1;
 
             datosCargados.mejorasPrestigioCompradas = new List<string>();
             DataSnapshot snapPrestigio = snapshot.Child("mejorasPrestigioCompradas");
             if (snapPrestigio.Exists)
             {
                 foreach (var child in snapPrestigio.Children)
-                {
                     datosCargados.mejorasPrestigioCompradas.Add(child.Value.ToString());
-                }
             }
 
-            if (economy != null && mejoras != null)
-            {
-                economy.dineroActual = datosCargados.dineroActual;
-                economy.dineroTotal = datosCargados.dineroTotal;
-                economy.dineroPorClic = datosCargados.dineroPorClic;
-                economy.dineroPorSeg = datosCargados.dineroPorSeg;
+            DatosPlaneta planeta = ObtenerDatosPlanetaActual();
 
-                if (datosCargados.nivelesCompras != null && economy.nivelesCompras != null)
+            if (economy != null && mejoras != null && planeta != null)
+            {
+                economy.dineroActual = planeta.dineroActual;
+                economy.dineroTotal = planeta.dineroTotal;
+                economy.dineroPorClic = planeta.dineroPorClic;
+                economy.dineroPorSeg = planeta.dineroPorSeg;
+
+                if (planeta.nivelesCompras != null && economy.nivelesCompras != null)
                 {
-                    int limite = Mathf.Min(datosCargados.nivelesCompras.Length, economy.nivelesCompras.Length);
+                    int limite = Mathf.Min(planeta.nivelesCompras.Length, economy.nivelesCompras.Length);
                     for (int i = 0; i < limite; i++)
-                    {
-                        economy.nivelesCompras[i] = datosCargados.nivelesCompras[i];
-                    }
+                        economy.nivelesCompras[i] = planeta.nivelesCompras[i];
                 }
 
-                if (datosCargados.mejorasCompradas != null && mejoras.listaMejoras != null)
+                if (planeta.mejorasCompradas != null && mejoras.listaMejoras != null)
                 {
-                    int limiteMej = Mathf.Min(datosCargados.mejorasCompradas.Length, mejoras.listaMejoras.Length);
+                    int limiteMej = Mathf.Min(planeta.mejorasCompradas.Length, mejoras.listaMejoras.Length);
                     for (int i = 0; i < limiteMej; i++)
                     {
-                        mejoras.listaMejoras[i].comprada = datosCargados.mejorasCompradas[i];
-                        if (datosCargados.mejorasCompradas[i] == true && mejoras.listaMejoras[i].botonAsociado != null)
-                        {
+                        mejoras.listaMejoras[i].comprada = planeta.mejorasCompradas[i];
+                        if (planeta.mejorasCompradas[i] == true && mejoras.listaMejoras[i].botonAsociado != null)
                             mejoras.listaMejoras[i].botonAsociado.SetActive(false);
-                        }
                     }
                 }
                 if (economy.ui != null) economy.ui.ActualizarInterfaz();
             }
             
-            Debug.Log("¡Partida cargada perfectamente desde " + slot + "!");
-            
             ArbolManager arbol = FindObjectOfType<ArbolManager>();
             if (arbol != null) arbol.ActualizarTodoElArbol();
-        }
-        else
-        {
-            Debug.Log("Nueva partida en " + slot + ".");
         }
     }
 }

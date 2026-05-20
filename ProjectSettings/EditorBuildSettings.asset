@@ -21,6 +21,24 @@ EditorBuildSettings:
     path: Assets/Scenes/Nivel_Luna.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/Nivel_Marte.unity
+    guid: 695d21a6614d58f43a44a84b932d90cf
+  - enabled: 1
+    path: Assets/Scenes/Nivel_Europa.unity
+    guid: 9a61aedd8d1ce2746935f9e3203ed818
+  - enabled: 1
+    path: Assets/Scenes/Nivel_Kepler-186f.unity
+    guid: 9b7c7dd5ae5b8d04aa1314d073e9a1dd
+  - enabled: 1
+    path: Assets/Scenes/Nivel_Titan.unity
+    guid: 746ffccfd2f16a849b19e2bb7aed2e10
+  - enabled: 1
+    path: Assets/Scenes/Nivel_Dyson-Omega.unity
+    guid: 8a6cdd3c154282d49ad4e18795b8b153
+  - enabled: 1
+    path: Assets/Scenes/Nivel__Gran_Colapso.unity
+    guid: 1499b67fd191e5c4aab640f56480a99b
+  - enabled: 1
     path: Assets/Scenes/ArbolPrestigio.unity
     guid: f0450497c3a649e49a7ed12dd821dd59
   - enabled: 1
