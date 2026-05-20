@@ -3,7 +3,7 @@ using UnityEngine;
 public class CreditosScroll : MonoBehaviour
 {
     public float velocidad = 50f;
-    public float puntoDeReinicioY = 1000f; // Altura a la que desaparece por arriba
+    public float puntoDeReinicioY = 2000f; // Altura a la que desaparece por arriba
 
     private RectTransform rectTexto;
     private Vector2 posicionInicial;

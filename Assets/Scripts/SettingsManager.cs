@@ -5,7 +5,7 @@ using TMPro;
 
 public class SettingsManager : MonoBehaviour
 {
-    [Header("Configuración de Escenas")]
+    [Header("Configuraciï¿½n de Escenas")]
     public string nombreEscenaMenu = "MenuPrincipal";
 
     [Header("Audio (0-100)")]
@@ -15,8 +15,9 @@ public class SettingsManager : MonoBehaviour
     [Header("Idioma")]
     public TMP_Dropdown dropdownIdioma;
 
-    [Header("Créditos")]
-    public GameObject objetoPanelCreditos;
+    [Header("Crï¿½ditos")]
+    public CreditosController creditos;
+
 
     void Start()
     {
@@ -29,25 +30,25 @@ public class SettingsManager : MonoBehaviour
         {
             sliderVolumen.minValue = 0;
             sliderVolumen.maxValue = 100;
-            sliderVolumen.wholeNumbers = true; // Para que use números enteros (1, 2, 3...)
+            sliderVolumen.wholeNumbers = true; // Para que use nï¿½meros enteros (1, 2, 3...)
             sliderVolumen.value = volGuardado;
         }
 
         ActualizarVolumenSistema(volGuardado);
 
         // 2. CARGAR AJUSTES DE IDIOMA
-        int idiomaGuardado = PlayerPrefs.GetInt("IdiomaSeleccionado", 0); // 0 = Español, 1 = Inglés
+        int idiomaGuardado = PlayerPrefs.GetInt("IdiomaSeleccionado", 0); // 0 = Espaï¿½ol, 1 = Inglï¿½s
         if (dropdownIdioma != null)
         {
             dropdownIdioma.value = idiomaGuardado;
         }
 
-        // 3. ASIGNAR EVENTOS POR CÓDIGO (Opcional, pero más seguro)
+        // 3. ASIGNAR EVENTOS POR Cï¿½DIGO (Opcional, pero mï¿½s seguro)
         if (sliderVolumen != null)
             sliderVolumen.onValueChanged.AddListener(ActualizarVolumenSistema);
     }
 
-    // Función que se activa al mover el slider
+    // Funciï¿½n que se activa al mover el slider
     public void ActualizarVolumenSistema(float valor)
     {
         // Convertimos el 0-100 del Slider al 0-1 que usa Unity internamente
@@ -66,17 +67,17 @@ public class SettingsManager : MonoBehaviour
         Debug.Log("Volumen del sistema ajustado a: " + valor + "%");
     }
 
-    // Función para el Dropdown de idioma
+    // Funciï¿½n para el Dropdown de idioma
     public void CambiarIdioma(int indice)
     {
-        // 1. Guardamos el índice (0 o 1)
+        // 1. Guardamos el ï¿½ndice (0 o 1)
         PlayerPrefs.SetInt("IdiomaSeleccionado", indice);
 
-        // 2. ¡IMPORTANTE! Forzamos el guardado en el disco
+        // 2. ï¿½IMPORTANTE! Forzamos el guardado en el disco
         PlayerPrefs.Save();
 
         if (indice == 0)
-            Debug.Log("Idioma seleccionado y guardado: Español");
+            Debug.Log("Idioma seleccionado y guardado: Espaï¿½ol");
         else
             Debug.Log("Language selected and saved: English");
 
@@ -88,7 +89,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    // Función para el botón de la X o "Volver"
+    // Funciï¿½n para el botï¿½n de la X o "Volver"
     public void VolverAlMenu()
     {
         Debug.Log("Regresando al puente de mando...");
@@ -97,11 +98,12 @@ public class SettingsManager : MonoBehaviour
 
     public void AbrirCreditos()
     {
-        if (objetoPanelCreditos != null) objetoPanelCreditos.SetActive(true);
+        if (creditos != null) creditos.Mostrar();
     }
 
     public void CerrarCreditos()
     {
-        if (objetoPanelCreditos != null) objetoPanelCreditos.SetActive(false);
+        if (creditos != null) creditos.Ocultar();
     }
+
 }
