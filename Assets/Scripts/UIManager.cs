@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     public void ActualizarInterfaz()
     {
         if (textoDineroUI != null)
-            textoDineroUI.text = "Polvo Estelar: " + FormatearNumero(economy.dineroActual);
+            textoDineroUI.text = "POLVO ESTELAR (PE): " + FormatearNumero(economy.dineroActual);
 
         if (textoPasivoUI != null)
             textoPasivoUI.text = FormatearNumero(economy.dineroPorSeg) + " PE/s";
@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
                 }
                 else
                 {
-                    textosBotones[i].text = nombresInstalaciones[i] + " (100)\n<color=#7C7C7C>MAX</color>";
+                    textosBotones[i].text = nombresInstalaciones[i] + " \n<color=#7C7C7C>MAX</color>";
 
                     botones[i].interactable = false;
 
@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
                 {
                     if(economy.nivelesCompras[i] >= 100)
                     {
-                        textosNiveles[i].text = "<color=#FFD700>MÁX</color>";
+                        textosNiveles[i].text = "<color=#7C7C7C>MÁX</color>";
                     } else
                     {
                         textosNiveles[i].text = economy.nivelesCompras[i].ToString();
