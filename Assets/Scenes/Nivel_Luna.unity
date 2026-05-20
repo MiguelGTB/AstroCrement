@@ -13977,6 +13977,63 @@ MonoBehaviour:
   nombreLogro: Devorador Estelar
   descripcion: Tu imperio consume sistemas solares enteros para alimentarse
   metaRequerida: 500000000000
+--- !u!1 &1048310282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1048310284}
+  - component: {fileID: 1048310283}
+  m_Layer: 0
+  m_Name: BaseDeDatos_Inmortal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1048310283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048310282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04eaf217bfc2d5c4f9d918625bdaca5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  datosCargados:
+    nombreUsuario: 
+    dineroActual: 0
+    dineroPorClic: 0
+    dineroPorSeg: 0
+    dineroTotal: 0
+    nivelesCompras: 
+    mejorasCompradas: 
+    monedasPrestigio: 0
+    mejorasPrestigioCompradas: []
+  economy: {fileID: 1926474140}
+  mejoras: {fileID: 1926474145}
+  enModoPrestigio: 0
+--- !u!4 &1048310284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048310282}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 418.86758, y: 386.79477, z: -3.5278454}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1054851223
 GameObject:
   m_ObjectHideFlags: 0
@@ -20679,7 +20736,6 @@ GameObject:
   - component: {fileID: 1926474145}
   - component: {fileID: 1926474146}
   - component: {fileID: 1926474147}
-  - component: {fileID: 1926474148}
   - component: {fileID: 1926474149}
   - component: {fileID: 1926474150}
   m_Layer: 0
@@ -21156,30 +21212,6 @@ MonoBehaviour:
   txtCosto: {fileID: 1041459132}
   txtTiempo: {fileID: 1197408463}
   economy: {fileID: 1926474140}
---- !u!114 &1926474148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926474137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04eaf217bfc2d5c4f9d918625bdaca5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  datosCargados:
-    nombreUsuario: 
-    dineroActual: 0
-    dineroPorClic: 0
-    dineroPorSeg: 0
-    dineroTotal: 0
-    nivelesCompras: 
-    mejorasCompradas: 
-    monedasPrestigio: 0
-    mejorasPrestigioCompradas: []
-  economy: {fileID: 1926474140}
-  mejoras: {fileID: 1926474145}
 --- !u!114 &1926474149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26949,3 +26981,4 @@ SceneRoots:
   - {fileID: 7036327002359791215}
   - {fileID: 1926474138}
   - {fileID: 2128992257}
+  - {fileID: 1048310284}
