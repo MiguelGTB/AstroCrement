@@ -22,8 +22,6 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
     [TextArea] public string descripcion;
     public TipoLogro tipoLogro;
     public double metaRequerida; 
-    
-    // Solo necesario si tipoLogro == PorCompras
     public int indiceInstalacion;
 
     void Start()
@@ -35,26 +33,37 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
 
     IEnumerator ComprobarConDelay()
     {
-        // Esperamos un momento para asegurarnos de que los datos se han cargado
         yield return new WaitForSeconds(0.5f);
         ComprobarEstadoVisual();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        double actual = ObtenerValorActual();
-        string textoFinal;
         Image img = GetComponent<Image>();
+        string textoFinal;
 
-        if (metaRequerida > 0 && actual >= metaRequerida)
+        // Primero comprobamos si ya está guardado como completado
+        if (DatabaseManager.Instance != null && 
+            DatabaseManager.Instance.datosCargados != null &&
+            DatabaseManager.Instance.datosCargados.logrosCompletados != null &&
+            DatabaseManager.Instance.datosCargados.logrosCompletados.Contains(nombreLogro))
         {
             textoFinal = "<color=#00FF00>¡LOGRO COMPLETADO!</color>";
             if (img != null) img.color = Color.white;
         }
         else
         {
-            textoFinal = "Progreso: " + Formatear(actual) + " / " + Formatear(metaRequerida);
-            if (img != null) img.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+            double actual = ObtenerValorActual();
+            if (metaRequerida > 0 && actual >= metaRequerida)
+            {
+                textoFinal = "<color=#00FF00>¡LOGRO COMPLETADO!</color>";
+                if (img != null) img.color = Color.white;
+            }
+            else
+            {
+                textoFinal = "Progreso: " + Formatear(actual) + " / " + Formatear(metaRequerida);
+                if (img != null) img.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+            }
         }
 
         if (TooltipLogrosManager.Instance != null)
@@ -72,11 +81,32 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
         Image img = GetComponent<Image>();
         if (img == null) return;
 
+        if (DatabaseManager.Instance == null || DatabaseManager.Instance.datosCargados == null)
+            return;
+
+        PlayerData datos = DatabaseManager.Instance.datosCargados;
+
+        // Si ya está guardado como completado, lo marcamos directamente
+        if (datos.logrosCompletados != null && datos.logrosCompletados.Contains(nombreLogro))
+        {
+            img.color = Color.white;
+            return;
+        }
+
         double actual = ObtenerValorActual();
         if (metaRequerida > 0 && actual >= metaRequerida)
+        {
+            if (datos.logrosCompletados == null)
+                datos.logrosCompletados = new System.Collections.Generic.List<string>();
+            
+            datos.logrosCompletados.Add(nombreLogro);
+            DatabaseManager.Instance.GuardarPartidaEnNube();
             img.color = Color.white;
+        }
         else
+        {
             img.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+        }
     }
 
     private double ObtenerValorActual()
@@ -89,18 +119,17 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
         switch (tipoLogro)
         {
             case TipoLogro.PorDineroTotal:
-                // Suma el dineroTotal de todos los planetas de la partida
                 return datos.progresoLuna.dineroTotal + datos.progresoMarte.dineroTotal +
                        datos.progresoEuropa.dineroTotal + datos.progresoTitan.dineroTotal +
                        datos.progresoKepler.dineroTotal + datos.progresoDyson.dineroTotal +
                        datos.progresoColapso.dineroTotal;
-                       
+
             case TipoLogro.PorPlanetasDesbloqueados:
                 return datos.planetasDesbloqueados;
-            
+
             case TipoLogro.PorCompras:
                 return SumarComprasGlobales(datos, indiceInstalacion);
-            
+
             case TipoLogro.PorMejoraComprada:
                 DatosPlaneta[] todosPlanetas = {
                     datos.progresoLuna, datos.progresoMarte, datos.progresoEuropa,
@@ -114,7 +143,7 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
                         return 1;
                 }
                 return 0;
-            
+
             case TipoLogro.PorMejoraProduccionComprada:
                 DatosPlaneta[] todosPlanetas2 = {
                     datos.progresoLuna, datos.progresoMarte, datos.progresoEuropa,
@@ -124,7 +153,6 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
                 {
                     if (planeta?.mejorasCompradas != null)
                     {
-                        // Las mejoras de producción son las de índice > 0
                         for (int i = 1; i < planeta.mejorasCompradas.Length; i++)
                         {
                             if (planeta.mejorasCompradas[i] == true)
@@ -152,14 +180,13 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
                     datos.progresoLuna, datos.progresoMarte, datos.progresoEuropa,
                     datos.progresoTitan, datos.progresoKepler, datos.progresoDyson, datos.progresoColapso
                 };
-                // Comprobamos las instalaciones 1-14 (todas menos el láser)
                 for (int i = 1; i <= 14; i++)
                 {
                     bool tieneEsta = false;
                     foreach (var planeta in planetasInst)
                     {
-                        if (planeta?.nivelesCompras != null && 
-                            planeta.nivelesCompras.Length > i && 
+                        if (planeta?.nivelesCompras != null &&
+                            planeta.nivelesCompras.Length > i &&
                             planeta.nivelesCompras[i] >= 1)
                         {
                             tieneEsta = true;
@@ -178,7 +205,7 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
         }
     }
 
-        private double SumarComprasGlobales(PlayerData datos, int indice)
+    private double SumarComprasGlobales(PlayerData datos, int indice)
     {
         double total = 0;
         DatosPlaneta[] planetas = {

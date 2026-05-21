@@ -34,5 +34,6 @@ public class PlayerData
 
     // --- DATOS DE LOGROS ---
     public int totalReencarnaciones = 0;
+    public List<string> logrosCompletados = new List<string>();
 
 }
