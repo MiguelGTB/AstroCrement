@@ -1389,6 +1389,110 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1232525584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232525586}
+  - component: {fileID: 1232525585}
+  m_Layer: 0
+  m_Name: DatabaseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1232525585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232525584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04eaf217bfc2d5c4f9d918625bdaca5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  datosCargados:
+    nombreUsuario: 
+    progresoLuna:
+      dineroActual: 0
+      dineroPorClic: 1
+      dineroPorSeg: 0
+      dineroTotal: 0
+      nivelesCompras: 
+      mejorasCompradas: 
+    progresoMarte:
+      dineroActual: 0
+      dineroPorClic: 1
+      dineroPorSeg: 0
+      dineroTotal: 0
+      nivelesCompras: 
+      mejorasCompradas: 
+    progresoEuropa:
+      dineroActual: 0
+      dineroPorClic: 1
+      dineroPorSeg: 0
+      dineroTotal: 0
+      nivelesCompras: 
+      mejorasCompradas: 
+    progresoTitan:
+      dineroActual: 0
+      dineroPorClic: 1
+      dineroPorSeg: 0
+      dineroTotal: 0
+      nivelesCompras: 
+      mejorasCompradas: 
+    progresoKepler:
+      dineroActual: 0
+      dineroPorClic: 1
+      dineroPorSeg: 0
+      dineroTotal: 0
+      nivelesCompras: 
+      mejorasCompradas: 
+    progresoDyson:
+      dineroActual: 0
+      dineroPorClic: 1
+      dineroPorSeg: 0
+      dineroTotal: 0
+      nivelesCompras: 
+      mejorasCompradas: 
+    progresoColapso:
+      dineroActual: 0
+      dineroPorClic: 1
+      dineroPorSeg: 0
+      dineroTotal: 0
+      nivelesCompras: 
+      mejorasCompradas: 
+    monedasPrestigio: 0
+    mejorasPrestigioCompradas: []
+    planetasDesbloqueados: 0
+    totalReencarnaciones: 0
+    logrosCompletados: []
+  economy: {fileID: 0}
+  mejoras: {fileID: 0}
+  enModoPrestigio: 0
+  partidaCargadaConExito: 0
+--- !u!4 &1232525586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232525584}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0691485, y: -0.9485502, z: -0.016838921}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1362210026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2218,3 +2322,4 @@ SceneRoots:
   - {fileID: 1913018970}
   - {fileID: 219125509}
   - {fileID: 279881712}
+  - {fileID: 1232525586}

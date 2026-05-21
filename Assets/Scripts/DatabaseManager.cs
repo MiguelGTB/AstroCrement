@@ -22,6 +22,7 @@ public class DatabaseManager : MonoBehaviour
     private float cronometro = 0f;
 
     [HideInInspector] public bool enModoPrestigio = false;
+    public bool partidaCargadaConExito = false;
 
     public DatosPlaneta ObtenerDatosPlanetaActual()
     {
@@ -271,6 +272,10 @@ public class DatabaseManager : MonoBehaviour
             
             ArbolManager arbol = FindObjectOfType<ArbolManager>();
             if (arbol != null) arbol.ActualizarTodoElArbol();
+
+            // Esto va justo antes de la última llave } de la función CargarPartidaDeNube
+            partidaCargadaConExito = true;
+            Debug.Log("¡Firebase ha terminado de descargar los datos de los planetas!");
         }
     }
 }

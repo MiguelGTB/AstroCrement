@@ -6,11 +6,10 @@ public class ReencarnacionManager : MonoBehaviour
 {
     [Header("Configuración de Prestigio")]
     public float produccionPorSegundoActual; 
-    public double requisitoMinimoDineroBase = 1000; // Cambiado a double para evitar la multiplicación infinita
+    public double requisitoMinimoDineroBase = 1000; 
     public float divisorPrestigio = 500f; 
 
     [Header("Monedas Especiales")]
-    // CORRECCIÓN VITAL: Cambiado de 'int' a 'double' para soportar números gigantescos sin reventar el Int32
     public double monedasDePrestigioGanadas; 
 
     [Header("Interfaz (UI)")]
@@ -29,7 +28,6 @@ public class ReencarnacionManager : MonoBehaviour
                 dineroQueTienesAhora = DatabaseManager.Instance.ObtenerDatosPlanetaActual().dineroActual;
         }
 
-        // 1. Calcular el índice del planeta actual de forma segura
         int indicePlanetaActual = 0;
         if (PartidaActual.MundoActual == "Luna") indicePlanetaActual = 0;
         else if (PartidaActual.MundoActual == "Marte") indicePlanetaActual = 1;
@@ -39,14 +37,22 @@ public class ReencarnacionManager : MonoBehaviour
         else if (PartidaActual.MundoActual == "Dyson") indicePlanetaActual = 5;
         else if (PartidaActual.MundoActual == "Colapso") indicePlanetaActual = 6;
 
-        // 2. Calculamos el requisito escalado en una variable temporal por frame
         double requisitoEscalado = requisitoMinimoDineroBase * (indicePlanetaActual + 1);
 
-        // 3. Comprobamos la meta de forma segura usando operaciones puras de 'double'
         if (dineroQueTienesAhora >= requisitoEscalado)
         {
-            // Usamos System.Math.Floor directamente guardándolo en un double. ¡Adiós al OverflowException!
-            monedasDePrestigioGanadas = System.Math.Floor(dineroQueTienesAhora * 0.10d);
+            // Tu cálculo original de monedas (con el bonus de Sabiduría Celestial si existe)
+            double calculoMonedas = System.Math.Floor(dineroQueTienesAhora * 0.10d);
+            
+            if (DatabaseManager.Instance != null && DatabaseManager.Instance.datosCargados != null)
+            {
+                if (DatabaseManager.Instance.datosCargados.mejorasPrestigioCompradas.Contains("sabiduria_celestial"))
+                {
+                    calculoMonedas *= 1.50d; 
+                }
+            }
+
+            monedasDePrestigioGanadas = System.Math.Floor(calculoMonedas);
             
             if (botonReencarnacion != null) botonReencarnacion.interactable = true;
             if (iconoCandado != null) iconoCandado.SetActive(false);
@@ -66,15 +72,23 @@ public class ReencarnacionManager : MonoBehaviour
         PlayerData datosGlobales = DatabaseManager.Instance.datosCargados;
         DatosPlaneta planetaActual = DatabaseManager.Instance.ObtenerDatosPlanetaActual();
 
-        // 1. Añadir las monedas ganadas (ahora double) al monedero global que también es double en PlayerData
+        // 1. Añadir las monedas ganadas al monedero global
         datosGlobales.monedasPrestigio += monedasDePrestigioGanadas;
 
-        // 2. Resetear el progreso ÚNICAMENTE del planeta en el que estamos actualmente
+        // 2. CORRECCIÓN: Forzar el borrado tanto en el script de datos como en el EconomyManager activo
         if (planetaActual != null)
         {
-            planetaActual.dineroActual = 0;
-            planetaActual.dineroTotal = 0;
-            planetaActual.dineroPorClic = 1; // Volver al clic base de nivel
+            // Si tiene Ancla de Ascensión empieza con dinero, si no, a 0
+            double dineroInicial = 0;
+            if (datosGlobales.mejorasPrestigioCompradas.Contains("ancla_ascension"))
+            {
+                dineroInicial = 10000; 
+            }
+
+            // Limpiamos los datos del archivo de guardado
+            planetaActual.dineroActual = dineroInicial;
+            planetaActual.dineroTotal = dineroInicial;
+            planetaActual.dineroPorClic = 1; 
             planetaActual.dineroPorSeg = 0;
 
             if (planetaActual.nivelesCompras != null)
@@ -87,6 +101,22 @@ public class ReencarnacionManager : MonoBehaviour
             {
                 for (int i = 0; i < planetaActual.mejorasCompradas.Length; i++)
                     planetaActual.mejorasCompradas[i] = false;
+            }
+
+            // --- ¡EL TRUCO EN TIEMPO REAL! ---
+            // Si el EconomyManager de la escena está encendido, lo reseteamos a capón para que no vuelva a guardar los datos viejos encima
+            if (DatabaseManager.Instance.economy != null)
+            {
+                DatabaseManager.Instance.economy.dineroActual = dineroInicial;
+                DatabaseManager.Instance.economy.dineroTotal = dineroInicial;
+                DatabaseManager.Instance.economy.dineroPorClic = 1;
+                DatabaseManager.Instance.economy.dineroPorSeg = 0;
+                
+                if (DatabaseManager.Instance.economy.nivelesCompras != null)
+                {
+                    for (int i = 0; i < DatabaseManager.Instance.economy.nivelesCompras.Length; i++)
+                        DatabaseManager.Instance.economy.nivelesCompras[i] = 0;
+                }
             }
         }
 
@@ -103,13 +133,12 @@ public class ReencarnacionManager : MonoBehaviour
         if (datosGlobales.planetasDesbloqueados == indicePlanetaActual)
         {
             datosGlobales.planetasDesbloqueados++;
-            Debug.Log("¡Siguiente planeta desbloqueado! Total: " + datosGlobales.planetasDesbloqueados);
         }
 
-        // 4. Tu contador de reencarnaciones totales para los logros
+        // 4. Tu contador de reencarnaciones totales
         datosGlobales.totalReencarnaciones++;
         
-        // 5. Guardar partida e ir a la escena del árbol
+        // 5. Guardar partida de forma inmediata en Firebase e ir a la escena del árbol
         DatabaseManager.Instance.GuardarPartidaEnNube();
         SceneManager.LoadScene("ArbolPrestigio");
     }
