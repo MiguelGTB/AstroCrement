@@ -1,14 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CargarAjustes : MonoBehaviour
 {
     void Awake()
     {
-        // Al entrar en cualquier escena, leemos el volumen guardado (0-100)
-        float vol = PlayerPrefs.GetFloat("VolumenMaster", 100f);
-        // Lo aplicamos al sistema de Unity (0-1)
-        AudioListener.volume = vol / 100f;
+        float volGeneral = PlayerPrefs.GetFloat("VolumenGeneral", 100f);
+        float volEfectos = PlayerPrefs.GetFloat("VolumenEfectos", 100f);
+
+        if (AudioManager.Instance != null)
+        {
+            if (AudioManager.Instance.MusicaSource != null)
+                AudioManager.Instance.MusicaSource.volume = volGeneral / 100f;
+
+            if (AudioManager.Instance.SfxSource != null)
+                AudioManager.Instance.SfxSource.volume = volEfectos / 100f;
+        }
     }
 }
