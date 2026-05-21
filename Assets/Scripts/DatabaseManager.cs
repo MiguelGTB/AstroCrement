@@ -183,7 +183,7 @@ public class DatabaseManager : MonoBehaviour
                 await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").Child("mejorasPrestigioCompradas").RemoveValueAsync();
             }
         }
-        catch (Exception e) {}
+        catch (Exception) {}
     }
 
     private void OnApplicationQuit() { GuardarPartidaEnNube(); }
