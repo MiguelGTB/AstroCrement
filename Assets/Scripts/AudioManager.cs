@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -8,23 +6,26 @@ public class AudioManager : MonoBehaviour
 
     [Header("Fuentes de Audio")]
     [SerializeField] private AudioSource musicaSource;
-    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] public AudioSource sfxSource;
 
-    [Header("Canción de Fondo (Todo el Juego)")]
+    [Header("Canción de Fondo")]
     public AudioClip cancionJuego;
 
-    [Header("Efectos de Sonido (SFX)")]
+    [Header("Efectos de Sonido")]
     public AudioClip efectoLogin;
     public AudioClip efectoPlaneta;
     public AudioClip efectoBoton;
 
+    public AudioSource MusicaSource => musicaSource;
+    public AudioSource SfxSource => sfxSource;
+
     void Awake()
     {
-        // Hacer que el AudioManager sea inmortal entre escenas
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            AsegurarFuentes();
         }
         else
         {
@@ -35,7 +36,14 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        // Reproducir la canción en bucle e impedir que se reinicie al cambiar de escena
+        // Aplicar volúmenes guardados al arrancar
+        float volGeneral = PlayerPrefs.GetFloat("VolumenGeneral", 100f);
+        float volEfectos = PlayerPrefs.GetFloat("VolumenEfectos", 100f);
+
+        if (musicaSource != null) musicaSource.volume = volGeneral / 100f;
+        if (sfxSource != null) sfxSource.volume = volEfectos / 100f;
+
+        // Reproducir música
         if (cancionJuego != null && musicaSource != null && !musicaSource.isPlaying)
         {
             musicaSource.clip = cancionJuego;
@@ -44,20 +52,42 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // --- Métodos públicos para activar los sonidos ---
     public void PlayEfectoLogin()
     {
-        if (efectoLogin != null) sfxSource.PlayOneShot(efectoLogin);
+        if (efectoLogin != null && sfxSource != null)
+            sfxSource.PlayOneShot(efectoLogin);
     }
 
     public void PlayEfectoPlaneta()
     {
-        if (efectoPlaneta != null) sfxSource.PlayOneShot(efectoPlaneta);
+        if (efectoPlaneta != null && sfxSource != null)
+            sfxSource.PlayOneShot(efectoPlaneta);
     }
 
     public void PlayEfectoBotonGeneral()
     {
-        if (efectoBoton != null) sfxSource.PlayOneShot(efectoBoton);
+        if (efectoBoton != null && sfxSource != null)
+            sfxSource.PlayOneShot(efectoBoton);
     }
 
+    private void AsegurarFuentes()
+    {
+        AudioSource[] fuentes = GetComponents<AudioSource>();
+
+        if (fuentes.Length == 0)
+        {
+            musicaSource = gameObject.AddComponent<AudioSource>();
+            sfxSource = gameObject.AddComponent<AudioSource>();
+            return;
+        }
+        if (fuentes.Length == 1)
+        {
+            musicaSource = fuentes[0];
+            sfxSource = gameObject.AddComponent<AudioSource>();
+            return;
+        }
+
+        musicaSource = fuentes[0];
+        sfxSource = fuentes[1];
+    }
 }
