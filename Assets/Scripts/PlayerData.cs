@@ -31,4 +31,8 @@ public class PlayerData
     public double monedasPrestigio; 
     public List<string> mejorasPrestigioCompradas = new List<string>(); 
     public int planetasDesbloqueados = 0; 
+
+    // --- DATOS DE LOGROS ---
+    public int totalReencarnaciones = 0;
+
 }

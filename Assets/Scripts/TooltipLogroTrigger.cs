@@ -7,7 +7,12 @@ public enum TipoLogro
 {
     PorDineroTotal,
     PorPlanetasDesbloqueados,
-    PorCompras
+    PorCompras,
+    PorMejoraComprada,
+    PorMejoraProduccionComprada,
+    PorDineroPorSegundo,
+    PorTodasInstalaciones,
+    PorReencarnaciones
 }
 
 public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -89,12 +94,85 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
                        datos.progresoEuropa.dineroTotal + datos.progresoTitan.dineroTotal +
                        datos.progresoKepler.dineroTotal + datos.progresoDyson.dineroTotal +
                        datos.progresoColapso.dineroTotal;
+                       
             case TipoLogro.PorPlanetasDesbloqueados:
                 return datos.planetasDesbloqueados;
             
             case TipoLogro.PorCompras:
                 return SumarComprasGlobales(datos, indiceInstalacion);
             
+            case TipoLogro.PorMejoraComprada:
+                DatosPlaneta[] todosPlanetas = {
+                    datos.progresoLuna, datos.progresoMarte, datos.progresoEuropa,
+                    datos.progresoTitan, datos.progresoKepler, datos.progresoDyson, datos.progresoColapso
+                };
+                foreach (var planeta in todosPlanetas)
+                {
+                    if (planeta?.mejorasCompradas != null &&
+                        planeta.mejorasCompradas.Length > indiceInstalacion &&
+                        planeta.mejorasCompradas[indiceInstalacion] == true)
+                        return 1;
+                }
+                return 0;
+            
+            case TipoLogro.PorMejoraProduccionComprada:
+                DatosPlaneta[] todosPlanetas2 = {
+                    datos.progresoLuna, datos.progresoMarte, datos.progresoEuropa,
+                    datos.progresoTitan, datos.progresoKepler, datos.progresoDyson, datos.progresoColapso
+                };
+                foreach (var planeta in todosPlanetas2)
+                {
+                    if (planeta?.mejorasCompradas != null)
+                    {
+                        // Las mejoras de producción son las de índice > 0
+                        for (int i = 1; i < planeta.mejorasCompradas.Length; i++)
+                        {
+                            if (planeta.mejorasCompradas[i] == true)
+                                return 1;
+                        }
+                    }
+                }
+                return 0;
+
+            case TipoLogro.PorDineroPorSegundo:
+                double totalDPS = 0;
+                DatosPlaneta[] planetasDPS = {
+                    datos.progresoLuna, datos.progresoMarte, datos.progresoEuropa,
+                    datos.progresoTitan, datos.progresoKepler, datos.progresoDyson, datos.progresoColapso
+                };
+                foreach (var planeta in planetasDPS)
+                {
+                    if (planeta != null)
+                        totalDPS += planeta.dineroPorSeg;
+                }
+                return totalDPS;
+
+            case TipoLogro.PorTodasInstalaciones:
+                DatosPlaneta[] planetasInst = {
+                    datos.progresoLuna, datos.progresoMarte, datos.progresoEuropa,
+                    datos.progresoTitan, datos.progresoKepler, datos.progresoDyson, datos.progresoColapso
+                };
+                // Comprobamos las instalaciones 1-14 (todas menos el láser)
+                for (int i = 1; i <= 14; i++)
+                {
+                    bool tieneEsta = false;
+                    foreach (var planeta in planetasInst)
+                    {
+                        if (planeta?.nivelesCompras != null && 
+                            planeta.nivelesCompras.Length > i && 
+                            planeta.nivelesCompras[i] >= 1)
+                        {
+                            tieneEsta = true;
+                            break;
+                        }
+                    }
+                    if (!tieneEsta) return 0;
+                }
+                return 1;
+
+            case TipoLogro.PorReencarnaciones:
+                return datos.totalReencarnaciones;
+
             default:
                 return 0;
         }
