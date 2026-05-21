@@ -642,6 +642,7 @@ GameObject:
   - component: {fileID: 184486424}
   - component: {fileID: 184486423}
   - component: {fileID: 184486422}
+  - component: {fileID: 184486425}
   m_Layer: 5
   m_Name: Ranking
   m_TagString: Untagged
@@ -763,6 +764,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184486420}
   m_CullTransparentMesh: 1
+--- !u!114 &184486425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184486420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a7ec640f4ac5c42b121ae0d994f424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  esBotonLoginORegistrar: 0
 --- !u!1 &190317563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,6 +2288,7 @@ GameObject:
   - component: {fileID: 621224275}
   - component: {fileID: 621224274}
   - component: {fileID: 621224273}
+  - component: {fileID: 621224276}
   m_Layer: 5
   m_Name: Jugar
   m_TagString: Untagged
@@ -2395,6 +2410,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621224271}
   m_CullTransparentMesh: 1
+--- !u!114 &621224276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621224271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a7ec640f4ac5c42b121ae0d994f424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  esBotonLoginORegistrar: 0
 --- !u!1 &655951716
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,6 +2658,7 @@ GameObject:
   - component: {fileID: 676432570}
   - component: {fileID: 676432569}
   - component: {fileID: 676432568}
+  - component: {fileID: 676432571}
   m_Layer: 5
   m_Name: Ajustes
   m_TagString: Untagged
@@ -2751,6 +2780,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676432566}
   m_CullTransparentMesh: 1
+--- !u!114 &676432571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676432566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a7ec640f4ac5c42b121ae0d994f424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  esBotonLoginORegistrar: 0
 --- !u!1 &858879611
 GameObject:
   m_ObjectHideFlags: 0
@@ -4618,6 +4660,7 @@ GameObject:
   - component: {fileID: 1256180412}
   - component: {fileID: 1256180411}
   - component: {fileID: 1256180410}
+  - component: {fileID: 1256180413}
   m_Layer: 5
   m_Name: CerrarSesion
   m_TagString: Untagged
@@ -4739,6 +4782,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256180408}
   m_CullTransparentMesh: 1
+--- !u!114 &1256180413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256180408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a7ec640f4ac5c42b121ae0d994f424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  esBotonLoginORegistrar: 0
 --- !u!1 &1275438276
 GameObject:
   m_ObjectHideFlags: 0
@@ -6271,6 +6327,7 @@ GameObject:
   - component: {fileID: 1903467637}
   - component: {fileID: 1903467636}
   - component: {fileID: 1903467635}
+  - component: {fileID: 1903467638}
   m_Layer: 5
   m_Name: Salir
   m_TagString: Untagged
@@ -6392,6 +6449,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1903467633}
   m_CullTransparentMesh: 1
+--- !u!114 &1903467638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903467633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a7ec640f4ac5c42b121ae0d994f424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  esBotonLoginORegistrar: 0
 --- !u!1 &1905520884
 GameObject:
   m_ObjectHideFlags: 0

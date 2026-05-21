@@ -5,95 +5,136 @@ using TMPro;
 
 public class SettingsManager : MonoBehaviour
 {
-    [Header("Configuraci�n de Escenas")]
-    public string nombreEscenaMenu = "MenuPrincipal";
+    [Header("Configuración de Escenas")]
+    public string nombreEscenaMenuDefault = "MenuPrincipal";
 
-    [Header("Audio (0-100)")]
-    public Slider sliderVolumen;
-    public TextMeshProUGUI textoPorcentajeVolumen;
+    [Header("Audio - Slider General / Música")]
+    public Slider sliderVolGeneral;
+    public TextMeshProUGUI textoVolGeneral;
+
+    [Header("Audio - Slider Efectos (SFX)")]
+    public Slider sliderVolEfectos;
+    public TextMeshProUGUI textoVolEfectos;
 
     [Header("Idioma")]
     public TMP_Dropdown dropdownIdioma;
 
-    [Header("Cr�ditos")]
+    [Header("Créditos")]
     public CreditosController creditos;
 
+    private bool inicializado = false;
 
     void Start()
     {
-        // 1. CARGAR AJUSTES DE AUDIO
-        // Cargamos el volumen guardado (por defecto 100 si es la primera vez)
-        float volGuardado = PlayerPrefs.GetFloat("VolumenMaster", 100f);
+        // 1. CARGAR DATOS DE LA MEMORIA (Por defecto 100 si es la primera vez)
+        float volGeneralGuardado = PlayerPrefs.GetFloat("VolumenGeneral", 100f);
+        float volEfectosGuardado = PlayerPrefs.GetFloat("VolumenEfectos", 100f);
 
-        // Configuramos el Slider y el AudioListener al empezar
-        if (sliderVolumen != null)
+        // 2. CONFIGURAR SLIDER GENERAL
+        if (sliderVolGeneral != null)
         {
-            sliderVolumen.minValue = 0;
-            sliderVolumen.maxValue = 100;
-            sliderVolumen.wholeNumbers = true; // Para que use n�meros enteros (1, 2, 3...)
-            sliderVolumen.value = volGuardado;
+            sliderVolGeneral.onValueChanged.RemoveAllListeners();
+            sliderVolGeneral.minValue = 0;
+            sliderVolGeneral.maxValue = 100;
+            sliderVolGeneral.wholeNumbers = true;
+            sliderVolGeneral.value = volGeneralGuardado;
         }
 
-        ActualizarVolumenSistema(volGuardado);
-
-        // 2. CARGAR AJUSTES DE IDIOMA
-        int idiomaGuardado = PlayerPrefs.GetInt("IdiomaSeleccionado", 0); // 0 = Espa�ol, 1 = Ingl�s
-        if (dropdownIdioma != null)
+        // 3. CONFIGURAR SLIDER EFECTOS
+        if (sliderVolEfectos != null)
         {
-            dropdownIdioma.value = idiomaGuardado;
+            sliderVolEfectos.onValueChanged.RemoveAllListeners();
+            sliderVolEfectos.minValue = 0;
+            sliderVolEfectos.maxValue = 100;
+            sliderVolEfectos.wholeNumbers = true;
+            sliderVolEfectos.value = volEfectosGuardado;
         }
 
-        // 3. ASIGNAR EVENTOS POR C�DIGO (Opcional, pero m�s seguro)
-        if (sliderVolumen != null)
-            sliderVolumen.onValueChanged.AddListener(ActualizarVolumenSistema);
+        // 4. APLICAR VALORES INICIALES A LOS TEXTOS Y AUDIO
+        ActualizarVolumenGeneral(volGeneralGuardado);
+        ActualizarVolumenEfectos(volEfectosGuardado);
+
+        // 5. CARGAR IDIOMA
+        int idiomaGuardado = PlayerPrefs.GetInt("IdiomaSeleccionado", 0); 
+        if (dropdownIdioma != null) dropdownIdioma.value = idiomaGuardado;
+
+        // 6. ENCHUFAR EVENTOS DE ESCUCHA
+        inicializado = true;
+        if (sliderVolGeneral != null) sliderVolGeneral.onValueChanged.AddListener(ActualizarVolumenGeneral);
+        if (sliderVolEfectos != null) sliderVolEfectos.onValueChanged.AddListener(ActualizarVolumenEfectos);
     }
 
-    // Funci�n que se activa al mover el slider
-    public void ActualizarVolumenSistema(float valor)
+    // --- CONTROL DE VOLUMEN GENERAL ---
+    public void ActualizarVolumenGeneral(float valor)
     {
-        // Convertimos el 0-100 del Slider al 0-1 que usa Unity internamente
         float volumenReal = valor / 100f;
+
+        // El volumen general controlará el AudioListener global de Unity
         AudioListener.volume = volumenReal;
 
-        // Guardamos el ajuste para que no se pierda al cerrar el juego
-        PlayerPrefs.SetFloat("VolumenMaster", valor);
-
-        // Actualizamos el texto visual (ej: "75%")
-        if (textoPorcentajeVolumen != null)
+        if (inicializado)
         {
-            textoPorcentajeVolumen.text = valor.ToString("0") + "%";
+            PlayerPrefs.SetFloat("VolumenGeneral", valor);
+            PlayerPrefs.Save();
         }
 
-        Debug.Log("Volumen del sistema ajustado a: " + valor + "%");
+        if (textoVolGeneral != null)
+        {
+            textoVolGeneral.text = valor.ToString("0") + "%";
+        }
     }
 
-    // Funci�n para el Dropdown de idioma
+    // --- CONTROL DE VOLUMEN EFECTOS ---
+    public void ActualizarVolumenEfectos(float valor)
+    {
+        float volumenReal = valor / 100f;
+
+        // Buscamos el AudioManager inmortal y le cambiamos el volumen SOLO a la fuente de SFX
+        if (AudioManager.Instance != null)
+        {
+            // Para asegurarnos de no romper nada, buscamos los AudioSource vinculados en el Manager
+            // Si recuerdas, el segundo AudioSource lo creamos para los efectos.
+            AudioSource[] fuentes = AudioManager.Instance.GetComponents<AudioSource>();
+            if (fuentes.Length > 1 && fuentes[1] != null)
+            {
+                fuentes[1].volume = volumenReal; // El segundo source es el SFX Source
+            }
+        }
+
+        if (inicializado)
+        {
+            PlayerPrefs.SetFloat("VolumenEfectos", valor);
+            PlayerPrefs.Save();
+        }
+
+        if (textoVolEfectos != null)
+        {
+            textoVolEfectos.text = valor.ToString("0") + "%";
+        }
+    }
+
     public void CambiarIdioma(int indice)
     {
-        // 1. Guardamos el �ndice (0 o 1)
         PlayerPrefs.SetInt("IdiomaSeleccionado", indice);
-
-        // 2. �IMPORTANTE! Forzamos el guardado en el disco
         PlayerPrefs.Save();
 
-        if (indice == 0)
-            Debug.Log("Idioma seleccionado y guardado: Espa�ol");
-        else
-            Debug.Log("Language selected and saved: English");
-
-        // 3. Avisamos a todos los textos de la escena que deben cambiar AHORA
         TextoLocalizado[] todosLosTextos = FindObjectsOfType<TextoLocalizado>();
         foreach (TextoLocalizado t in todosLosTextos)
         {
-            t.ActualizarIdioma();
+            if (t != null) t.ActualizarIdioma();
         }
     }
 
-    // Funci�n para el bot�n de la X o "Volver"
     public void VolverAlMenu()
     {
-        Debug.Log("Regresando al puente de mando...");
-        SceneManager.LoadScene(nombreEscenaMenu);
+        if (!string.IsNullOrEmpty(PartidaActual.EscenaAnterior))
+        {
+            SceneManager.LoadScene(PartidaActual.EscenaAnterior);
+        }
+        else
+        {
+            SceneManager.LoadScene(nombreEscenaMenuDefault);
+        }
     }
 
     public void AbrirCreditos()
@@ -105,5 +146,4 @@ public class SettingsManager : MonoBehaviour
     {
         if (creditos != null) creditos.Ocultar();
     }
-
 }
