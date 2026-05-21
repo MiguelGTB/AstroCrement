@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AbrirLogros : MonoBehaviour
 {
     public void ClickEnBoton()
     {
-        // Llamamos directamente al Singleton sin necesidad de variables públicas
-        LogrosManager.instance.AbrirLogros();
+        PartidaActual.EscenaAnterior = SceneManager.GetActiveScene().name;
+        Debug.Log("EscenaAnterior guardada: " + PartidaActual.EscenaAnterior);
+        SceneManager.LoadScene("Logros");
     }
 }

@@ -23,7 +23,6 @@ public class DatabaseManager : MonoBehaviour
 
     [HideInInspector] public bool enModoPrestigio = false;
 
-    // --- EL CEREBRO DE ENRUTAMIENTO ---
     public DatosPlaneta ObtenerDatosPlanetaActual()
     {
         if (datosCargados == null) return null;
@@ -38,7 +37,6 @@ public class DatabaseManager : MonoBehaviour
 
         return datosCargados.progresoLuna; 
     }
-    // ----------------------------------
 
     void Awake()
     {
@@ -77,7 +75,7 @@ public class DatabaseManager : MonoBehaviour
             return;
         }
 
-        DatosPlaneta planeta = ObtenerDatosPlanetaActual(); // Averiguamos de qué planeta sacar los datos
+        DatosPlaneta planeta = ObtenerDatosPlanetaActual();
 
         if (economy != null && mejoras != null && planeta != null)
         {
@@ -148,9 +146,7 @@ public class DatabaseManager : MonoBehaviour
                 {
                     mejoras.listaMejoras[i].comprada = planeta.mejorasCompradas[i];
                     if (planeta.mejorasCompradas[i] == true && mejoras.listaMejoras[i].botonAsociado != null)
-                    {
                         mejoras.listaMejoras[i].botonAsociado.SetActive(false);
-                    }
                 }
             }
             if (economy.ui != null) economy.ui.ActualizarInterfaz();
@@ -170,10 +166,11 @@ public class DatabaseManager : MonoBehaviour
             string json = JsonUtility.ToJson(datosCargados); 
             await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").SetRawJsonValueAsync(json);
             
+            // Guardar mejoras de prestigio
             if (datosCargados.mejorasPrestigioCompradas != null && datosCargados.mejorasPrestigioCompradas.Count > 0)
             {
                 Dictionary<string, object> dictPrestigio = new Dictionary<string, object>();
-                for(int i = 0; i < datosCargados.mejorasPrestigioCompradas.Count; i++)
+                for (int i = 0; i < datosCargados.mejorasPrestigioCompradas.Count; i++)
                     dictPrestigio[i.ToString()] = datosCargados.mejorasPrestigioCompradas[i];
                 
                 await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").Child("mejorasPrestigioCompradas").SetValueAsync(dictPrestigio);
@@ -182,8 +179,24 @@ public class DatabaseManager : MonoBehaviour
             {
                 await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").Child("mejorasPrestigioCompradas").RemoveValueAsync();
             }
+
+            // NUEVO: Guardar logros completados
+            if (datosCargados.logrosCompletados != null && datosCargados.logrosCompletados.Count > 0)
+            {
+                Dictionary<string, object> dictLogros = new Dictionary<string, object>();
+                for (int i = 0; i < datosCargados.logrosCompletados.Count; i++)
+                    dictLogros[i.ToString()] = datosCargados.logrosCompletados[i];
+
+                await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot)
+                    .Child("datos").Child("logrosCompletados").SetValueAsync(dictLogros);
+            }
+            else
+            {
+                await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot)
+                    .Child("datos").Child("logrosCompletados").RemoveValueAsync();
+            }
         }
-        catch (Exception e) {}
+        catch (Exception) {}
     }
 
     private void OnApplicationQuit() { GuardarPartidaEnNube(); }
@@ -202,7 +215,6 @@ public class DatabaseManager : MonoBehaviour
             string json = snapshot.GetRawJsonValue();
             datosCargados = JsonUtility.FromJson<PlayerData>(json);
 
-            // Seguros por si la partida viene nula de internet
             if (datosCargados.progresoLuna == null) datosCargados.progresoLuna = new DatosPlaneta();
             if (datosCargados.progresoMarte == null) datosCargados.progresoMarte = new DatosPlaneta();
             if (datosCargados.progresoEuropa == null) datosCargados.progresoEuropa = new DatosPlaneta();
@@ -210,12 +222,22 @@ public class DatabaseManager : MonoBehaviour
             if (datosCargados.progresoLuna.dineroPorClic <= 0) datosCargados.progresoLuna.dineroPorClic = 1;
             if (datosCargados.progresoMarte.dineroPorClic <= 0) datosCargados.progresoMarte.dineroPorClic = 1;
 
+            // Cargar mejoras de prestigio
             datosCargados.mejorasPrestigioCompradas = new List<string>();
             DataSnapshot snapPrestigio = snapshot.Child("mejorasPrestigioCompradas");
             if (snapPrestigio.Exists)
             {
                 foreach (var child in snapPrestigio.Children)
                     datosCargados.mejorasPrestigioCompradas.Add(child.Value.ToString());
+            }
+
+            // NUEVO: Cargar logros completados
+            datosCargados.logrosCompletados = new List<string>();
+            DataSnapshot snapLogros = snapshot.Child("logrosCompletados");
+            if (snapLogros.Exists)
+            {
+                foreach (var child in snapLogros.Children)
+                    datosCargados.logrosCompletados.Add(child.Value.ToString());
             }
 
             DatosPlaneta planeta = ObtenerDatosPlanetaActual();

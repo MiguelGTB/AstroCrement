@@ -1,92 +1,79 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LogrosManager : MonoBehaviour
 {
     public static LogrosManager instance;
 
     [Header("Configuración de UI")]
-    public GameObject panelLogros;
     public Button botonCerrar;
-    public Button botonAbrirLogros;
-
-    [Header("Iconos de Logros (Arrastra en orden)")]
-    public Image[] iconosLogros;
 
     [HideInInspector] public bool achievementsOpen = false;
 
+    private bool puedeUsarTeclado = false;
     void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
+        Debug.Log("LogrosManager creado: " + gameObject.name);
         instance = this;
     }
 
     void Start()
     {
-        panelLogros.SetActive(false);
-        achievementsOpen = false;
+        achievementsOpen = true;
 
         if (botonCerrar != null)
-            botonCerrar.onClick.AddListener(CerrarLogros);
+            botonCerrar.onClick.AddListener(Cerrar);
 
         // Al empezar, refrescamos por si ya venimos con datos cargados de la nube
         RefrescarLogros();
+        StartCoroutine(HabilitarTeclado());
+    }
+
+    IEnumerator HabilitarTeclado()
+    {
+        // Esperamos un pequeño momento para evitar que el jugador pulse "L" antes de que el menú esté listo
+        yield return new WaitForSeconds(0.2f);
+        puedeUsarTeclado = true;
+        Debug.Log("Teclado hablitado: " + puedeUsarTeclado);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
-        {
-            ToggleLogros();
-        }
+    {
+        Debug.Log("L pulsada, puedeUsarTeclado: " + puedeUsarTeclado);
+        if (puedeUsarTeclado) Cerrar();
+    }
 
         // OPCIONAL: Si quieres que se iluminen MIENTRAS el panel está abierto 
         // sin tener que cerrarlo y abrirlo, descomenta la siguiente línea:
         // if (achievementsOpen) RefrescarLogros();
     }
 
-    public void ToggleLogros()
+    private bool cerrando = false;
+
+    public void Cerrar()
     {
-        if (achievementsOpen) CerrarLogros();
-        else AbrirLogros();
-    }
+        if (cerrando) return;
+        cerrando = true;
 
-    public void AbrirLogros()
-    {
-        panelLogros.SetActive(true);
-        achievementsOpen = true;
+        string escenaDestino = PartidaActual.EscenaAnterior;
+        PartidaActual.EscenaAnterior = ""; // La limpiamos para que no se reutilice
+        
+        Debug.Log("Cargando escena: " + escenaDestino);
 
-        if (botonAbrirLogros != null) botonAbrirLogros.gameObject.SetActive(false);
+        if (string.IsNullOrEmpty(escenaDestino))
+            escenaDestino = "Seleccion_Niveles";
 
-        // Refrescamos al abrir
-        RefrescarLogros();
+        SceneManager.LoadScene(escenaDestino);
     }
 
     public void RefrescarLogros()
     {
-        // IMPORTANTE: Buscamos en panelLogros específicamente para ir a lo seguro
-        TooltipLogroTrigger[] triggers = panelLogros.GetComponentsInChildren<TooltipLogroTrigger>(true);
-
-        foreach (TooltipLogroTrigger t in triggers)
-        {
+        TooltipLogroTrigger[] triggers = FindObjectsOfType<TooltipLogroTrigger>(true);
+        foreach (var t in triggers)
             t.ComprobarEstadoVisual();
-        }
-    }
-
-    public void CerrarLogros()
-    {
-        panelLogros.SetActive(false);
-        achievementsOpen = false;
-
-        if (TooltipLogrosManager.Instance != null)
-        {
-            TooltipLogrosManager.Instance.Ocultar();
-        }
-
-        if (botonAbrirLogros != null) botonAbrirLogros.gameObject.SetActive(true);
     }
 }
