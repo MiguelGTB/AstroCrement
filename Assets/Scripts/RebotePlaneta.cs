@@ -23,6 +23,12 @@ public class RebotePlaneta : MonoBehaviour
         {
             particulasClic.Play();
         }
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayEfectoPlaneta();
+        }
+
     }
 
     void Update()

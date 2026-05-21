@@ -345,7 +345,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6944700411864327245, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
   m_PrefabInstance: {fileID: 7294450416932342224}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7294450416932342225}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -692,6 +692,8 @@ MonoBehaviour:
     monedasPrestigio: 0
     mejorasPrestigioCompradas: []
     planetasDesbloqueados: 0
+    totalReencarnaciones: 0
+    logrosCompletados: []
   economy: {fileID: 1926474140}
   mejoras: {fileID: 1926474145}
   enModoPrestigio: 0
@@ -1659,7 +1661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   produccionPorSegundoActual: 0
-  requisitoMinimoPeSeg: 1000
+  requisitoMinimoDineroBase: 1000
   divisorPrestigio: 500
   monedasDePrestigioGanadas: 0
   botonReencarnacion: {fileID: 417139562}
@@ -3986,10 +3988,31 @@ PrefabInstance:
     - {fileID: 7678682754317886128, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3580795471954063278, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7294450416932342226}
     - targetCorrespondingSourceObject: {fileID: 8861910819179905751, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1426994112}
   m_SourcePrefab: {fileID: 100100000, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+--- !u!1 &7294450416932342225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3580795471954063278, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+  m_PrefabInstance: {fileID: 7294450416932342224}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7294450416932342226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294450416932342225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a7ec640f4ac5c42b121ae0d994f424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  esBotonLoginORegistrar: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
