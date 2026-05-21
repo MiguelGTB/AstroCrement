@@ -18,34 +18,42 @@ public class RankingManager : MonoBehaviour
     }
 
     public void CargarRankingHistorico()
+{
+    Debug.Log("Intentando descargar ranking..."); // Mensaje de control
+    dbRef.OrderByChild("total").LimitToLast(10).GetValueAsync().ContinueWithOnMainThread(task =>
     {
-        dbRef.GetValueAsync().ContinueWithOnMainThread(task =>
+        if (task.IsFaulted)
         {
-            if (task.IsFaulted)
+            Debug.LogError("Error al descargar ranking: " + task.Exception);
+            return;
+        }
+
+        DataSnapshot snapshot = task.Result;
+        Debug.Log("Datos recibidos. Número de hijos: " + snapshot.ChildrenCount); // ¿Recibes datos?
+
+        if (!snapshot.Exists)
+        {
+            Debug.LogWarning("La ruta 'usuarios' está vacía o no existe.");
+            return;
+        }
+
+        List<UsuarioRanking> lista = new List<UsuarioRanking>();
+        foreach (var usuario in snapshot.Children)
+        {
+            if (SlotRankingHelper.TryGetMejorSlotRanking(usuario, out UsuarioRanking ranking))
             {
-                Debug.LogError("Fallo: " + task.Exception);
-                return;
+                lista.Add(ranking);
             }
-
-            if (!task.IsCompleted) return;
-
-            DataSnapshot snapshot = task.Result;
-            List<UsuarioRanking> lista = new List<UsuarioRanking>();
-
-            foreach (var usuario in snapshot.Children)
+            else
             {
-                if (SlotRankingHelper.TryGetMejorSlotRanking(usuario, out UsuarioRanking ranking))
-                {
-                    lista.Add(ranking);
-                }
+                Debug.LogWarning("No se pudo parsear al usuario: " + usuario.Key);
             }
-
-            // Ordenar por dineroTotal descendente
-            lista = lista.OrderByDescending(u => u.total).Take(10).ToList();
-
-            DibujarRanking(lista);
-        });
-    }
+        }
+        
+        lista = lista.OrderByDescending(u => u.total).ToList();
+        DibujarRanking(lista);
+    });
+}
 
     void DibujarRanking(List<UsuarioRanking> usuarios)
     {
