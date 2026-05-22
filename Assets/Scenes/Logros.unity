@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Primer Click
-  descripcion: Has dado tu primer paso en la inmensidad del espacio.
+  descripcion: "\xA1Haz tu primer click!"
   tipoLogro: 0
   metaRequerida: 1
   indiceInstalacion: 0
@@ -514,9 +514,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Legado Infinito
-  descripcion: "Tu nombre est\xE1 escrito en las leyes de la f\xEDsica del universo"
-  tipoLogro: 0
-  metaRequerida: 10000000000000
+  descripcion: "Compra todas las habilidadaes  del \xE1rbol de prestigio"
+  tipoLogro: 8
+  metaRequerida: 12
   indiceInstalacion: 0
 --- !u!114 &63247549
 MonoBehaviour:
@@ -729,7 +729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Red Neural
-  descripcion: "Una IA colectiva gestiona toda la producci\xF3n gal\xE1ctica"
+  descripcion: "Compra Motor Cu\xE1ntico 5 veces"
   tipoLogro: 2
   metaRequerida: 5
   indiceInstalacion: 13
@@ -1114,7 +1114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Velocidad de Escape
-  descripcion: "Nada puede detener tu expansi\xF3n tecnol\xF3gica"
+  descripcion: "Consigue tu Primer mill\xF3n por segundo: 1M PE/s"
   tipoLogro: 5
   metaRequerida: 1000000
   indiceInstalacion: 0
@@ -1661,7 +1661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Vigilancia Orbital
-  descripcion: "Una red de sat\xE9lites monitoriza cada rinc\xF3n del sistema"
+  descripcion: "Compra el sat\xE9lite un total de 25 veces"
   tipoLogro: 2
   metaRequerida: 25
   indiceInstalacion: 1
@@ -1888,7 +1888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Hacia Las Estrellas
-  descripcion: "Has construido una infraestructura b\xE1sica para abandonar la atm\xF3sfera"
+  descripcion: Desbloquea y viaja a Marte
   tipoLogro: 1
   metaRequerida: 1
   indiceInstalacion: 0
@@ -2115,7 +2115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: "N\xFAcleo Estable"
-  descripcion: Has logrado estabilizar un reactor de antimateria
+  descripcion: "Compra Acelerador de Part\xEDculas 10 veces"
   tipoLogro: 2
   metaRequerida: 10
   indiceInstalacion: 7
@@ -2360,7 +2360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: "Fusi\xF3n Fr\xEDa"
-  descripcion: "Energ\xEDa infinita generada sin rastro de calor"
+  descripcion: Compra la mejora Polvo Supremo
   tipoLogro: 3
   metaRequerida: 1
   indiceInstalacion: 18
@@ -2739,7 +2739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Base Lunar
-  descripcion: Establecimiento de la primera colonia autosuficiente fuera de la Tierra
+  descripcion: Compra la Base Lunar por primera vez
   tipoLogro: 2
   metaRequerida: 1
   indiceInstalacion: 2
@@ -3145,9 +3145,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Rey del Polvo
-  descripcion: "Incluso las part\xEDculas m\xE1s peque\xF1as te rinden tributo"
-  tipoLogro: 0
-  metaRequerida: 50000000000
+  descripcion: Compra todas las Mejoras
+  tipoLogro: 9
+  metaRequerida: 34
   indiceInstalacion: 0
 --- !u!114 &786158481
 MonoBehaviour:
@@ -3314,7 +3314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Devorador Estelar
-  descripcion: Tu imperio consume sistemas solares enteros para alimentarse
+  descripcion: "Realiza tu primera Reencarnaci\xF3n"
   tipoLogro: 7
   metaRequerida: 1
   indiceInstalacion: 0
@@ -4191,7 +4191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: "Energ\xEDa Pura"
-  descripcion: Canalizando el flujo constante de los sistemas binarios
+  descripcion: Compra cualquier mejora que produzca un x2 de ganancias
   tipoLogro: 4
   metaRequerida: 1
   indiceInstalacion: 0
@@ -4602,7 +4602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Pulso Estelar
-  descripcion: "La frecuencia de recolecci\xF3n se acelera"
+  descripcion: "Compra la mejora L\xE1ser"
   tipoLogro: 3
   metaRequerida: 1
   indiceInstalacion: 0
@@ -5405,7 +5405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Ojo en el Cielo
-  descripcion: "Observando el universo en busca de nuevas fuentes de energ\xEDa"
+  descripcion: "Compra el Sat\xE9lite 5 veces"
   tipoLogro: 2
   metaRequerida: 5
   indiceInstalacion: 1
@@ -5880,7 +5880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: "Toque gal\xE1ctico"
-  descripcion: "Tus dedos empiezan a resonar con la energ\xEDa del cosmos"
+  descripcion: "Compra el Puntero L\xE1ser 10 veces"
   tipoLogro: 2
   metaRequerida: 10
   indiceInstalacion: 0
@@ -6421,7 +6421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: "H\xE9roe Rob\xF3tico"
-  descripcion: "La automatizaci\xF3n total es ahora una realidad"
+  descripcion: "Compra al menos una unidad de cada instalaci\xF3n"
   tipoLogro: 6
   metaRequerida: 1
   indiceInstalacion: 0
@@ -7114,7 +7114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: "Explosi\xF3n Solar"
-  descripcion: Has capturado la potencia destructiva de una supernova
+  descripcion: Desbloquea todos los niveles
   tipoLogro: 1
   metaRequerida: 6
   indiceInstalacion: 0
@@ -7688,9 +7688,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: Salto Hiperespacial
-  descripcion: Viajando entre dimensiones para recolectar PE
-  tipoLogro: 0
-  metaRequerida: 1000000000000
+  descripcion: "Compra tu primera habilidad en el \xE1rbol de prestigio"
+  tipoLogro: 8
+  metaRequerida: 1
   indiceInstalacion: 0
 --- !u!114 &1946633063
 MonoBehaviour:
@@ -7781,7 +7781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: "Rayos L\xE1ser"
-  descripcion: "Tecnolog\xEDa de recolecci\xF3n t\xE9rmica avanzada"
+  descripcion: "Compra el Puntero L\xE1ser 50 veces"
   tipoLogro: 2
   metaRequerida: 50
   indiceInstalacion: 0
@@ -8495,7 +8495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombreLogro: A Ras de Suelo
-  descripcion: "Miner\xEDa profunda en asteroides ricos en minerales raros"
+  descripcion: Desbloquea y viaja a Europa
   tipoLogro: 1
   metaRequerida: 2
   indiceInstalacion: 0
