@@ -2,7 +2,7 @@ Manual de Instalación: AstroCrement
 ¡Bienvenido, Comandante! Sigue estos pasos para poner tu imperio en marcha.
 1. Instalación
     1. Descarga: Descomprime el archivo .zip en una carpeta de tu ordenador.
-    2. Ejecución: Haz doble clic en el archivo [Nombre_del_Juego].exe.
+    2. Ejecución: Haz doble clic en el archivo AstroCrement.exe.
     3. Primer Inicio: La primera vez que abras el juego, es posible que el sistema de seguridad de Windows te pregunte si quieres permitir el acceso a red. Debes darle a "Permitir acceso", ya que el juego necesita conectarse a Internet para guardar tu progreso en la nube y descargar las actualizaciones de la IA.
 2. Configuración Inicial
     • Creación de Cuenta: En la pantalla de inicio, introduce un nombre de Comandante, un correo electrónico válido y una contraseña. Esto servirá para que, si cambias de ordenador, puedas recuperar tu progreso.
