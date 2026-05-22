@@ -4,7 +4,7 @@ using System.Collections;
 public class LogrosChecker : MonoBehaviour
 {
     [Header("Configuración")]
-    public float intervaloComprobacion = 5f;
+    public float intervaloComprobacion = 1f;
 
     [System.Serializable]
     public class DatoLogroSimple
