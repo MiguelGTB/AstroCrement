@@ -3840,7 +3840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clave: VolumenGeneral
-  textoAsociado: {fileID: 1219930613}
+  textoAsociado: {fileID: 1390155765}
 --- !u!1 &1594116947
 GameObject:
   m_ObjectHideFlags: 0

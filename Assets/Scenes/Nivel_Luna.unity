@@ -454,6 +454,152 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1826536874710445515, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
   m_PrefabInstance: {fileID: 7294450416932342224}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &544341844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 544341846}
+  - component: {fileID: 544341845}
+  m_Layer: 0
+  m_Name: LogrosChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &544341845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544341844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 461057de8fb0c61448032c95159f745c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intervaloComprobacion: 5
+  logros:
+  - nombreLogro: Primer Click
+    tipoLogro: 0
+    metaRequerida: 1
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: cd0a53151ec93364aa2674869568a29e, type: 3}
+  - nombreLogro: "Toque Gal\xE1ctico"
+    tipoLogro: 2
+    metaRequerida: 10
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 9c301a6c11a877d41b92502505a5618b, type: 3}
+  - nombreLogro: Pulso Estelar
+    tipoLogro: 3
+    metaRequerida: 1
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 49a57f9439b735d4687788722e73dda8, type: 3}
+  - nombreLogro: Hacia Las Estrellas
+    tipoLogro: 1
+    metaRequerida: 1
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 66e88fa25e13dce4e9e62fd8b39bbeee, type: 3}
+  - nombreLogro: Ojo en el Cielo
+    tipoLogro: 2
+    metaRequerida: 5
+    indiceInstalacion: 1
+    icono: {fileID: 21300000, guid: 055f447fb8377214a8974a45793c6365, type: 3}
+  - nombreLogro: Base Lunar
+    tipoLogro: 2
+    metaRequerida: 1
+    indiceInstalacion: 2
+    icono: {fileID: 21300000, guid: aedeab96454678748b31a4b4960a0c92, type: 3}
+  - nombreLogro: "Rayos L\xE1ser"
+    tipoLogro: 2
+    metaRequerida: 50
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 0f68f090b16777443adb02aad38d9783, type: 3}
+  - nombreLogro: "Energ\xEDa Pura"
+    tipoLogro: 4
+    metaRequerida: 1
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 2fdc607bfe9da8f48876854d9867d036, type: 3}
+  - nombreLogro: Vigilancia Orbital
+    tipoLogro: 2
+    metaRequerida: 25
+    indiceInstalacion: 1
+    icono: {fileID: 21300000, guid: 0a14192e853bf414a8c41786fbab8dd3, type: 3}
+  - nombreLogro: A Ras de Suelo
+    tipoLogro: 1
+    metaRequerida: 2
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 5e2a9ca8e1284a84c99d9b05adf9bc0d, type: 3}
+  - nombreLogro: "N\xFAcleo Estable"
+    tipoLogro: 2
+    metaRequerida: 10
+    indiceInstalacion: 7
+    icono: {fileID: 21300000, guid: d664a58be8a8087479bb8252960f1068, type: 3}
+  - nombreLogro: Velocidad de Escape
+    tipoLogro: 5
+    metaRequerida: 1000000
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: f7ba0ea8cdb11bc47b0042fcdff8a08e, type: 3}
+  - nombreLogro: "Fusi\xF3n Fr\xEDa"
+    tipoLogro: 3
+    metaRequerida: 1
+    indiceInstalacion: 18
+    icono: {fileID: 21300000, guid: 3ae87cca0392581449cb3137a47a2819, type: 3}
+  - nombreLogro: Red Neural
+    tipoLogro: 2
+    metaRequerida: 5
+    indiceInstalacion: 13
+    icono: {fileID: 21300000, guid: b375fe2425ded574cae8ea5f3a32f01a, type: 3}
+  - nombreLogro: "H\xE9roe Rob\xF3tico"
+    tipoLogro: 6
+    metaRequerida: 1
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 97e6a9acf92f4b84e889c85cb0775463, type: 3}
+  - nombreLogro: Rey del Polvo
+    tipoLogro: 9
+    metaRequerida: 34
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 67aefbadcf1640a4a8ef67d830242fe5, type: 3}
+  - nombreLogro: "Explosi\xF3n Solar"
+    tipoLogro: 1
+    metaRequerida: 6
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 8fc334ed883064b4f8d2d58143fe64fb, type: 3}
+  - nombreLogro: Devorador Estelar
+    tipoLogro: 7
+    metaRequerida: 1
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 35c6ac6e690162149b2fb551a89633fb, type: 3}
+  - nombreLogro: Salto Hiperespacial
+    tipoLogro: 8
+    metaRequerida: 1
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 11353871184b0b44aafa8551ca92a6a6, type: 3}
+  - nombreLogro: Legado Infinito
+    tipoLogro: 8
+    metaRequerida: 12
+    indiceInstalacion: 0
+    icono: {fileID: 21300000, guid: 7a22448a5ced97347a52c4432cb36e0d, type: 3}
+--- !u!4 &544341846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544341844}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 340.2171, y: 159.2998, z: -1.1089989}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &562731753 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8153594312304774709, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
@@ -697,6 +843,7 @@ MonoBehaviour:
   economy: {fileID: 1926474140}
   mejoras: {fileID: 1926474145}
   enModoPrestigio: 0
+  partidaCargadaConExito: 0
 --- !u!4 &1048310284
 Transform:
   m_ObjectHideFlags: 0
@@ -1942,6 +2089,18 @@ PrefabInstance:
       propertyPath: mejorasManager
       value: 
       objectReference: {fileID: 1926474145}
+    - target: {fileID: 105075697320122300, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5249858
+      objectReference: {fileID: 0}
+    - target: {fileID: 105075697320122300, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5249858
+      objectReference: {fileID: 0}
+    - target: {fileID: 105075697320122300, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5249858
+      objectReference: {fileID: 0}
     - target: {fileID: 203913824441293544, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1970,6 +2129,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 246405314221947061, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4f55d6a305952b44a8fd1e41fd819977, type: 3}
     - target: {fileID: 263905590324428176, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: mejorasManager
       value: 
@@ -1982,6 +2145,14 @@ PrefabInstance:
       propertyPath: mejorasManager
       value: 
       objectReference: {fileID: 1926474145}
+    - target: {fileID: 353450723037782323, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 353450723037782323, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6cd5af359fca443459aa31a1bf209732, type: 3}
     - target: {fileID: 489302813969370943, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2566,6 +2737,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1926474145}
+    - target: {fileID: 3185978132119775068, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3330925913698473409, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -4025,3 +4200,4 @@ SceneRoots:
   - {fileID: 1926474138}
   - {fileID: 2128992257}
   - {fileID: 1048310284}
+  - {fileID: 544341846}

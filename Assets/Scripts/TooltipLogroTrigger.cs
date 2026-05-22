@@ -12,7 +12,9 @@ public enum TipoLogro
     PorMejoraProduccionComprada,
     PorDineroPorSegundo,
     PorTodasInstalaciones,
-    PorReencarnaciones
+    PorReencarnaciones,
+    PorMejorasPrestigio,
+    PorTodasMejoras
 }
 
 public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -199,6 +201,32 @@ public class TooltipLogroTrigger : MonoBehaviour, IPointerEnterHandler, IPointer
 
             case TipoLogro.PorReencarnaciones:
                 return datos.totalReencarnaciones;
+
+            case TipoLogro.PorMejorasPrestigio:
+                if (datos.mejorasPrestigioCompradas == null)
+                    return 0;
+                return datos.mejorasPrestigioCompradas.Count;
+
+            case TipoLogro.PorTodasMejoras:
+                DatosPlaneta[] planetasMejoras = {
+                    datos.progresoLuna, datos.progresoMarte, datos.progresoEuropa,
+                    datos.progresoTitan, datos.progresoKepler, datos.progresoDyson, datos.progresoColapso
+                };
+                int totalCompradas = 0;
+                for (int i = 0; i < 34; i++)
+                {
+                    foreach (var planeta in planetasMejoras)
+                    {
+                        if (planeta?.mejorasCompradas != null &&
+                            planeta.mejorasCompradas.Length > i &&
+                            planeta.mejorasCompradas[i] == true)
+                        {
+                            totalCompradas++;
+                            break;
+                        }
+                    }
+                }
+                return totalCompradas;
 
             default:
                 return 0;
