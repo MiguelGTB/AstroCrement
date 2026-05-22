@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "238933471387",
+    "firebase_url": "https://astrocrement-default-rtdb.firebaseio.com",
+    "project_id": "astrocrement",
+    "storage_bucket": "astrocrement.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238933471387:android:20d0f2c9b31e1b0a01563e",
+        "android_client_info": {
+          "package_name": "com.DavidMiguel.AstroCrement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "238933471387-f1n4jknht27vsivbme2q9963vrv5odkv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7CBCRiHjcUsbF96n_aFJzP-a-m-ZavY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238933471387-f1n4jknht27vsivbme2q9963vrv5odkv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
