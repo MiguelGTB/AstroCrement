@@ -1,5 +1,6 @@
 using UnityEngine;
 using Firebase.Database;
+using Firebase.Extensions;
 using Firebase.Auth;
 using System.Threading.Tasks;
 using TMPro;
@@ -65,6 +66,7 @@ public class DatabaseManager : MonoBehaviour
             if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
             CargarPartidaDeNube();
+            CargarConfiguracionIA();
         } 
     }
 
@@ -277,5 +279,33 @@ public class DatabaseManager : MonoBehaviour
             partidaCargadaConExito = true;
             Debug.Log("¡Firebase ha terminado de descargar los datos de los planetas!");
         }
+    }
+
+    public void CargarConfiguracionIA()
+    {
+        // Este es mi puente secreto con la IA. Voy a leer la API Key directamente desde mi Firebase
+        // para que nadie pueda robármela si intentan descompilar el juego. ¡Seguridad ante todo!
+        FirebaseDatabase.DefaultInstance.GetReference("configuracion_ia").GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted && task.Result.Exists)
+            {
+                // Extraigo la llave de ElevenLabs y el estado (activo/inactivo) que puse en la web
+                string llave = task.Result.Child("elevenlabs_api_key").Value.ToString();
+                string estado = task.Result.Child("estado").Value.ToString();
+
+                // Si mi TextToSpeechManager ya nació y está listo en la escena, le inyecto los datos de golpe
+                if (TextToSpeechManager.Instance != null)
+                {
+                    TextToSpeechManager.Instance.apiKey = llave;
+                    TextToSpeechManager.Instance.sistemaActivo = (estado == "activo");
+                    
+                    Debug.Log("¡He cargado la configuración de la IA desde la nube! Estado actual: " + estado);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Vaya, parece que no he encontrado la carpeta 'configuracion_ia' en mi base de datos.");
+            }
+        });
     }
 }
