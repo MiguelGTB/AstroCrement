@@ -71,40 +71,54 @@ public class MejorasManager : MonoBehaviour
     {
         Mejora m = listaMejoras[indiceMejora];
 
-        if (!m.comprada && economy.GastarDinero(m.costePE))
+        if (!m.comprada)
         {
-            m.comprada = true;
-            m.botonAsociado.SetActive(false); 
+            // --- NUEVO: CALCULAMOS EL COSTE FINAL APLICANDO INGENIERÍA CUÁNTICA ---
+            double costeFinal = m.costePE;
 
-            TooltipMejorasManager.Instance.Ocultar();
-
-            // === APLICAR EL EFECTO DE LA MEJORA ===
-            int id = m.idInstalacionRequisito;
-
-            if (id == 0)
+            if (DatabaseManager.Instance != null && DatabaseManager.Instance.datosCargados != null)
             {
-                // Mejora del Láser
-                economy.dineroPorClic *= 2; 
-            }
-            else if (id > 0)
-            {
-                // Mejora de Instalaciones automáticas
-                double beneficioAntiguo = tienda.beneficios[id];
-                int cantidadComprada = economy.nivelesCompras[id];
-                
-                tienda.beneficios[id] *= 2; 
-                economy.dineroPorSeg += (beneficioAntiguo * cantidadComprada);
-            }
-            else if (id == -1)
-            {
-                // MEJORA GLOBAL DE POLVO ESTELAR
-                // Aquí decides qué hace esta mejora especial. 
-                // Por ejemplo, que tus clics valgan X5 veces más:
-                economy.dineroPorClic *= 5;
-                Debug.Log("¡Mejora global comprada!");
+                // Si en la lista global de prestigio está "ingenieria_cuantica", aplicamos el 50% de descuento
+                if (DatabaseManager.Instance.datosCargados.mejorasPrestigioCompradas.Contains("ingenieria_cuantica"))
+                {
+                    costeFinal *= 0.5f; 
+                }
             }
 
-            ui.ActualizarInterfaz();
+            // Pasamos a la economía el coste final ya recalculado con la rebaja
+            if (economy.GastarDinero(costeFinal))
+            {
+                m.comprada = true;
+                m.botonAsociado.SetActive(false); 
+
+                TooltipMejorasManager.Instance.Ocultar();
+
+                // === APLICAR EL EFECTO DE LA MEJORA ===
+                int id = m.idInstalacionRequisito;
+
+                if (id == 0)
+                {
+                    // Mejora del Láser
+                    economy.dineroPorClic *= 2; 
+                }
+                else if (id > 0)
+                {
+                    // Mejora de Instalaciones automáticas
+                    double beneficioAntiguo = tienda.beneficios[id];
+                    int cantidadComprada = economy.nivelesCompras[id];
+                    
+                    tienda.beneficios[id] *= 2; 
+                    economy.dineroPorSeg += (beneficioAntiguo * cantidadComprada);
+                }
+                else if (id == -1)
+                {
+                    // MEJORA GLOBAL DE POLVO ESTELAR
+                    economy.dineroPorClic *= 5;
+                    Debug.Log("¡Mejora global comprada!");
+                }
+
+                ui.ActualizarInterfaz();
+            }
         }
     }
 }

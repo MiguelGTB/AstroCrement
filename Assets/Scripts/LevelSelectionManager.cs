@@ -14,20 +14,40 @@ public class LevelSelectionManager : MonoBehaviour
     [Header("Nombres Clave (Para Base de Datos)")]
     public string[] nombresClavePlanetas;
 
+    private bool yaSeHanPintadoLosPlanetas = false;
+
     void Start()
     {
-        ActualizarEstadoPlanetas();
+        // 1. APAGÓN INICIAL: Mientras esperamos a internet, apagamos todos por seguridad
+        if (modelosPlanetas != null)
+        {
+            for (int i = 0; i < modelosPlanetas.Length; i++)
+            {
+                if (modelosPlanetas[i] == null) continue;
+                modelosPlanetas[i].material.color = new Color(0.02f, 0.02f, 0.02f, 1f); 
+                if (scriptsClic.Length > i && scriptsClic[i] != null) scriptsClic[i].enabled = false;
+                if (iconosCandado.Length > i && iconosCandado[i] != null) iconosCandado[i].SetActive(true);
+            }
+        }
+    }
+
+    void Update()
+    {
+        // 2. EL RADAR: Espera pacientemente a que la Base de Datos exista y confirme la descarga
+        if (DatabaseManager.Instance != null && DatabaseManager.Instance.partidaCargadaConExito)
+        {
+            if (!yaSeHanPintadoLosPlanetas)
+            {
+                yaSeHanPintadoLosPlanetas = true;
+                ActualizarEstadoPlanetas(); 
+            }
+        }
     }
 
     public void ActualizarEstadoPlanetas()
     {
-        int nivelMaximoDesbloqueado = 0;
-        
-        // Leemos cuántos planetas tienes desbloqueados desde Firebase
-        if (DatabaseManager.Instance != null && DatabaseManager.Instance.datosCargados != null)
-        {
-            nivelMaximoDesbloqueado = DatabaseManager.Instance.datosCargados.planetasDesbloqueados;
-        }
+        // Cogemos el dato real de Firebase
+        int nivelMaximoDesbloqueado = DatabaseManager.Instance.datosCargados.planetasDesbloqueados;
 
         if (modelosPlanetas != null)
         {
@@ -39,7 +59,6 @@ public class LevelSelectionManager : MonoBehaviour
                 {
                     // --- PLANETA DESBLOQUEADO ---
                     modelosPlanetas[i].material.color = Color.white; 
-                    
                     if (scriptsClic.Length > i && scriptsClic[i] != null) scriptsClic[i].enabled = true; 
                     if (iconosCandado.Length > i && iconosCandado[i] != null) iconosCandado[i].SetActive(false); 
                 }
@@ -47,7 +66,6 @@ public class LevelSelectionManager : MonoBehaviour
                 {
                     // --- PLANETA BLOQUEADO ---
                     modelosPlanetas[i].material.color = new Color(0.1f, 0.1f, 0.1f, 1f); 
-                    
                     if (scriptsClic.Length > i && scriptsClic[i] != null) scriptsClic[i].enabled = false; 
                     if (iconosCandado.Length > i && iconosCandado[i] != null) iconosCandado[i].SetActive(true); 
                 }
@@ -58,7 +76,6 @@ public class LevelSelectionManager : MonoBehaviour
     public void ViajarAlPlaneta(int indicePlaneta)
     {
         int nivelMaximoDesbloqueado = 0;
-        
         if (DatabaseManager.Instance != null && DatabaseManager.Instance.datosCargados != null)
         {
             nivelMaximoDesbloqueado = DatabaseManager.Instance.datosCargados.planetasDesbloqueados;
@@ -72,13 +89,11 @@ public class LevelSelectionManager : MonoBehaviour
 
         if (indicePlaneta < nombresEscenasPlanetas.Length)
         {
-            // --- ACTUALIZAMOS EL RADAR ---
             if (nombresClavePlanetas != null && nombresClavePlanetas.Length > indicePlaneta)
             {
                 PartidaActual.MundoActual = nombresClavePlanetas[indicePlaneta];
             }
 
-            Debug.Log("Iniciando salto hiperespacial a: " + nombresEscenasPlanetas[indicePlaneta]);
             SceneManager.LoadScene(nombresEscenasPlanetas[indicePlaneta]);
         }
     }
