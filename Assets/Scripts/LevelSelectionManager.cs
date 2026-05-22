@@ -18,63 +18,68 @@ public class LevelSelectionManager : MonoBehaviour
 
     void Start()
     {
-        // 1. APAGÓN INICIAL: Mientras esperamos a internet, apagamos todos por seguridad
+        // Al arrancar la escena, por defecto la Luna (índice 0) SIEMPRE tiene que estar visible y jugable.
+        // El resto los apago por seguridad hasta que Firebase me confirme qué tengo desbloqueado.
         if (modelosPlanetas != null)
         {
             for (int i = 0; i < modelosPlanetas.Length; i++)
             {
                 if (modelosPlanetas[i] == null) continue;
-                modelosPlanetas[i].material.color = new Color(0.02f, 0.02f, 0.02f, 1f); 
-                if (scriptsClic.Length > i && scriptsClic[i] != null) scriptsClic[i].enabled = false;
-                if (iconosCandado.Length > i && iconosCandado[i] != null) iconosCandado[i].SetActive(true);
+
+                if (i == 0) 
+                {
+                    // La Luna (0): Siempre encendida, sin candado y con el clic activado
+                    modelosPlanetas[i].material.color = Color.white; 
+                    if (scriptsClic.Length > i && scriptsClic[i] != null) scriptsClic[i].enabled = true;
+                    if (iconosCandado.Length > i && iconosCandado[i] != null) iconosCandado[i].SetActive(false);
+                }
+                else 
+                {
+                    // El resto: Oscuros, bloqueados y con el candado puesto de momento
+                    modelosPlanetas[i].material.color = new Color(0.1f, 0.1f, 0.1f, 1f); 
+                    if (scriptsClic.Length > i && scriptsClic[i] != null) scriptsClic[i].enabled = false;
+                    if (iconosCandado.Length > i && iconosCandado[i] != null) iconosCandado[i].SetActive(true);
+                }
             }
         }
     }
 
     void Update()
     {
-        // 2. EL RADAR: Espera pacientemente a que la Base de Datos exista y confirme la descarga
-        if (DatabaseManager.Instance != null && DatabaseManager.Instance.partidaCargadaConExito)
+        // En cada frame vigilo si la base de datos ya me ha traído mis datos de la nube.
+        // Si ya han llegado y aún no he repintado los planetas con mi progreso real, lo hago ahora mismo.
+        if (DatabaseManager.Instance != null && DatabaseManager.Instance.partidaCargadaConExito && !yaSeHanPintadoLosPlanetas)
         {
-            if (!yaSeHanPintadoLosPlanetas)
-            {
-                yaSeHanPintadoLosPlanetas = true;
-                ActualizarEstadoPlanetas(); 
-            }
-        }
-    }
+            int maxDesbloqueado = DatabaseManager.Instance.datosCargados.planetasDesbloqueados;
 
-    public void ActualizarEstadoPlanetas()
-    {
-        // Cogemos el dato real de Firebase
-        int nivelMaximoDesbloqueado = DatabaseManager.Instance.datosCargados.planetasDesbloqueados;
-
-        if (modelosPlanetas != null)
-        {
             for (int i = 0; i < modelosPlanetas.Length; i++)
             {
                 if (modelosPlanetas[i] == null) continue;
 
-                if (i <= nivelMaximoDesbloqueado)
+                if (i <= maxDesbloqueado)
                 {
-                    // --- PLANETA DESBLOQUEADO ---
+                    // Planeta desbloqueado: Lo pinto normal y le quito el candado
                     modelosPlanetas[i].material.color = Color.white; 
-                    if (scriptsClic.Length > i && scriptsClic[i] != null) scriptsClic[i].enabled = true; 
-                    if (iconosCandado.Length > i && iconosCandado[i] != null) iconosCandado[i].SetActive(false); 
+                    if (scriptsClic.Length > i && scriptsClic[i] != null) scriptsClic[i].enabled = true;
+                    if (iconosCandado.Length > i && iconosCandado[i] != null) iconosCandado[i].SetActive(false);
                 }
                 else
                 {
-                    // --- PLANETA BLOQUEADO ---
+                    // Planeta bloqueado: Lo dejo apagado para no hacer spoilers
                     modelosPlanetas[i].material.color = new Color(0.1f, 0.1f, 0.1f, 1f); 
-                    if (scriptsClic.Length > i && scriptsClic[i] != null) scriptsClic[i].enabled = false; 
-                    if (iconosCandado.Length > i && iconosCandado[i] != null) iconosCandado[i].SetActive(true); 
+                    if (scriptsClic.Length > i && scriptsClic[i] != null) scriptsClic[i].enabled = false;
+                    if (iconosCandado.Length > i && iconosCandado[i] != null) iconosCandado[i].SetActive(true);
                 }
             }
+            
+            // Marco que ya he hecho este trabajo para que no se repita 60 veces por segundo y ahorremos rendimiento.
+            yaSeHanPintadoLosPlanetas = true;
         }
     }
 
     public void ViajarAlPlaneta(int indicePlaneta)
     {
+        // Antes de viajar, me aseguro de que el jugador no esté haciendo trampas intentando ir a un planeta bloqueado.
         int nivelMaximoDesbloqueado = 0;
         if (DatabaseManager.Instance != null && DatabaseManager.Instance.datosCargados != null)
         {
@@ -87,13 +92,15 @@ public class LevelSelectionManager : MonoBehaviour
             return; 
         }
 
+        // Si todo es legal, configuro a qué planeta vamos en la variable estática y cargo la escena
         if (indicePlaneta < nombresEscenasPlanetas.Length)
         {
             if (nombresClavePlanetas != null && nombresClavePlanetas.Length > indicePlaneta)
             {
                 PartidaActual.MundoActual = nombresClavePlanetas[indicePlaneta];
             }
-
+            
+            Debug.Log("Viajando a: " + nombresEscenasPlanetas[indicePlaneta]);
             SceneManager.LoadScene(nombresEscenasPlanetas[indicePlaneta]);
         }
     }

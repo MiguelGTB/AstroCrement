@@ -6,13 +6,13 @@ using TMPro;
 public class MejoraPrestigio : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Configuración de la Mejora")]
-    public string idMejora;      // ID único (ej: "mas_click_1")
-    public double precio;        // Coste en monedas de prestigio
-    public string descripcion;   // Qué hace la mejora
+    public string idMejora;      
+    public double precio;        
+    public string descripcion;   
 
     [Header("Dependencias")]
-    public MejoraPrestigio mejoraRequisito; // La mejora que hay que comprar ANTES que esta
-    public Image lineaConexion;             // La línea visual que une este botón con el anterior
+    public MejoraPrestigio mejoraRequisito; 
+    public Image lineaConexion;             
 
     [Header("Estado")]
     public bool comprada = false;
@@ -31,67 +31,79 @@ public class MejoraPrestigio : MonoBehaviour, IPointerEnterHandler, IPointerExit
         imagenFondo = GetComponent<Image>();
     }
 
-    // Este método se llama cuando pulsas el botón en el juego
     public void IntentarComprar()
     {
         PlayerData datos = DatabaseManager.Instance.datosCargados;
 
-        // --- CERROJO EXTRA: Si el script o la lista dicen que ya está comprada, abortamos inmediatamente ---
-        if (comprada || datos.mejorasPrestigioCompradas.Contains(idMejora))
-        {
-            comprada = true; // Forzamos por seguridad
-            return;
-        }
-        // -------------------------------------------------------------------------------------------------
+        // Meto un cerrojo extra: si ya la compré o todavía está bloqueada, aborto la operación inmediatamente.
+        if (comprada || !desbloqueada) return;
 
-        if (!comprada && desbloqueada && datos.monedasPrestigio >= precio)
+        // Compruebo si tengo suficientes monedas de prestigio en mi cuenta global.
+        if (datos.monedasPrestigio >= precio)
         {
             datos.monedasPrestigio -= precio;
             datos.mejorasPrestigioCompradas.Add(idMejora);
             comprada = true;
-            GameObject.FindObjectOfType<ArbolManager>().ActualizarTodoElArbol();
+            
+            // Refresco todo el árbol de inmediato para que se actualicen los colores y los candados.
+            ArbolManager arbol = FindObjectOfType<ArbolManager>();
+            if (arbol != null) arbol.ActualizarTodoElArbol();
         }
     }
 
     public void RefrescarEstadoVisual(PlayerData datos)
     {
-        // 1. Comprobar si ya la tenemos
-        if (datos.mejorasPrestigioCompradas.Contains(idMejora)) comprada = true;
+        // 1. Reviso en mi base de datos si esta mejora concreta ya la tengo en propiedad.
+        if (datos.mejorasPrestigioCompradas.Contains(idMejora))
+        {
+            comprada = true;
+        }
 
-        // 2. Comprobar si se puede desbloquear (si no tiene requisito o el requisito ya se compró)
+        // 2. Aquí decido si se desbloquea: si no pide ningún requisito (es la primera) 
+        // o si el requisito exigido ya existe en mi lista de compradas.
         if (mejoraRequisito == null || datos.mejorasPrestigioCompradas.Contains(mejoraRequisito.idMejora))
         {
             desbloqueada = true;
         }
 
-        // 3. Cambiar colores
-        if (comprada) {
-            imagenFondo.color = Color.cyan; // Azul: Comprada
-            if(lineaConexion != null) lineaConexion.color = Color.cyan;
-        } else if (desbloqueada) {
-            imagenFondo.color = Color.white; // Blanco: Disponible
-            if(lineaConexion != null) lineaConexion.color = Color.gray;
-        } else {
-            imagenFondo.color = new Color(0.2f, 0.2f, 0.2f); // Oscuro: Bloqueada
-            if(lineaConexion != null) lineaConexion.color = Color.black;
+        // 3. Gestión de colores para que mi profesora vea el estado visual del árbol.
+        if (comprada) 
+        {
+            imagenFondo.color = Color.cyan; 
+            if (lineaConexion != null) lineaConexion.color = Color.cyan;
+        } 
+        else if (desbloqueada) 
+        {
+            imagenFondo.color = Color.white; 
+            if (lineaConexion != null) lineaConexion.color = Color.gray;
+        } 
+        else 
+        {
+            imagenFondo.color = new Color(0.2f, 0.2f, 0.2f); 
+            if (lineaConexion != null) lineaConexion.color = Color.black;
         }
 
-        if(boton != null) boton.interactable = desbloqueada && !comprada;
+        // Hago que el botón sea pulsable únicamente si está desbloqueado y libre de compras.
+        if (boton != null) boton.interactable = desbloqueada && !comprada;
     }
 
-    // Cuando el ratón ENTRA al botón
     public void OnPointerEnter(PointerEventData eventData)
     {
+        // ¡EL CANDADO DEL TOOLTIP!
+        // Si la mejora está bloqueada (no está desbloqueada ni comprada aún),
+        // salgo de la función sin mostrar nada. Así evito hacer spoilers del juego.
+        if (!desbloqueada && !comprada) return;
+
         if (TooltipManager.Instance != null)
         {
-            // Le pasamos (int)precio para convertir el double en un número entero sin decimales
-            TooltipManager.Instance.Mostrar(nombreDeLaMejora, descripcionDeLaMejora, (int)precio);        
+            // Le paso el precio casteado a (int) para quitarle los decimales feos en la interfaz.
+            TooltipManager.Instance.Mostrar(nombreDeLaMejora, descripcionDeLaMejora, (int)precio);
         }
     }
 
-    // Cuando el ratón SALE del botón
     public void OnPointerExit(PointerEventData eventData)
     {
+        // En cuanto el ratón sale del botón, ordeno ocultar el panel flotante.
         if (TooltipManager.Instance != null)
         {
             TooltipManager.Instance.Ocultar();

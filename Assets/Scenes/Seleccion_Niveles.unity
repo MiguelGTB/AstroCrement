@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1517b5f401736f245a678990295daedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: sk_3458b0be2294cb8c2102e07f5868c3e8b90b4ad2c5613706
+  apiKey: sk_6787f61397ff2e565b0d3bb6abcc5f3761ec4b9fff330b46
   voiceId: pFZP5JQG7iQjIQuC4Bku
   altavozIA: {fileID: 219125508}
   panelSubtitulos: {fileID: 1579157208}
