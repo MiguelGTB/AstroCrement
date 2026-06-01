@@ -10,27 +10,25 @@ using UnityEngine.SceneManagement;
 
 public class DatabaseManager : MonoBehaviour
 {
-    // Instancia estática para el patrón Singleton.
+    // Instancia única del script (Patrón Singleton) para que no se duplique
     public static DatabaseManager Instance;
-    
-    // Objeto contenedor del modelo de datos del jugador.
+    // Contenedor principal de todos los datos del jugador
     public PlayerData datosCargados = new PlayerData(); 
 
     [Header("Conexión con el Juego")]
     public EconomyManager economy;
     public MejorasManager mejoras; 
-    
-    private string userId;
-    private DatabaseReference dbReference;
+    private string userId; // ID único del jugador en Firebase
+    private DatabaseReference dbReference; // Referencia a la base de datos
 
-    // Configuración para la persistencia automática de datos.
+    // Variables para el autoguardado periódico
     private float tiempoParaGuardar = 60f;
     private float cronometro = 0f;
 
     [HideInInspector] public bool enModoPrestigio = false;
     public bool partidaCargadaConExito = false;
 
-    // Selecciona el nodo de datos correspondiente al planeta activo.
+    // Función que devuelve los datos guardados según el planeta en el que estés jugando
     public DatosPlaneta ObtenerDatosPlanetaActual()
     {
         if (datosCargados == null) return null;
@@ -43,12 +41,12 @@ public class DatabaseManager : MonoBehaviour
         if (PartidaActual.MundoActual == "Dyson") return datosCargados.progresoDyson;
         if (PartidaActual.MundoActual == "Colapso") return datosCargados.progresoColapso;
 
-        return datosCargados.progresoLuna; 
+        return datosCargados.progresoLuna; // Planeta por defecto
     }
 
     void Awake()
     {
-        // Implementación de Singleton para persistencia entre cambios de escena.
+        // Configuración del Patrón Singleton: sobrevive al cambio de escenas
         if (Instance == null)
         {
             Instance = this;
@@ -56,6 +54,7 @@ public class DatabaseManager : MonoBehaviour
         }
         else
         {
+            // Si ya existe otro DatabaseManager, destruye este nuevo
             Destroy(gameObject);
             return; 
         }
@@ -63,16 +62,18 @@ public class DatabaseManager : MonoBehaviour
 
     void Start()
     {
-        // Inicializa la referencia a la base de datos utilizando el UID del usuario autenticado.
+        // Al iniciar, comprueba si el usuario ha iniciado sesión
         FirebaseUser user = FirebaseAuth.DefaultInstance.CurrentUser;
         if (user != null) 
         {
             userId = user.UserId;
             dbReference = FirebaseDatabase.DefaultInstance.RootReference;
             
+            // Determina en qué ranura de guardado (slot) estamos jugando
             string slot = PartidaActual.SlotSeleccionado;
             if (string.IsNullOrEmpty(slot)) slot = "slot1";
 
+            // Inicia la descarga de datos e información de IA
             CargarPartidaDeNube();
             CargarConfiguracionIA();
         } 
@@ -80,7 +81,7 @@ public class DatabaseManager : MonoBehaviour
 
     void Update()
     {
-        // Destruye la instancia si se regresa al menú principal.
+        // Si estamos en el menú principal, este script no hace falta y se destruye
         if (SceneManager.GetActiveScene().name == "MenuPrincipal")
         {
             Destroy(gameObject);
@@ -89,16 +90,18 @@ public class DatabaseManager : MonoBehaviour
 
         DatosPlaneta planeta = ObtenerDatosPlanetaActual();
 
-        // Actualiza el modelo de datos en memoria con los valores actuales del juego.
+        // Actualiza constantemente la clase de datos (datosCargados) con lo que pasa en el juego
         if (economy != null && mejoras != null && planeta != null)
         {
             if (!enModoPrestigio)
             {
+                // Copia el dinero y las estadísticas actuales
                 planeta.dineroActual = economy.dineroActual;
                 planeta.dineroTotal = economy.dineroTotal;
                 planeta.dineroPorClic = economy.dineroPorClic;
                 planeta.dineroPorSeg = economy.dineroPorSeg;
 
+                // Copia los niveles de los edificios/compras
                 if (economy.nivelesCompras != null)
                 {
                     if (planeta.nivelesCompras == null || planeta.nivelesCompras.Length != economy.nivelesCompras.Length)
@@ -108,6 +111,7 @@ public class DatabaseManager : MonoBehaviour
                         planeta.nivelesCompras[i] = economy.nivelesCompras[i];
                 }
 
+                // Copia el estado de las mejoras (comprada o no)
                 if (mejoras.listaMejoras != null)
                 {
                     if (planeta.mejorasCompradas == null || planeta.mejorasCompradas.Length != mejoras.listaMejoras.Length)
@@ -118,7 +122,7 @@ public class DatabaseManager : MonoBehaviour
                 }
             }
 
-            // Gestión del cronómetro para la escritura automática en base de datos.
+            // Sistema de autoguardado (cada 60 segundos por defecto)
             cronometro += Time.deltaTime;
             if (cronometro >= tiempoParaGuardar)
             {
@@ -128,7 +132,7 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    // Sincroniza los valores del modelo de datos con los componentes activos de la escena.
+    // Se llama al cambiar de escena/planeta para volver a conectar las variables con los nuevos scripts
     public void ReconectarEscenaActual(EconomyManager nuevaEconomia, MejorasManager nuevasMejoras)
     {
         enModoPrestigio = false; 
@@ -138,15 +142,17 @@ public class DatabaseManager : MonoBehaviour
         
         DatosPlaneta planeta = ObtenerDatosPlanetaActual();
 
+        // Vuelca los datos guardados sobre los managers de la nueva escena
         if (economy != null && planeta != null)
         {
-            if (planeta.dineroPorClic <= 0) planeta.dineroPorClic = 1;
+            if (planeta.dineroPorClic <= 0) planeta.dineroPorClic = 1; // Prevención de errores de clic a 0
 
             economy.dineroActual = planeta.dineroActual;
             economy.dineroTotal = planeta.dineroTotal;
             economy.dineroPorClic = planeta.dineroPorClic;
             economy.dineroPorSeg = planeta.dineroPorSeg;
             
+            // Restaura los niveles de compras
             if (planeta.nivelesCompras != null && economy.nivelesCompras != null)
             {
                 int limite = Mathf.Min(planeta.nivelesCompras.Length, economy.nivelesCompras.Length);
@@ -154,6 +160,7 @@ public class DatabaseManager : MonoBehaviour
                     economy.nivelesCompras[i] = planeta.nivelesCompras[i];
             }
 
+            // Restaura las mejoras y desactiva los botones de las que ya están compradas
             if (mejoras != null && planeta.mejorasCompradas != null && mejoras.listaMejoras != null)
             {
                 int limiteMej = Mathf.Min(planeta.mejorasCompradas.Length, mejoras.listaMejoras.Length);
@@ -164,11 +171,12 @@ public class DatabaseManager : MonoBehaviour
                         mejoras.listaMejoras[i].botonAsociado.SetActive(false);
                 }
             }
+            // Actualiza los textos de la interfaz
             if (economy.ui != null) economy.ui.ActualizarInterfaz();
         }
     }
 
-    // Persiste el estado actual de los datos en Firebase Realtime Database.
+    // Convierte todos tus datos en JSON y los sube a la base de datos de Firebase
     public async void GuardarPartidaEnNube()
     {
         if (userId == null || dbReference == null) return;
@@ -182,7 +190,7 @@ public class DatabaseManager : MonoBehaviour
             string json = JsonUtility.ToJson(datosCargados); 
             await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").SetRawJsonValueAsync(json);
             
-            // Persistencia de mejoras de prestigio.
+            // Guarda la lista de mejoras de prestigio en Firebase (diccionario)
             if (datosCargados.mejorasPrestigioCompradas != null && datosCargados.mejorasPrestigioCompradas.Count > 0)
             {
                 Dictionary<string, object> dictPrestigio = new Dictionary<string, object>();
@@ -196,7 +204,7 @@ public class DatabaseManager : MonoBehaviour
                 await dbReference.Child("usuarios").Child(userId).Child("slots").Child(slot).Child("datos").Child("mejorasPrestigioCompradas").RemoveValueAsync();
             }
 
-            // Persistencia de logros completados.
+            // Guarda los logros completados
             if (datosCargados.logrosCompletados != null && datosCargados.logrosCompletados.Count > 0)
             {
                 Dictionary<string, object> dictLogros = new Dictionary<string, object>();
@@ -215,10 +223,11 @@ public class DatabaseManager : MonoBehaviour
         catch (Exception) {}
     }
 
+    // Guarda automáticamente la partida si cierras la app o la pones en segundo plano
     private void OnApplicationQuit() { GuardarPartidaEnNube(); }
     private void OnApplicationPause(bool pausa) { if (pausa) GuardarPartidaEnNube(); }
     
-    // Recupera los datos guardados desde Firebase y actualiza el estado de la escena.
+    // Descarga el JSON desde Firebase y lo asigna a las variables de juego
     public async void CargarPartidaDeNube()
     {
         if (userId == null) return;
@@ -229,10 +238,11 @@ public class DatabaseManager : MonoBehaviour
 
         if (snapshot.Exists)
         {
+            // Convierte el texto descargado en tu objeto 'PlayerData'
             string json = snapshot.GetRawJsonValue();
             datosCargados = JsonUtility.FromJson<PlayerData>(json);
 
-            // Validación de inicialización para objetos de datos nulos.
+            // Medidas de seguridad por si es una partida nueva y algunos planetas están vacíos
             if (datosCargados.progresoLuna == null) datosCargados.progresoLuna = new DatosPlaneta();
             if (datosCargados.progresoMarte == null) datosCargados.progresoMarte = new DatosPlaneta();
             if (datosCargados.progresoEuropa == null) datosCargados.progresoEuropa = new DatosPlaneta();
@@ -240,7 +250,7 @@ public class DatabaseManager : MonoBehaviour
             if (datosCargados.progresoLuna.dineroPorClic <= 0) datosCargados.progresoLuna.dineroPorClic = 1;
             if (datosCargados.progresoMarte.dineroPorClic <= 0) datosCargados.progresoMarte.dineroPorClic = 1;
 
-            // Deserialización de listas complejas desde el Snapshot.
+            // Lee y carga el diccionario de mejoras de prestigio
             datosCargados.mejorasPrestigioCompradas = new List<string>();
             DataSnapshot snapPrestigio = snapshot.Child("mejorasPrestigioCompradas");
             if (snapPrestigio.Exists)
@@ -249,6 +259,7 @@ public class DatabaseManager : MonoBehaviour
                     datosCargados.mejorasPrestigioCompradas.Add(child.Value.ToString());
             }
 
+            // Lee y carga el diccionario de logros completados
             datosCargados.logrosCompletados = new List<string>();
             DataSnapshot snapLogros = snapshot.Child("logrosCompletados");
             if (snapLogros.Exists)
@@ -259,7 +270,7 @@ public class DatabaseManager : MonoBehaviour
 
             DatosPlaneta planeta = ObtenerDatosPlanetaActual();
 
-            // Sincronización de componentes de UI y economía con los datos descargados.
+            // Sincroniza la información descargada con la UI y managers actuales de la escena
             if (economy != null && mejoras != null && planeta != null)
             {
                 economy.dineroActual = planeta.dineroActual;
@@ -287,24 +298,30 @@ public class DatabaseManager : MonoBehaviour
                 if (economy.ui != null) economy.ui.ActualizarInterfaz();
             }
             
+            // Actualiza el árbol de habilidades visualmente
             ArbolManager arbol = FindObjectOfType<ArbolManager>();
             if (arbol != null) arbol.ActualizarTodoElArbol();
 
+            // Bandera (flag) que indica que ya podemos empezar a jugar
             partidaCargadaConExito = true;
             Debug.Log("¡Firebase ha terminado de descargar los datos de los planetas!");
         }
     }
 
-    // Obtiene la configuración de IA almacenada en la base de datos remota de forma asíncrona.
+    // Descarga las credenciales de la IA (ElevenLabs) de una ruta segura en Firebase
     public void CargarConfiguracionIA()
     {
+        // Este es mi puente secreto con la IA. Voy a leer la API Key directamente desde mi Firebase
+        // para que nadie pueda robármela si intentan descompilar el juego. ¡Seguridad ante todo!
         FirebaseDatabase.DefaultInstance.GetReference("configuracion_ia").GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsCompleted && task.Result.Exists)
             {
+                // Extraigo la llave de ElevenLabs y el estado (activo/inactivo) que puse en la web
                 string llave = task.Result.Child("elevenlabs_api_key").Value.ToString();
                 string estado = task.Result.Child("estado").Value.ToString();
 
+                // Si mi TextToSpeechManager ya nació y está listo en la escena, le inyecto los datos de golpe
                 if (TextToSpeechManager.Instance != null)
                 {
                     TextToSpeechManager.Instance.apiKey = llave;
@@ -315,6 +332,7 @@ public class DatabaseManager : MonoBehaviour
             }
             else
             {
+                // Aviso en consola si olvidaste crear el nodo en Firebase Database
                 Debug.LogWarning("Vaya, parece que no he encontrado la carpeta 'configuracion_ia' en mi base de datos.");
             }
         });
