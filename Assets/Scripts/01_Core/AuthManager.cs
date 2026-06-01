@@ -131,4 +131,17 @@ public class AuthManager : MonoBehaviour
     {
         SceneManager.LoadScene("MenuPrincipal");
     }
+
+
+    
+    public void SalirDelJuego()
+    {
+        Debug.Log("Cerrando el juego desde la pantalla de Login...");
+        Application.Quit(); // Cierra el juego compilado
+
+        // Esto hace que el botón también funcione mientras pruebas en el editor de Unity
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+    }
 }
