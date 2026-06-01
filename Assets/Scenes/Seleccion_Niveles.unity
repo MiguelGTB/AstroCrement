@@ -256,7 +256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &219125507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,8 +269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1517b5f401736f245a678990295daedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: sk_3458b0be2294cb8c2102e07f5868c3e8b90b4ad2c5613706
+  apiKey: 
   voiceId: pFZP5JQG7iQjIQuC4Bku
+  sistemaActivo: 0
   altavozIA: {fileID: 219125508}
   panelSubtitulos: {fileID: 1579157208}
   textoSubtitulos: {fileID: 1798755768}
@@ -1552,8 +1553,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Selecciona el planeta para jugar
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7bc79f85892a26a4f957aeb9c8bbd736, type: 2}
+  m_sharedMaterial: {fileID: 3657138157797630752, guid: 7bc79f85892a26a4f957aeb9c8bbd736, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1727,8 +1728,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1887,8 +1888,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7bc79f85892a26a4f957aeb9c8bbd736, type: 2}
+  m_sharedMaterial: {fileID: 3657138157797630752, guid: 7bc79f85892a26a4f957aeb9c8bbd736, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1978,7 +1979,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 94, y: -34.233}
+  m_AnchoredPosition: {x: 73, y: -7}
   m_SizeDelta: {x: 129.0235, y: 126.8158}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1913018968
@@ -2319,7 +2320,7 @@ SceneRoots:
   - {fileID: 874620239}
   - {fileID: 1170261879}
   - {fileID: 816815241}
-  - {fileID: 1913018970}
   - {fileID: 219125509}
+  - {fileID: 1913018970}
   - {fileID: 279881712}
   - {fileID: 1232525586}

@@ -5709,11 +5709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1291900390 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7127985211153858366, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
-  m_PrefabInstance: {fileID: 7294450416932342224}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1314961932 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1834259279204821372, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
@@ -6453,7 +6448,7 @@ MonoBehaviour:
   divisorPrestigio: 500
   monedasDePrestigioGanadas: 0
   botonReencarnacion: {fileID: 417139562}
-  iconoCandado: {fileID: 1291900390}
+  iconoCandado: {fileID: 0}
 --- !u!114 &1926474147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6614,7 +6609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc48cfda8bc5b44eb093d15dcac087d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fraseDeBienvenida: "Aterrizaje completado en la Luna. Iniciando protocolos de extracci\xF3n."
+  fraseDeBienvenida: "Aterrizaje completado en Marte. Iniciando protocolos de extracci\xF3n."
 --- !u!4 &2128992257
 Transform:
   m_ObjectHideFlags: 0
@@ -8794,6 +8789,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 215006620926796554, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
     - {fileID: 7678682754317886128, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
+    - {fileID: 7127985211153858366, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3580795471954063278, guid: 9940ceb98e04c04408108af901f916f9, type: 3}
